@@ -20,7 +20,7 @@ interface SlideButtonProps {
   blocked?: boolean;
 }
 
-const SLIDE_WIDTH = Dimensions.get('screen').width - 70;
+const SLIDE_WIDTH = Dimensions.get('screen').width - 30;
 const SLIDER_SIZE = 44;
 
 const SlideButton: React.FC<SlideButtonProps> = ({

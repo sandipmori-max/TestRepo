@@ -8,6 +8,7 @@ import { styles } from './custom_alert_style';
 import { getAlertStyles } from './helper';
 import ERPTextInput from '../input/ERPTextInput';
 import { ERP_COLOR_CODE } from '../../utils/constants';
+import MaterialIcons from '@react-native-vector-icons/material-icons';
 
 const CustomAlert: React.FC<CustomAlertProps> = ({
   visible,
@@ -149,15 +150,16 @@ const CustomAlert: React.FC<CustomAlertProps> = ({
             </>
           )}
           {isSettingVisible && (
-            <>
-              <TouchableOpacity
-                onPress={() => {
-                  Linking.openSettings();
-                }}
-              >
-                <Text>Open Settings</Text>
-              </TouchableOpacity>
-            </>
+            <TouchableOpacity
+             onPress={() => Linking.openSettings()}
+            >
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                <MaterialIcons name="settings" size={20} color="#000" />
+                <Text style={{ color: '#000', fontWeight: '600', fontSize: 16 }}>
+                  Open Settings
+                </Text>
+              </View>
+            </TouchableOpacity>
           )}
         </View>
       </View>

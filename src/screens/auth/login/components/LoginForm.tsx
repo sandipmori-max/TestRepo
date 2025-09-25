@@ -82,6 +82,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
       if (!companyValidation?.isValid) return;
 
       const currentFcmToken = fcmToken || (await getMessaging().getToken());
+      console.log("🚀 ~ handleLoginSubmit ~ currentFcmToken:", currentFcmToken)
 
       DevERPService.setDevice(deviceId);
 

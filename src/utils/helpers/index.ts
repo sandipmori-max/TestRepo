@@ -427,23 +427,23 @@ export async function requestLocationPermissions(): Promise<boolean> {
 
       if (blocked) {
         console.log('🚫 Location permission permanently denied');
-        Alert.alert(
-          'Location Permission Blocked',
-          'You have permanently denied location access. Please enable it from Settings.',
-          [
-            { text: 'Cancel', style: 'cancel' },
-            { text: 'Open Settings', onPress: () => Linking.openSettings() },
-          ],
-        );
+        // Alert.alert(
+        //   'Location Permission Blocked',
+        //   'You have permanently denied location access. Please enable it from Settings.',
+        //   [
+        //     { text: 'Cancel', style: 'cancel' },
+        //     { text: 'Open Settings', onPress: () => Linking.openSettings() },
+        //   ],
+        // );
         return false;
       }
 
       // Otherwise → denied
       console.log('❌ Location permissions denied');
-      Alert.alert(
-        'Location Permission Denied',
-        'Location access is required for this feature.',
-      );
+      // Alert.alert(
+      //   'Location Permission Denied',
+      //   'Location access is required for this feature.',
+      // );
       return false;
     } catch (err) {
       console.warn('⚠️ requestLocationPermissions error:', err);

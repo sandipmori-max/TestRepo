@@ -58,7 +58,6 @@ export const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#1A1A1A',
     textAlign: 'center',
-    marginBottom: 20,
   },
   datePickerGrid: {
     flexDirection: 'row',
@@ -110,21 +109,15 @@ export const styles = StyleSheet.create({
   },
   profileCard: {
     backgroundColor: '#fff',
-    padding: 16,
-    borderWidth: 0.6,
-    borderColor: ERP_COLOR_CODE.ERP_APP_COLOR,
   },
   profileRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 12,
-    bottom: 52,
   },
   profileAvatar: {
     width: 70,
     height: 70,
     borderRadius: 35,
-    marginRight: 14,
   },
   selfyAvatar: {
     width: 70,

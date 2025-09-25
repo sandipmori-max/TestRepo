@@ -70,18 +70,14 @@ const RootNavigator = () => {
           // -------------------
           setAlertConfig({
             title: 'Permission Blocked',
-            message:
-             'Location permission is permanently denied. Please enable it in Settings.',
+            message: 'Location permission is permanently denied. Please enable it in Settings.',
             type: 'error',
           });
           setAlertVisible(true);
           return false;
         }
 
-        Alert.alert(
-          'Permission Denied',
-          'Location permission is required for this feature.',
-        );
+        Alert.alert('Permission Denied', 'Location permission is required for this feature.');
         setIsSettingVisible(false);
         return false;
       } catch (err) {
@@ -209,7 +205,7 @@ const RootNavigator = () => {
 
           if (accounts.length > 0 && Platform.OS === 'android') {
             const granted = await requestLocationPermissions();
-            console.log("🚀 ~ checkLocation ~ granted:", granted)
+            console.log('🚀 ~ checkLocation ~ granted:', granted);
             if (granted && isAuthenticated) {
               const data = accounts.map(u => ({
                 token: u?.user?.token,
@@ -248,8 +244,10 @@ const RootNavigator = () => {
         type={alertConfig.type}
         onClose={() => {
           if (modalClose) setAlertVisible(false);
-        } }
-        actionLoader={undefined}      />
+        }}
+        actionLoader={undefined}
+        isSettingVisible={isSettingVisible}
+      />
     </>
   );
 };
