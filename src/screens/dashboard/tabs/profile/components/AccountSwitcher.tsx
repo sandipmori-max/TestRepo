@@ -13,6 +13,7 @@ import { formatDateHr, formatTimeTo12Hour, isTokenValid } from '../../../../../u
 import MaterialIcons from '@react-native-vector-icons/material-icons';
 import FastImage from 'react-native-fast-image';
 import { useBaseLink } from '../../../../../hooks/useBaseLink';
+import { ERP_COLOR_CODE } from '../../../../../utils/constants';
 
 interface AccountSwitcherProps {
   visible: boolean;
@@ -197,13 +198,14 @@ const AccountSwitcher: React.FC<AccountSwitcherProps> = ({ visible, onClose, onA
         title={alertConfig.title}
         message={alertConfig.message}
         type={alertConfig.type}
+        isBottomButtonVisible={true}
         onClose={() => setAlertVisible(false)}
         onCancel={() => setAlertVisible(false)}
         onDone={() => {
           handleRemovedAccount(selectedAccount);
         }}
         doneText="Remove"
-        color="red"
+        color={ERP_COLOR_CODE.ERP_ERROR}
         actionLoader={undefined}
       />
     </Modal>
