@@ -1,5 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { PermissionsAndroid, Platform, NativeModules, Alert, Linking } from 'react-native';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
+import {
+  PermissionsAndroid,
+  Platform,
+  NativeModules,
+  Alert,
+  Linking,
+  AppState,
+} from 'react-native';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { checkAuthStateThunk } from '../store/slices/auth/thunk';
 import DevERPService from '../services/api/deverp';
@@ -11,10 +18,12 @@ import CustomAlert from '../components/alert/CustomAlert';
 import { generateGUID } from '../utils/helpers';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { requestLocationPermissions } from '../utils/helpers';
+import { useFocusEffect } from '@react-navigation/native';
 
 const RootNavigator = () => {
   const dispatch = useAppDispatch();
   const { isLoading, isAuthenticated, accounts } = useAppSelector(state => state.auth);
+
   const [locationEnabled, setLocationEnabled] = useState<boolean | null>(null);
   const [alertVisible, setAlertVisible] = useState(false);
   const [modalClose, setModalClose] = useState(false);
@@ -24,13 +33,18 @@ const RootNavigator = () => {
     message: '',
     type: 'info' as 'error' | 'success' | 'info',
   });
-  const [hasSyncedDisabledLocation, setHasSyncedDisabledLocation] = useState(false);
 
+  const isCheckingPermission = useRef(false);
+  const locationSyncInterval = useRef<NodeJS.Timeout | null>(null);
+
+  const app_id = generateGUID();
+
+  // ------------------------- Request Location Permission -------------------------
   const requestLocationPermission = async (): Promise<boolean> => {
     if (Platform.OS === 'android') {
       try {
         const alreadyGranted = await PermissionsAndroid.check(
-          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
         );
         if (alreadyGranted) return true;
 
@@ -47,7 +61,7 @@ const RootNavigator = () => {
         let allGranted = true;
         let permanentlyDenied = false;
 
-        for (const [perm, status] of Object.entries(results)) {
+        for (const [_, status] of Object.entries(results)) {
           if (status !== PermissionsAndroid.RESULTS.GRANTED) {
             allGranted = false;
             if (status === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN) {
@@ -59,15 +73,6 @@ const RootNavigator = () => {
         if (allGranted) return true;
         if (permanentlyDenied) {
           setIsSettingVisible(true);
-          // Alert.alert(
-          //   'Permission Blocked',
-          //   'Location permission is permanently denied. Please enable it in Settings.',
-          //   [
-          //     { text: 'Cancel', style: 'cancel' },
-          //     { text: 'Open Settings', onPress: () => Linking.openSettings() },
-          //   ],
-          // );
-          // -------------------
           setAlertConfig({
             title: 'Permission Blocked',
             message: 'Location permission is permanently denied. Please enable it in Settings.',
@@ -77,7 +82,6 @@ const RootNavigator = () => {
           return false;
         }
 
-        Alert.alert('Permission Denied', 'Location permission is required for this feature.');
         setIsSettingVisible(false);
         return false;
       } catch (err) {
@@ -88,8 +92,7 @@ const RootNavigator = () => {
     return true;
   };
 
-  const app_id = generateGUID();
-
+  // ------------------------- Device & Auth Setup -------------------------
   useEffect(() => {
     const fetchDeviceName = async () => {
       const name = await DeviceInfo.getDeviceName();
@@ -109,59 +112,43 @@ const RootNavigator = () => {
     fetchDeviceName();
   }, [dispatch]);
 
-  // Location & permissions watcher
+  // ------------------------- Check & Start Location Sync -------------------------
+  const startLocationSync = async () => {
+    console.log("🚀 ~ startLocationSync ~ isAuthenticated:", isAuthenticated)
+    // if (!isAuthenticated) return;
+
+    const enabled = await DeviceInfo.isLocationEnabled();
+    console.log("🚀 ~ startLocationSync ~ enabled:", enabled)
+    if (!enabled) return;
+
+    const hasPermission = await requestLocationPermission();
+    console.log("🚀 ~ startLocationSync ~ hasPermission:", hasPermission)
+    const fullPermission = await requestLocationPermissions();
+    console.log("🚀 ~ startLocationSync ~ fullPermission:", fullPermission)
+    if (!hasPermission || !fullPermission) return;
+
+    // Clear any existing interval
+    console.log("🚀 ~ startLocationSync ~ locationSyncInterval:", locationSyncInterval)
+    if (locationSyncInterval.current) clearInterval(locationSyncInterval.current);
+
+    locationSyncInterval.current = setInterval(() => {
+      console.log('📌 Running location sync...');
+      checkLocation();
+    }, 1800);
+  };
+
+  // ------------------------- Initial Location Sync -------------------------
   useEffect(() => {
-    let interval: NodeJS.Timeout | null = null;
-
-    const checkAndStart = async () => {
-      if (!isAuthenticated) return;
-
-      try {
-        // Check if device location is enabled
-        const enabled = await DeviceInfo.isLocationEnabled();
-        if (!enabled) {
-          // setAlertConfig({
-          //   title: 'Location Status',
-          //   message:
-          //     'To continue using our services, please enable location access. Without location permissions, you won’t be able to use this app',
-          //   type: 'error',
-          // });
-          // setAlertVisible(true);
-          return;
-        }
-
-        // Check location permissions
-        const hasPermission = await requestLocationPermission();
-        const fullPermission = await requestLocationPermissions();
-
-        if (!hasPermission || !fullPermission) {
-          setAlertConfig({
-            title: 'Location Status',
-            message:
-              'To continue using our services, please enable location access. Without location permissions, you won’t be able to use this app',
-            type: 'error',
-          });
-          setAlertVisible(true);
-          return;
-        }
-
-        // Start interval only when all conditions satisfied
-        interval = setInterval(() => {
-          console.log('📌 Running location sync...');
-          checkLocation();
-        }, 1800);
-      } catch (err) {
-        console.warn('⚠️ checkAndStart error:', err);
-      }
-    };
-
-    checkAndStart();
+    if(isAuthenticated){
+      startLocationSync();
+    }
 
     return () => {
-      if (interval) clearInterval(interval);
+      if (locationSyncInterval.current) clearInterval(locationSyncInterval.current);
     };
   }, [isAuthenticated, accounts]);
 
+  // ------------------------- Check Location & Permissions -------------------------
   const checkLocation = async () => {
     try {
       if (!isAuthenticated) return;
@@ -196,34 +183,25 @@ const RootNavigator = () => {
       setModalClose(enabled);
       setLocationEnabled(enabled);
 
-      if (isAuthenticated) {
-        if (enabled) {
-          setHasSyncedDisabledLocation(false);
-
-          const hasPermission = await requestLocationPermission();
-          if (!hasPermission) return;
-
-          if (accounts.length > 0 && Platform.OS === 'android') {
-            const granted = await requestLocationPermissions();
-            console.log('🚀 ~ checkLocation ~ granted:', granted);
-            if (granted && isAuthenticated) {
-              const data = accounts.map(u => ({
-                token: u?.user?.token,
-                link: u?.user?.companyLink,
-              }));
-
-              NativeModules.LocationModule.setUserTokens(data);
-              NativeModules.LocationModule?.startService();
-            } else {
-              setAlertConfig({
-                title: 'Location Status',
-                message:
-                  'To continue using our services, please enable location access. Without location permissions, you won’t be able to use this app',
-                type: 'error',
-              });
-              setAlertVisible(true);
-              setModalClose(false);
-            }
+      if (isAuthenticated && enabled) {
+        if (accounts.length > 0 && Platform.OS === 'android') {
+          const granted = await requestLocationPermissions();
+          if (granted) {
+            const data = accounts.map(u => ({
+              token: u?.user?.token,
+              link: u?.user?.companyLink,
+            }));
+            NativeModules.LocationModule.setUserTokens(data);
+            NativeModules.LocationModule?.startService();
+          } else {
+            setAlertConfig({
+              title: 'Location Status',
+              message:
+                'To continue using our services, please enable location access. Without location permissions, you won’t be able to use this app',
+              type: 'error',
+            });
+            setAlertVisible(true);
+            setModalClose(false);
           }
         }
       }
@@ -232,6 +210,55 @@ const RootNavigator = () => {
     }
   };
 
+  // ------------------------- AppState & Screen Focus -------------------------
+  useFocusEffect(
+    useCallback(() => {
+      const checkPermissionsOnFocus = async () => {
+        if (isCheckingPermission.current) return;
+        isCheckingPermission.current = true;
+
+        const hasPermission = await requestLocationPermission();
+        const fullPermission = await requestLocationPermissions();
+
+        if (hasPermission && fullPermission) {
+          console.log('✅ Permissions granted after returning from Settings');
+          setAlertVisible(false);
+          setIsSettingVisible(false);
+          setModalClose(true);
+
+          // Start location sync
+          if(isAuthenticated){
+            startLocationSync();
+          }
+        } else {
+          setAlertConfig({
+            title: 'Location Status',
+            message: 'Please enable location access from Settings to continue.',
+            type: 'error',
+          });
+          setAlertVisible(true);
+          setIsSettingVisible(true);
+        }
+
+        isCheckingPermission.current = false;
+      };
+
+      const subscription = AppState.addEventListener('change', nextAppState => {
+        if (nextAppState === 'active') {
+          checkPermissionsOnFocus();
+        }
+      });
+
+      // Initial check on focus
+      if(isAuthenticated){
+        checkPermissionsOnFocus();
+      }
+
+      return () => subscription.remove();
+    }, [isAuthenticated])
+  );
+
+  // ------------------------- Render -------------------------
   if (isLoading) return <FullViewLoader />;
 
   return (
