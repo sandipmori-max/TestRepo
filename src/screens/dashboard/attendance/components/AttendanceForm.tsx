@@ -1,5 +1,5 @@
-import { View, Text, Image, TextInput } from 'react-native';
-import React, { useState } from 'react';
+import { View, Text, Image, TextInput, AppState, Platform, Linking } from 'react-native';
+import React, { useState, useRef, useEffect } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import Geolocation from '@react-native-community/geolocation';
@@ -21,16 +21,17 @@ import { useBaseLink } from '../../../../hooks/useBaseLink';
 const AttendanceForm = ({ setBlockAction, resData }: any) => {
   const { t } = useTranslations();
   const navigation = useNavigation();
-
   const dispatch = useAppDispatch();
-
   const { user } = useAppSelector(state => state?.auth);
+  const baseLink = useBaseLink();
 
   const [statusImage, setStatusImage] = useState<string | null>(null);
   const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
   const [locationLoading, setLocationLoading] = useState(false);
   const [attendanceDone, setAttendanceDone] = useState(false);
   const [alertVisible, setAlertVisible] = useState(false);
+    const [isSettingVisible, setIsSettingVisible] = useState(false);
+  
   const [blocked, setBlocked] = useState(false);
   const [alertConfig, setAlertConfig] = useState({
     title: '',
@@ -38,7 +39,28 @@ const AttendanceForm = ({ setBlockAction, resData }: any) => {
     type: 'info' as 'error' | 'success' | 'info',
   });
 
-  const baseLink = useBaseLink();
+  // -------------------- Pending Camera Action --------------------
+  const pendingCameraAction = useRef<{
+    setFieldValue: (field: keyof AttendanceFormValues, value: any) => void;
+    handleSubmit: () => void;
+  } | null>(null);
+
+  // -------------------- AppState Listener --------------------
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', async nextAppState => {
+      if (nextAppState === 'active' && pendingCameraAction.current) {
+        const hasPermission = await requestCameraAndLocationPermission();
+        if (hasPermission) {
+          setAlertVisible(false)
+          const { setFieldValue, handleSubmit } = pendingCameraAction.current;
+          pendingCameraAction.current = null;
+          openCamera(setFieldValue, handleSubmit);
+        }
+      }
+    });
+
+    return () => subscription.remove();
+  }, []);
 
   const openCamera = (
     setFieldValue: (field: keyof AttendanceFormValues, value: any) => void,
@@ -87,14 +109,21 @@ const AttendanceForm = ({ setBlockAction, resData }: any) => {
 
     const hasPermission = await requestCameraAndLocationPermission();
     if (!hasPermission) {
+      // Save pending action so we can resume after user grants permission
+      pendingCameraAction.current = { setFieldValue, handleSubmit };
+
       setAlertConfig({
         title: t('errors.permissionRequired'),
         message: t('errors.cameraLocationPermission'),
         type: 'error',
       });
       setAlertVisible(true);
+        setIsSettingVisible(true);
+
+      setBlockAction(false);
       return;
     }
+
     setBlocked(false);
     setLocationLoading(true);
 
@@ -140,7 +169,6 @@ const AttendanceForm = ({ setBlockAction, resData }: any) => {
         }}
         validationSchema={Yup.object({
           name: Yup.string().required(t('attendance.nameRequired')),
-
           longitude: Yup.string().optional(),
           remark: Yup.string().optional(),
           dateTime: Yup.string().optional(),
@@ -243,19 +271,15 @@ const AttendanceForm = ({ setBlockAction, resData }: any) => {
                   numberOfLines={3}
                 />
               </View>
+
               {statusImage && (
-                <>
-                  <View>
-                    {statusImage ? (
-                      <Image source={{ uri: statusImage }} style={styles.selfyAvatar} />
-                    ) : (
-                      <View style={[styles.selfyAvatar, styles.placeholderAvatar]} />
-                    )}
-                    <Text style={styles.imageLabel}>{t('attendance.capturedPhoto')}</Text>
-                  </View>
-                </>
+                <View>
+                  <Image source={{ uri: statusImage }} style={styles.selfyAvatar} />
+                  <Text style={styles.imageLabel}>{t('attendance.capturedPhoto')}</Text>
+                </View>
               )}
-              <View style={styles.slideWrapper}>
+
+              <View>
                 <SlideButton
                   label={
                     resData?.success === 1 || resData?.success === '1'
@@ -293,10 +317,11 @@ const AttendanceForm = ({ setBlockAction, resData }: any) => {
 
             setTimeout(() => {
               setBlocked(false);
-            }, 1000)
+            }, 1000);
           }
         }}
         actionLoader={undefined}
+        isSettingVisible={isSettingVisible}
       />
     </View>
   );
