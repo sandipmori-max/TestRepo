@@ -107,7 +107,7 @@ const ProfileTab = () => {
                 }}
                 activeOpacity={0.8}
               >
-                <MaterialIcons name={'edit'} color={'#000'} size={28} />
+                <MaterialIcons name={'edit'} color={'#000'} size={20} />
               </TouchableOpacity>
             </View>
           </TouchableOpacity>

@@ -3,8 +3,6 @@ import {
   PermissionsAndroid,
   Platform,
   NativeModules,
-  Alert,
-  Linking,
   AppState,
 } from 'react-native';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
@@ -139,9 +137,7 @@ const RootNavigator = () => {
 
   // ------------------------- Initial Location Sync -------------------------
   useEffect(() => {
-    if(isAuthenticated){
       startLocationSync();
-    }
 
     return () => {
       if (locationSyncInterval.current) clearInterval(locationSyncInterval.current);
@@ -151,7 +147,6 @@ const RootNavigator = () => {
   // ------------------------- Check Location & Permissions -------------------------
   const checkLocation = async () => {
     try {
-      if (!isAuthenticated) return;
 
       const enabled = await DeviceInfo.isLocationEnabled();
 
@@ -186,6 +181,7 @@ const RootNavigator = () => {
       if (isAuthenticated && enabled) {
         if (accounts.length > 0 && Platform.OS === 'android') {
           const granted = await requestLocationPermissions();
+          console.log("🚀 ~ checkLocation ~ +++++++++++++++++++++++++++++++:", granted)
           if (granted) {
             const data = accounts.map(u => ({
               token: u?.user?.token,
@@ -213,6 +209,9 @@ const RootNavigator = () => {
   // ------------------------- AppState & Screen Focus -------------------------
   useFocusEffect(
     useCallback(() => {
+      // if(!isAuthenticated){
+      //   return;
+      // }
       const checkPermissionsOnFocus = async () => {
         if (isCheckingPermission.current) return;
         isCheckingPermission.current = true;
@@ -227,9 +226,7 @@ const RootNavigator = () => {
           setModalClose(true);
 
           // Start location sync
-          if(isAuthenticated){
             startLocationSync();
-          }
         } else {
           setAlertConfig({
             title: 'Location Status',

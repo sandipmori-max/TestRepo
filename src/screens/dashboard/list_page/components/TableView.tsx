@@ -124,7 +124,7 @@ const allKeys =
                   return (
                     <Text
                       key={`${key}-${item?.id || Math.random()}`}
-                      style={[styles.tableCell, { minWidth: 96, maxWidth: 100, marginBottom: 0 }]}
+                      style={[styles.tableCell, { minWidth: 96, maxWidth: '25%', marginBottom: 0 }]}
                       numberOfLines={1}
                     >
                       {value || '-'}
@@ -197,6 +197,7 @@ const allKeys =
     <View
       style={{
         flex: 1,
+        marginTop: 4
       }}
     >
       <FlatList

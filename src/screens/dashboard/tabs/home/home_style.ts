@@ -262,7 +262,6 @@ export const styles = StyleSheet.create({
   cardTitle: {
     fontSize: 16,
     fontWeight: '700',
-    marginVertical: 8,
   },
   itemRow: {
     flexDirection: 'row',

@@ -17,6 +17,7 @@ import { useNavigation } from '@react-navigation/native';
 import SlideButton from './SlideButton';
 import FastImage from 'react-native-fast-image';
 import { useBaseLink } from '../../../../hooks/useBaseLink';
+import ProfileImage from '../../../../components/profile/ProfileImage';
 
 const AttendanceForm = ({ setBlockAction, resData }: any) => {
   const { t } = useTranslations();
@@ -30,8 +31,9 @@ const AttendanceForm = ({ setBlockAction, resData }: any) => {
   const [locationLoading, setLocationLoading] = useState(false);
   const [attendanceDone, setAttendanceDone] = useState(false);
   const [alertVisible, setAlertVisible] = useState(false);
-    const [isSettingVisible, setIsSettingVisible] = useState(false);
-  
+  const [isSettingVisible, setIsSettingVisible] = useState(false);
+  const [modalClose, setModalClose] = useState(false);
+
   const [blocked, setBlocked] = useState(false);
   const [alertConfig, setAlertConfig] = useState({
     title: '',
@@ -51,7 +53,8 @@ const AttendanceForm = ({ setBlockAction, resData }: any) => {
       if (nextAppState === 'active' && pendingCameraAction.current) {
         const hasPermission = await requestCameraAndLocationPermission();
         if (hasPermission) {
-          setAlertVisible(false)
+          setIsSettingVisible(false);
+          setAlertVisible(false);
           const { setFieldValue, handleSubmit } = pendingCameraAction.current;
           pendingCameraAction.current = null;
           openCamera(setFieldValue, handleSubmit);
@@ -117,8 +120,9 @@ const AttendanceForm = ({ setBlockAction, resData }: any) => {
         message: t('errors.cameraLocationPermission'),
         type: 'error',
       });
+      setModalClose(true);
       setAlertVisible(true);
-        setIsSettingVisible(true);
+      setIsSettingVisible(true);
 
       setBlockAction(false);
       return;
@@ -218,16 +222,7 @@ const AttendanceForm = ({ setBlockAction, resData }: any) => {
             <View style={styles.profileRow}>
               <View style={styles.imageCol}>
                 {`${baseLink}/FileUpload/1/UserMaster/${user?.id}/profileimage.jpeg` ? (
-                  <FastImage
-                    source={{
-                      uri: `${baseLink}/FileUpload/1/UserMaster/${
-                        user?.id
-                      }/profileimage.jpeg?ts=${new Date().getTime()}`,
-                      priority: FastImage.priority.normal,
-                      cache: FastImage.cacheControl.web,
-                    }}
-                    style={styles.profileAvatar}
-                  />
+                 <ProfileImage userId={user?.id} baseLink={baseLink} />
                 ) : (
                   <View
                     style={[
@@ -308,16 +303,18 @@ const AttendanceForm = ({ setBlockAction, resData }: any) => {
         message={alertConfig?.message}
         type={alertConfig?.type}
         onClose={() => {
-          if (attendanceDone) {
-            navigation?.goBack();
-            setAlertVisible(false);
-          } else {
-            setBlocked(true);
-            setAlertVisible(false);
+          if (!modalClose) {
+            if (attendanceDone) {
+              navigation?.goBack();
+              setAlertVisible(false);
+            } else {
+              setBlocked(true);
+              setAlertVisible(false);
 
-            setTimeout(() => {
-              setBlocked(false);
-            }, 1000);
+              setTimeout(() => {
+                setBlocked(false);
+              }, 1000);
+            }
           }
         }}
         actionLoader={undefined}

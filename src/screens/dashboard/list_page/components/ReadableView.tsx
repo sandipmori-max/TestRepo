@@ -267,7 +267,7 @@ const ReadableView = ({
     );
   }
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, marginTop: 2 }}>
       <FlatList
         data={filteredData}
         keyboardShouldPersistTaps="handled"

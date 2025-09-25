@@ -19,7 +19,7 @@ const TaskCard = ({ task, onPress }) => {
         <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
           <Text style={styles.title}>{task.title}</Text>
           <View style={[styles.statusBadge, { backgroundColor: statusColors[task.status] }]}>
-            <Text style={styles.statusText}>{task.status.replace('_', ' ')}</Text>
+            <Text style={styles.statusText}>{task.status.replace('_', ' ').toUpperCase()}</Text>
           </View>
         </View>
         {task.description ? (

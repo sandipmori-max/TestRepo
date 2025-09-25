@@ -23,6 +23,7 @@ const Media = ({ item, handleAttachment, infoData, baseLink, isFromNew }: any) =
   const [imageUri, setImageUri] = useState<string | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [pickerModalVisible, setPickerModalVisible] = useState(false);
+  const [modalClose, setModalClose] = useState(false);
 
   const [loadingSmall, setLoadingSmall] = useState(false);
   const [loadingLarge, setLoadingLarge] = useState(false);
@@ -83,6 +84,7 @@ const Media = ({ item, handleAttachment, infoData, baseLink, isFromNew }: any) =
           } access from Settings to continue.`,
           type: 'error',
         });
+        setModalClose(true);
         setIsSettingVisible(true);
         setAlertVisible(true);
 
@@ -101,6 +103,9 @@ const Media = ({ item, handleAttachment, infoData, baseLink, isFromNew }: any) =
   // -------------------- AppState listener for settings resume --------------------
   useEffect(() => {
     const subscription = AppState.addEventListener('change', async nextAppState => {
+      // if(!alertVisible){
+      //   return
+      // }
       if (
         appState.current.match(/inactive|background/) &&
         nextAppState === 'active' &&
@@ -108,6 +113,7 @@ const Media = ({ item, handleAttachment, infoData, baseLink, isFromNew }: any) =
       ) {
         const granted = await requestPermission('camera');
         if (granted) {
+          setIsSettingVisible(false);
           setAlertVisible(false);
           pendingCameraAction.current = false;
           launchCamera({ mediaType: 'photo', quality: 0.8, includeBase64: true }, response => {
@@ -359,7 +365,11 @@ const Media = ({ item, handleAttachment, infoData, baseLink, isFromNew }: any) =
         title={alertConfig.title}
         message={alertConfig.message}
         type={alertConfig.type}
-        onClose={() => setAlertVisible(false)}
+        onClose={() =>{
+          if(!modalClose){
+           setAlertVisible(false)
+          }
+        }}
         isSettingVisible={isSettingVisible}
         actionLoader={undefined}
       />

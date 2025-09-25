@@ -228,6 +228,7 @@ const ListScreen = () => {
 
   const fetchListData = useCallback(
     async (fromDateStr: string, toDateStr: string) => {
+      console.log("🚀 ~ fromDateStr:", fromDateStr)
       try {
         setError(null);
         setLoadingListId(item?.id || 0);
@@ -330,6 +331,9 @@ const ListScreen = () => {
     <View style={styles.container}>
       {isFilterVisible && (
         <View>
+         <View style={{marginVertical: 4, alignContent:'flex-end', alignItems:'flex-end', width: '100%',}}>
+           <Text>Rows: [ {filteredData?.length} ]</Text>
+          </View>
           <View style={styles.searchContainer}>
             <View style={styles.searchInputContainer}>
               <MaterialIcons size={24} name="search" />
