@@ -241,10 +241,10 @@ const AddAccountScreen: React.FC<AddAccountScreenProps> = ({ visible, onClose })
                             <TouchableOpacity
                               onPress={() => setShowPassword(s => !s)}
                               style={styles.toggleButton}
-                              accessibilityLabel={showPassword ? 'Hide password' : 'Show password'}
+                              accessibilityLabel={!showPassword ? 'Hide password' : 'Show password'}
                             >
                               <MaterialIcons
-                                name={showPassword ? 'visibility-off' : 'visibility'}
+                                name={!showPassword ? 'visibility-off' : 'visibility'}
                                 color={'#000'}
                                 size={20}
                               />
