@@ -29,6 +29,7 @@ import { useBaseLink } from '../../../hooks/useBaseLink';
 import DateTimeRow from './components/DateTimeRow';
 import LocationRow from './components/LocationRow';
 import FilePickerRow from './components/FilePicker';
+import CustomMultiPicker from './components/CustomMultiPicker';
 
 type PageRouteParams = { PageScreen: { item: any } };
 
@@ -45,7 +46,7 @@ const PageScreen = () => {
 
   const [error, setError] = useState<string | null>(null);
   const [formValues, setFormValues] = useState<any>({});
-  console.log("🚀 ~ PageScreen ~ formValues:------------", formValues)
+  console.log("🚀 ~ PageScreen ~ formValues:------++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++------", formValues)
   const [datePickerVisible, setDatePickerVisible] = useState(false);
 
   const [dateTimePickerVisible, setDateTimePickerVisible] = useState(false);
@@ -289,8 +290,19 @@ const PageScreen = () => {
           />
         );
       }
+      else if (item?.field === "chemistname"){
+        content = <CustomMultiPicker 
+        
+         label={item?.fieldtitle}
+            selectedValue={value}
+            dtext={item?.dtext || item?.text || ''}
+            onValueChange={setValue}
+            options={item?.options || []}
+            item={item}
+            errors={errors}/>
+      }
       else if (item?.ctltype === 'FILE') {
-        content = <FilePickerRow item={item} setValue ={setValue }/>;
+        content = <FilePickerRow item={item} handleAttachment  ={handleAttachment  }/>;
       }
       else if(item?.defaultvalue === "#location"){
         content = <LocationRow item={item} setValue ={setValue }/>

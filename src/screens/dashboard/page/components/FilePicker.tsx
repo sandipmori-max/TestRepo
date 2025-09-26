@@ -1,8 +1,17 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  Alert,
+  Platform,
+} from 'react-native';
 import { pick, types } from '@react-native-documents/picker';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
 import { ERP_COLOR_CODE } from '../../../../utils/constants';
+import RNFS from 'react-native-fs';
 
 interface FileType {
   name: string;
@@ -11,17 +20,32 @@ interface FileType {
   type?: string;
 }
 
-const FilePickerRow = ({item, setValue}) => {
+const FilePickerRow = ({ item, handleAttachment }) => {
   const [selectedFiles, setSelectedFiles] = useState<FileType[]>([]);
 
-  // Open picker
   const openFilePicker = async () => {
     try {
       const files = await pick({
-        type: [types.allFiles], // all file types
+        type: [types.allFiles],
       });
-      console.log("🚀 ~ openFilePicker ~ files:", files)
+      console.log('🚀 ~ openFilePicker ~ files:', files);
       setSelectedFiles(prev => [...prev, ...files]);
+
+      let filePath = files[0].uri;
+
+      if (Platform.OS === 'android' && files[0].uri.startsWith('content://')) {
+        const destPath = `${RNFS.TemporaryDirectoryPath}/${files[0].name}`;
+        await RNFS.copyFile(files[0].uri, destPath);
+        filePath = destPath;
+      }
+
+      const fileBase64 = await RNFS.readFile(filePath, 'base64');
+      console.log('🚀 ~ openFilePicker ~ fileBase64:', fileBase64);
+
+      handleAttachment(
+        `${files[0].name}; data:${files[0].nativeType};base64,${fileBase64}`,
+        item.field,
+      );
     } catch (err: any) {
       if (err.code === 'USER_CANCELED') {
         console.log('User canceled picker');
