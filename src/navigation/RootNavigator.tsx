@@ -20,7 +20,8 @@ import { useFocusEffect } from '@react-navigation/native';
 
 const RootNavigator = () => {
   const dispatch = useAppDispatch();
-  const { isLoading, isAuthenticated, accounts } = useAppSelector(state => state.auth);
+  const { isLoading, isAuthenticated, accounts , user} = useAppSelector(state => state.auth);
+  console.log("🚀 ~ RootNavigator ------------------ Active user ~ user:", user)
 
   const [locationEnabled, setLocationEnabled] = useState<boolean | null>(null);
   const [alertVisible, setAlertVisible] = useState(false);
@@ -35,7 +36,8 @@ const RootNavigator = () => {
   const isCheckingPermission = useRef(false);
   const locationSyncInterval = useRef<NodeJS.Timeout | null>(null);
 
-  const app_id = generateGUID();
+  const app_id = user?.app_id;
+  console.log("🚀 ~ RootNavigator ~ app_id:", app_id)
 
   // ------------------------- Request Location Permission -------------------------
   const requestLocationPermission = async (): Promise<boolean> => {
@@ -97,12 +99,12 @@ const RootNavigator = () => {
       let appid = await AsyncStorage.getItem('appid');
       if (!appid) {
         appid = app_id;
-        await AsyncStorage.setItem('appid', appid);
+        await AsyncStorage.setItem('appid', appid || '');
       }
       await AsyncStorage.setItem('device', name);
 
       DevERPService.initialize();
-      DevERPService.setAppId(appid);
+      DevERPService.setAppId(appid || "");
       DevERPService.setDevice(name);
 
       dispatch(checkAuthStateThunk());
@@ -277,3 +279,5 @@ const RootNavigator = () => {
 };
 
 export default RootNavigator;
+// 235f46c2-fd4a-4909-8080-0d875fa8b4bd 
+// 714e45cb-9135-41a6-ac04-acf959375b88

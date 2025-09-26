@@ -115,14 +115,16 @@ class DevERPService {
     firebaseid?: string;
    }): Promise<LoginResponse> {
     await this.checkNetwork();
-
+    const app_id = generateGUID();
+    await AsyncStorage.setItem('appid', app_id)
+    this.appid = app_id;
     this.link = (await AsyncStorage.getItem('erp_link')) || this.link;
     if (!this.link) throw new Error('No ERP link available. Please validate company code first.');
 
     const loginData: LoginRequest = {
       user: credentials.user,
       pass: credentials.pass,
-      appid: this.appid,
+      appid: app_id,
       firebaseid: credentials.firebaseid || '',
       device: this.device,
     };
@@ -134,7 +136,7 @@ class DevERPService {
       loginData,
     );
     console.log('🚀 ~ DevERPService ~ loginToERP ~ response:************', response);
-    return response.data;
+    return {...response.data, app_id: app_id};
     } catch (error) {
       console.log("🚀 ~ DevERPService ~ loginToERP ~ error:", error?.data?.message)
        return { success: 0, message :  error?.data?.message.toString() };

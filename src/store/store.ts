@@ -13,7 +13,7 @@ import syncLocationReducer from './slices/location/syncLocationSlice';
 const authPersistConfig = {
   key: 'auth',
   storage: AsyncStorage,
-  whitelist: ['token', 'isPinLoaded', 'isAuthenticated'], 
+  whitelist: ['token', 'isPinLoaded', 'isAuthenticated', 'user'], 
 };
 
 const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);

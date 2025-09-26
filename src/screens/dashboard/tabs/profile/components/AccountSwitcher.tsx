@@ -73,6 +73,8 @@ const AccountSwitcher: React.FC<AccountSwitcherProps> = ({ visible, onClose, onA
         onPress={async () => {
           if (isTokenValid(item?.user?.tokenValidTill)) {
             DevERPService.setToken(item?.user?.token || '');
+            DevERPService.setAppId(item?.user?.app_id || '');
+            await AsyncStorage.setItem('appid', item?.user?.app_id)
             await AsyncStorage.setItem('erp_token', item?.user?.token || '');
             await AsyncStorage.setItem('auth_token', item?.user?.token || '');
             await AsyncStorage.setItem('erp_token_valid_till', item?.user?.token || '');

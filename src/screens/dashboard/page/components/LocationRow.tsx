@@ -11,13 +11,13 @@ const LocationRow = ({ item, value, setValue }: any) => {
   useEffect(() => {
     if (!loading && coords) {
       setValue({
-        [item?.field]: `${coords.latitude},${coords.longitude}`,
+        [item?.field]: `${coords?.latitude},${coords?.longitude}`,
       });
 
       const fetchAddress = async () => {
         try {
           const response = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?lat=${coords.latitude}&lon=${coords.longitude}&format=json`,
+            `https://nominatim.openstreetmap.org/reverse?lat=${coords?.latitude}&lon=${coords?.longitude}&format=json`,
             {
               headers: {
                 "User-Agent": "MyReactNativeApp/1.0 (myemail@example.com)",

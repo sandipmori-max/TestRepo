@@ -75,6 +75,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
 
   const handleLoginSubmit = async (values: typeof initialFormValues) => {
     try {
+      
       const companyValidation = await validateCompanyCode(() =>
         DevERPService.validateCompanyCode(values.company_code,),
       );

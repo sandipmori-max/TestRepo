@@ -118,7 +118,8 @@ export const loginUserThunk = createAsyncThunk(
         rolename: response?.rolename,
         username: response?.username,
         companyLink: companyData?.response?.link,
-         companyName: companyData?.response?.name
+         companyName: companyData?.response?.name,
+         app_id: response?.app_id
 
       };
       console.log("🚀 ~ erpUser:------------------", erpUser)
