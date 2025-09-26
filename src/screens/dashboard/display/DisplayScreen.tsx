@@ -1,8 +1,8 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import { styles } from './display_style';
 import ERPIcon from '../../../components/icon/ERPIcon';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import CreateTaskScreen from '../../task_module/create_task/CreateTaskScreen';
 import TaskListScreen from '../../task_module/task_list/TaskListScreen';
 import TaskDetailsBottomSheet from '../../task_module/task_details/TaskDetailsScreen';
@@ -58,6 +58,9 @@ export const dummyTasks = [
 const DisplayScreen = () => {
   const navigation = useNavigation<any>();
 
+  const route = useRoute<any>();
+  const { isFromViewAll = false } = route.params || {};
+  console.log('🚀 ~ DisplayScreen ~ isFromViewAll:', isFromViewAll);
   const [isListVisible, setIsListVisible] = useState<boolean>(false);
   const [showPicker, setShowPicker] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
@@ -66,9 +69,15 @@ const DisplayScreen = () => {
 
   const [showDetails, setShowDetails] = useState(false);
 
+  useEffect(() => {
+    if (isFromViewAll) {
+      setIsListVisible(true);
+    }
+  }, [isFromViewAll]);
+
   useLayoutEffect(() => {
     navigation.setOptions({
-       title: isListVisible ? "Tasks" : "Create Task",
+      title: isListVisible ? 'Tasks' : 'Create Task',
       headerRight: () => (
         <>
           <ERPIcon

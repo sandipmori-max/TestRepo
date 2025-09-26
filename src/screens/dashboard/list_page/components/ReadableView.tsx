@@ -72,13 +72,17 @@ const ReadableView = ({
           style={{ flexDirection: 'row', alignItems: 'center' }}
           onPress={async () => {
             console.log('🚀 ~ Page:', item);
-
+            if(authUser){
+              return;
+            }
+            if(item?.id !== undefined){
             navigation.navigate('Page', {
               item,
               title: pageParamsName,
               id: item?.id,
               url: pageName,
             });
+          }
           }}
         >
           <View
@@ -118,7 +122,7 @@ const ReadableView = ({
           >
             <Text style={{ fontWeight: '600', fontSize: 12, color: '#000' }}>{status}</Text>
             {!!date && (
-              <Text style={{ fontWeight: '600', fontSize: 12, color: '#ccc' }}>
+              <Text style={{ fontWeight: '800', fontSize: 12, color: '#000' }}>
                 {formatDateToDDMMMYYYY(date)}
               </Text>
             )}
@@ -129,12 +133,15 @@ const ReadableView = ({
             if (authUser) {
               return;
             }
-            navigation.navigate('Page', {
+            if(item?.id !== undefined){
+navigation.navigate('Page', {
               item,
               title: pageParamsName,
               id: item?.id,
               url: pageName,
             });
+            }
+            
           }}
         >
           {(remarks || address || amount) && (

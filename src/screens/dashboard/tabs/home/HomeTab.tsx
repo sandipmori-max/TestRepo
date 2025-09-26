@@ -511,7 +511,7 @@ const HomeScreen = () => {
 
                   <TouchableOpacity
                     onPress={() => {
-                      // navigation.navigate('Display', {isFromViewAll : true})
+                      navigation.navigate('Tasks', {isFromViewAll : true})
                     }}
                   >
                     <Text style={{ color: '#ccc', fontSize: 12 }}>View all</Text>

@@ -257,7 +257,6 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 4,
-    
   },
   dateRow: {
     flex: 1,

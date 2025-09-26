@@ -355,43 +355,21 @@ const ListScreen = () => {
           {hasDateField && (
             <View style={styles.dateContainer}>
               <View style={styles.dateRow}>
-                <View
-                  style={{
-                    alignContent: 'center',
-                    alignItems: 'center',
-                    flexDirection: 'row',
-                    gap: 4,
-                    marginBottom: 6,
-                  }}
-                >
-                  <MaterialIcons size={20} color={'#000'} name="insert-invitation" />
-                  <Text style={styles.dateLabel}>From Date:</Text>
-                </View>
+                 
                 <TouchableOpacity
                   onPress={() => setShowDatePicker({ type: 'from', show: true })}
                   style={styles.dateButton}
                 >
-                  <Text style={styles.dateButtonText}>{fromDate || 'Select Date'}</Text>
+                  <Text style={styles.dateButtonText}>{fromDate || 'Select From Date'}</Text>
                 </TouchableOpacity>
               </View>
               <View style={styles.dateRow}>
-                <View
-                  style={{
-                    alignContent: 'center',
-                    alignItems: 'center',
-                    flexDirection: 'row',
-                    gap: 4,
-                    marginBottom: 6,
-                  }}
-                >
-                  <MaterialIcons size={20} color={'#000'} name="insert-invitation" />
-                  <Text style={styles.dateLabel}>To Date:</Text>
-                </View>
+                
                 <TouchableOpacity
                   onPress={() => setShowDatePicker({ type: 'to', show: true })}
                   style={styles.dateButton}
                 >
-                  <Text style={styles.dateButtonText}>{toDate || 'Select Date'}</Text>
+                  <Text style={styles.dateButtonText}>{toDate || 'Select To Date'}</Text>
                 </TouchableOpacity>
               </View>
             </View>

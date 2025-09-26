@@ -18,14 +18,13 @@ import StartupScreen from '../screens/dashboard/startup/StartupScreen';
 import PinSetupScreen from '../screens/dashboard/pinset/Pinset';
 import PinVerifyScreen from '../screens/dashboard/pinset/PinVerify';
 import { useAppSelector } from '../store/hooks';
- 
+
 const Stack = createStackNavigator<any>();
 
 const StackNavigator = () => {
+  const { isPinLoaded } = useAppSelector(state => state?.auth);
+  console.log('🚀 ~ StackNavigator ~ isPinLoaded:', isPinLoaded);
 
-    const { isPinLoaded } = useAppSelector(state => state?.auth);
-    console.log("🚀 ~ StackNavigator ~ isPinLoaded:", isPinLoaded)
-  
   const screenOptions = {
     headerShown: true,
     headerBackImage: () => (
@@ -70,16 +69,17 @@ const StackNavigator = () => {
         headerStyle: {},
       }}
     >
-      {
-        isPinLoaded === true &&  <Stack.Screen name="Startup" component={StartupScreen} />
-      }
+      {isPinLoaded === true && <Stack.Screen name="Startup" component={StartupScreen} />}
       <Stack.Screen name="Drawer" component={DrawerNavigator} />
       <Stack.Screen options={screenOptions} name="Settings" component={SettingsScreen} />
-       <Stack.Screen
-       options={screenOptions} name="PinSet" component={PinSetupScreen} />
-      <Stack.Screen  options={{
-        headerShown:false
-       }}  name="PinVerify" component={PinVerifyScreen} />
+      <Stack.Screen options={screenOptions} name="PinSet" component={PinSetupScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: false,
+        }}
+        name="PinVerify"
+        component={PinVerifyScreen}
+      />
       <Stack.Screen name="Home" component={TabNavigator} />
       <Stack.Screen options={screenOptions} name="Attendance" component={AttendanceScreen} />
       <Stack.Screen options={screenOptions} name="Display" component={DisplayScreen} />
@@ -88,7 +88,7 @@ const StackNavigator = () => {
       <Stack.Screen options={screenOptions} name="Web" component={WebScreen} />
       <Stack.Screen options={screenOptions} name="Page" component={PageScreen} />
       <Stack.Screen options={screenOptions} name="List" component={ListScreen} />
- 
+      <Stack.Screen name="Tasks" component={DisplayScreen} options={screenOptions} />
     </Stack.Navigator>
   );
 };

@@ -92,6 +92,41 @@ const RootNavigator = () => {
     return true;
   };
 
+const lastLocationEnabled = useRef<boolean | null>(null);
+
+useEffect(() => {
+  const interval = setInterval(async () => {
+    const enabled = await DeviceInfo.isLocationEnabled();
+
+    if (lastLocationEnabled.current !== enabled) {
+      lastLocationEnabled.current = enabled;
+      setLocationEnabled(enabled);
+      setModalClose(enabled);
+
+      if (!enabled) {
+        // Show modal when location is OFF
+        setAlertConfig({
+          title: 'Location Disabled',
+          message:
+            'Please enable location access to continue using the app.',
+          type: 'error',
+        });
+        setModalClose(false)
+        setAlertVisible(true);
+      } else {
+        // Hide modal when location is ON
+        setAlertVisible(false);
+      }
+
+      console.log(enabled ? '📍 Location ON' : '📍 Location OFF');
+    }
+  }, 1000); // check every 1 second
+
+  return () => clearInterval(interval);
+}, []);
+
+
+
   // ------------------------- Device & Auth Setup -------------------------
   useEffect(() => {
     const fetchDeviceName = async () => {
@@ -278,6 +313,4 @@ const RootNavigator = () => {
   );
 };
 
-export default RootNavigator;
-// 235f46c2-fd4a-4909-8080-0d875fa8b4bd 
-// 714e45cb-9135-41a6-ac04-acf959375b88
+export default RootNavigator; 

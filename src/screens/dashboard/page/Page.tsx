@@ -307,7 +307,7 @@ const PageScreen = () => {
       else if(item?.defaultvalue === "#location"){
         content = <LocationRow item={item} setValue ={setValue }/>
       }
-       else if (item?.ctltype === 'HTML') {
+       else if (item?.defaultvalue == '#HTML') {
         content = <HtmlRow item={item} />;
       } else if (item?.ctltype === 'IMAGE' && item?.field === 'signature') {
         content = (

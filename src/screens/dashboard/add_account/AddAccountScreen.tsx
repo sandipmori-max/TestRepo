@@ -232,7 +232,7 @@ const AddAccountScreen: React.FC<AddAccountScreenProps> = ({ visible, onClose })
                             <TextInput
                               style={styles.input1}
                               placeholder={t('auth.enterPassword')}
-                              secureTextEntry={showPassword}
+                              secureTextEntry={!showPassword}
                               placeholderTextColor="#999"
                               value={values?.password}
                               onChangeText={handleChange('password')}

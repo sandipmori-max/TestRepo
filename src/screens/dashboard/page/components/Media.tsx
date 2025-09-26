@@ -160,8 +160,28 @@ const Media = ({ item, handleAttachment, infoData, baseLink, isFromNew }: any) =
           },
         },
       ];
-    } else {
+    } else if (item?.ctltype === 'PHOTO') {
       return [
+        {
+          text: 'Camera',
+          icon: 'photo-camera',
+          onPress: async () => {
+            const granted = await requestPermission('camera');
+            if (!granted) return;
+
+            launchCamera({ mediaType: 'photo', quality: 0.8, includeBase64: true }, response => {
+              if (response.assets && response.assets.length > 0) {
+                const asset: Asset = response.assets[0];
+                setImageUri(asset.uri || null);
+                setCacheBuster(Date.now());
+                handleAttachment(
+                  `${item?.field}.jpeg; data:${asset.type};base64,${asset.base64}`,
+                  item.field,
+                );
+              }
+            });
+          },
+        },
         {
           text: 'Gallery',
           icon: 'photo-library',
@@ -365,9 +385,9 @@ const Media = ({ item, handleAttachment, infoData, baseLink, isFromNew }: any) =
         title={alertConfig.title}
         message={alertConfig.message}
         type={alertConfig.type}
-        onClose={() =>{
-          if(!modalClose){
-           setAlertVisible(false)
+        onClose={() => {
+          if (!modalClose) {
+            setAlertVisible(false);
           }
         }}
         isSettingVisible={isSettingVisible}

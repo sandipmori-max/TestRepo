@@ -19,17 +19,19 @@ const TableView = ({
 
   const getButtonMeta = (key: string) => {
     if (!key || !configData?.length) return { label: 'Action', color: '#007BFF' };
-    const configItem = configData?.find(cfg => cfg?.datafield?.toLowerCase() === key?.toLowerCase());
+    const configItem = configData?.find(
+      cfg => cfg?.datafield?.toLowerCase() === key?.toLowerCase(),
+    );
     return {
       label: configItem?.headertext || 'Action',
       color: configItem?.colorcode || '#007BFF',
     };
   };
 
-const allKeys =
-  filteredData && filteredData.length > 0
-    ? Object.keys(filteredData[0]).filter(key => key !== 'id')
-    : [];
+  const allKeys =
+    filteredData && filteredData.length > 0
+      ? Object.keys(filteredData[0]).filter(key => key !== 'id')
+      : [];
 
   function splitInto4Columns(keys: string[]): Record<string, string[]> {
     const result: Record<string, string[]> = { clm1: [], clm2: [], clm3: [], clm4: [] };
@@ -95,13 +97,24 @@ const allKeys =
   const renderItem = ({ item, index }: { item: any; index: number }) => {
     const isEven = index % 2 === 0;
     const rowBackgroundColor = isEven ? '#ffffff' : '#f8faf3ff';
+    const authUser = item?.authuser;
 
     const btnKeys = Object.keys(item).filter(key => key.startsWith('btn_'));
 
     return (
       <TouchableOpacity
         onPress={async () => {
-          navigation.navigate('Page', { item, title: pageParamsName, id: item?.id, url: pageName });
+          if (authUser) {
+            return;
+          }
+          if (item?.id !== undefined) {
+            navigation.navigate('Page', {
+              item,
+              title: pageParamsName,
+              id: item?.id,
+              url: pageName,
+            });
+          }
         }}
       >
         {' '}
@@ -197,14 +210,13 @@ const allKeys =
     <View
       style={{
         flex: 1,
-        marginTop: 4
+        marginTop: 4,
       }}
     >
       <FlatList
         data={['']}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
-      
         renderItem={() => {
           return (
             <FlatList
