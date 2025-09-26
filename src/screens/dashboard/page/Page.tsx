@@ -28,6 +28,7 @@ import HtmlRow from './components/HtmlRow';
 import { useBaseLink } from '../../../hooks/useBaseLink';
 import DateTimeRow from './components/DateTimeRow';
 import LocationRow from './components/LocationRow';
+import FilePickerRow from './components/FilePicker';
 
 type PageRouteParams = { PageScreen: { item: any } };
 
@@ -288,7 +289,9 @@ const PageScreen = () => {
           />
         );
       }
-     
+      else if (item?.ctltype === 'FILE') {
+        content = <FilePickerRow item={item} setValue ={setValue }/>;
+      }
       else if(item?.defaultvalue === "#location"){
         content = <LocationRow item={item} setValue ={setValue }/>
       }

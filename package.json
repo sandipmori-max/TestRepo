@@ -16,6 +16,7 @@
     "@react-native-community/datetimepicker": "^8.4.4",
     "@react-native-community/geolocation": "^3.4.0",
     "@react-native-community/netinfo": "^11.4.1",
+    "@react-native-documents/picker": "^10.1.7",
     "@react-native-firebase/app": "^23.1.0",
     "@react-native-firebase/messaging": "^23.1.0",
     "@react-native-vector-icons/material-icons": "^12.3.0",
