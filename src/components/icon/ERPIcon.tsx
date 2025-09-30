@@ -11,13 +11,13 @@ const ERPIcon: React.FC<ERPIconProps> = ({
   onPress,
   extStyle,
   extSize = 20,
-  color = ERP_COLOR_CODE.ERP_WHITE,
+  color = ERP_COLOR_CODE.ERP_ICON,
   isLoading = false,
 }) => {
   return (
     <TouchableOpacity onPress={onPress} style={[baseStyle(color, isMenu), extStyle]}>
       {isLoading ? (
-        <ActivityIndicator color={ERP_COLOR_CODE.ERP_WHITE} size={'small'} />
+        <ActivityIndicator color={ERP_COLOR_CODE.ERP_ICON} size={'small'} />
       ) : (
         <MaterialIcons name={name} color={color} size={extSize} />
       )}

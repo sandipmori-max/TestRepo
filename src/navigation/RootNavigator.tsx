@@ -17,11 +17,13 @@ import { generateGUID } from '../utils/helpers';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { requestLocationPermissions } from '../utils/helpers';
 import { useFocusEffect } from '@react-navigation/native';
+import { setERPTheme } from '../utils/constants';
 
 const RootNavigator = () => {
   const dispatch = useAppDispatch();
   const { isLoading, isAuthenticated, accounts , user} = useAppSelector(state => state.auth);
   console.log("🚀 ~ RootNavigator ------------------ Active user ~ user:", user)
+  const theme = useAppSelector(state => state.theme);
 
   const [locationEnabled, setLocationEnabled] = useState<boolean | null>(null);
   const [alertVisible, setAlertVisible] = useState(false);
@@ -93,6 +95,10 @@ const RootNavigator = () => {
   };
 
 const lastLocationEnabled = useRef<boolean | null>(null);
+
+useEffect(() => {
+  setERPTheme('light');
+}, [theme]);
 
 useEffect(() => {
   const interval = setInterval(async () => {

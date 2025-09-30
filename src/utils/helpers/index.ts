@@ -1,9 +1,9 @@
 import { ERP_GIF, ERP_ICON } from '../../assets';
 import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 import moment from 'moment';
-import { Alert, Linking, PermissionsAndroid, Platform } from 'react-native';
+import { PermissionsAndroid, Platform } from 'react-native';
 
-export const getBottomTabIcon = (iconName: string, focused: boolean, theme: any) => {
+export const getBottomTabIcon = (iconName: string, focused: boolean) => {
   switch (iconName) {
     case 'home':
       return focused ? ERP_ICON.ACTIVE_HOME : ERP_ICON.HOME;

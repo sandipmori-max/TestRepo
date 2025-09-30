@@ -9,19 +9,27 @@ import ajaxReducer from './slices/ajax/ajaxSlice';
 import pageReducer from './slices/page/pageSlice';
 import syncLocationReducer from './slices/location/syncLocationSlice';
 
-// Persist config only for auth
+// ✅ Persist config for auth
 const authPersistConfig = {
   key: 'auth',
   storage: AsyncStorage,
-  whitelist: ['token', 'isPinLoaded', 'isAuthenticated', 'user'], 
+  whitelist: ['token', 'isPinLoaded', 'isAuthenticated', 'user'],
+};
+
+// ✅ Persist config for theme
+const themePersistConfig = {
+  key: 'theme',
+  storage: AsyncStorage,
+  whitelist: ['theme'], // store only the selected theme value
 };
 
 const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
+const persistedThemeReducer = persistReducer(themePersistConfig, themeReducer);
 
 export const store = configureStore({
   reducer: {
-    auth: persistedAuthReducer, // use persisted version
-    theme: themeReducer,
+    auth: persistedAuthReducer,
+    theme: persistedThemeReducer, // ✅ use persisted version
     attendance: attendanceReducer,
     dropdown: dropdownReducer,
     ajax: ajaxReducer,

@@ -11,6 +11,7 @@ import { styles } from './drawer_style';
 import FastImage from 'react-native-fast-image';
 import { useBaseLink } from '../../hooks/useBaseLink';
 import { ERP_COLOR_CODE } from '../../utils/constants';
+import ContactRow from './ContactRow';
 
 const CustomDrawerContent: React.FC<DrawerContentComponentProps> = props => {
   const navigation = useNavigation();
@@ -139,7 +140,8 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = props => {
         })}
       </View>
       <View style={styles.logoutButton}>
-        <Text style={styles.logoutText}>DevERP Mobile App</Text>
+        <Text style={styles.logoutText}>(c) DevERP Solutions Pvt. Ltd.</Text>
+         <ContactRow />
       </View>
     </DrawerContentScrollView>
   );

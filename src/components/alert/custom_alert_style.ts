@@ -79,7 +79,7 @@ export const styles = StyleSheet.create({
   successTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: 'green',
+    color: ERP_COLOR_CODE.ERP_green,
   },
   successMessage: {
     fontSize: 14,
