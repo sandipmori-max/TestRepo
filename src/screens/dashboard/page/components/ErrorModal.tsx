@@ -1,6 +1,7 @@
 import { FlatList, Modal, Text, TouchableOpacity, View } from 'react-native';
 import { styles } from '../page_style';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
+import { ERP_COLOR_CODE } from '../../../../utils/constants';
 
 const ErrorModal = ({
   visible,
@@ -29,7 +30,7 @@ const ErrorModal = ({
                 onClose();
               }}
             >
-              <MaterialIcons name={'close'} size={20} color="#555" />
+              <MaterialIcons name={'close'} size={20} color={ERP_COLOR_CODE.ERP_555} />
             </TouchableOpacity>
           </View>
           <View style={{ marginVertical: 14 }}>

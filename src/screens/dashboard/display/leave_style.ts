@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#444',
+    color: ERP_COLOR_CODE.ERP_444,
     marginBottom: 6,
   },
 
@@ -33,7 +33,7 @@ export const styles = StyleSheet.create({
 
   inputReadonly: {
     backgroundColor: '#f1f3f6',
-    color: '#555',
+    color: ERP_COLOR_CODE.ERP_555,
   },
 
   statusBtn: {
@@ -90,7 +90,7 @@ export const styles = StyleSheet.create({
   attachFileName: {
     fontSize: 13,
     marginTop: 6,
-    color: '#444',
+    color: ERP_COLOR_CODE.ERP_444,
   },
 
   submitBtn: {

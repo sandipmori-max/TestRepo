@@ -359,7 +359,7 @@ const HomeScreen = () => {
                             marginRight: 6,
                           }}
                         />
-                        <Text style={{ fontSize: 14, color: '#444' }}>
+                        <Text style={{ fontSize: 14, color: ERP_COLOR_CODE.ERP_444 }}>
                           {item?.text}: {item?.value}
                         </Text>
                       </View>

@@ -70,10 +70,10 @@ const CustomPicker = ({ label, selectedValue, onValueChange, item, errors, dtext
         }}
         activeOpacity={0.7}
       >
-        <Text style={{ color: selectedOption ? ERP_COLOR_CODE.ERP_BLACK : '#888', flex: 1 }}>
+        <Text style={{ color: selectedOption ? ERP_COLOR_CODE.ERP_BLACK : ERP_COLOR_CODE.ERP_888, flex: 1 }}>
           {selectedOption || `Select ${label}`}
         </Text>
-        <MaterialIcons name={open ? 'arrow-drop-up' : 'arrow-drop-down'} size={24} color="#555" />
+        <MaterialIcons name={open ? 'arrow-drop-up' : 'arrow-drop-down'} size={24} color={ERP_COLOR_CODE.ERP_555} />
       </TouchableOpacity>
 
       {open && (

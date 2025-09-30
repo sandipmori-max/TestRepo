@@ -107,7 +107,7 @@ const FilePickerRow = ({ item, handleAttachment }) => {
               <MaterialIcons
                 name={getFileIcon(file.name)}
                 size={24}
-                color="#555"
+                color={ERP_COLOR_CODE.ERP_555}
                 style={{ marginRight: 6 }}
               />
               <Text style={styles.fileName} numberOfLines={1}>

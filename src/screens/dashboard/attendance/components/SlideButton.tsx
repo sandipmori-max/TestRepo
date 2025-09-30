@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignSelf: 'center',
     fontWeight: '600',
-    color: '#555',
+    color: ERP_COLOR_CODE.ERP_555,
   },
   slider: {
     width: SLIDER_SIZE,

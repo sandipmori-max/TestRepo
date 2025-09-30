@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 14,
-    color: '#888888',
+    color: ERP_COLOR_CODE.ERP_888,
     textAlign: 'center',
     maxWidth: '80%',
   },

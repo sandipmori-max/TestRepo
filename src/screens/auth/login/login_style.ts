@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
   },
   helperText: {
     fontSize: 12,
-    color: '#888',
+    color: ERP_COLOR_CODE.ERP_888,
     marginTop: 4,
     marginLeft: 2,
   },
@@ -45,7 +45,7 @@ export const styles = StyleSheet.create({
   inputLabel: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#444',
+    color: ERP_COLOR_CODE.ERP_444,
     marginBottom: 6,
   },
   input: {

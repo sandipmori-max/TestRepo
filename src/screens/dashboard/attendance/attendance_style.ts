@@ -86,7 +86,7 @@ export const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
+    borderBottomColor: ERP_COLOR_CODE.ERP_e0e0e0,
   },
   headerTitle: { fontSize: 20, fontWeight: 'bold', color: '#222' },
   loaderContainer: {
@@ -97,7 +97,7 @@ export const styles = StyleSheet.create({
   },
   recordPunchTime: {
     fontSize: 14,
-    color: '#555555ff',
+    color: ERP_COLOR_CODE.ERP_555,
     marginTop: 2,
   },
 
@@ -127,7 +127,7 @@ export const styles = StyleSheet.create({
   },
   imageCol: { flex: 1, alignItems: 'center' },
   imageLabel: { marginTop: 6, fontSize: 12, color: ERP_COLOR_CODE.ERP_666 },
-  placeholderAvatar: { backgroundColor: '#e0e0e0' },
+  placeholderAvatar: { backgroundColor: ERP_COLOR_CODE.ERP_e0e0e0 },
   formGroup: {
     marginBottom: 12,
   },
@@ -136,7 +136,7 @@ export const styles = StyleSheet.create({
   input: {
     backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     borderWidth: 1,
-    borderColor: '#e0e0e0',
+    borderColor: ERP_COLOR_CODE.ERP_e0e0e0,
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 10,
@@ -145,12 +145,12 @@ export const styles = StyleSheet.create({
   },
   inputReadonly: {
     backgroundColor: '#F0F0F0',
-    color: '#555',
+    color: ERP_COLOR_CODE.ERP_555,
   },
   errorText: { color: '#dc3545', fontSize: 12, marginTop: 4 },
   name: { fontSize: 17, fontWeight: 'bold' },
-  email: { fontSize: 13, color: '#555' },
-  phone: { fontSize: 13, color: '#888' },
+  email: { fontSize: 13, color: ERP_COLOR_CODE.ERP_555 },
+  phone: { fontSize: 13, color: ERP_COLOR_CODE.ERP_888 },
   statusBtn: {
     paddingHorizontal: 12,
     paddingVertical: 8,

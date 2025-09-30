@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
     paddingVertical: 16,
     backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
+    borderBottomColor: ERP_COLOR_CODE.ERP_e0e0e0,
   },
   title: {
     fontSize: 20,

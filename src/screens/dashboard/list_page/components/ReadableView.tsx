@@ -157,7 +157,7 @@ navigation.navigate('Page', {
                       <Text
                         numberOfLines={isRemarksExpanded ? undefined : 2}
                         style={{
-                          color: '#777',
+                          color: ERP_COLOR_CODE.ERP_777,
                           fontStyle: 'italic',
                           marginBottom: 6,
                           fontWeight: '600',
@@ -209,7 +209,7 @@ navigation.navigate('Page', {
                   <Text
                     numberOfLines={2}
                     style={{
-                      color: '#444',
+                      color: ERP_COLOR_CODE.ERP_444,
                       fontWeight: '600',
                       fontSize: 12,
                     }}

@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
     padding: 12,
     backgroundColor: ERP_COLOR_CODE.ERP_APP_COLOR,
     borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
+    borderBottomColor: ERP_COLOR_CODE.ERP_e0e0e0,
     elevation: 4,
     shadowColor: ERP_COLOR_CODE.ERP_BLACK,
     shadowOffset: { width: 0, height: 1 },
@@ -54,7 +54,7 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     marginBottom: 30,
-    color: '#555',
+    color: ERP_COLOR_CODE.ERP_555,
   },
   inputContainer: {
     marginBottom: 8,
@@ -63,7 +63,7 @@ export const styles = StyleSheet.create({
     marginBottom: 6,
     fontSize: 14,
     fontWeight: '500',
-    color: '#444',
+    color: ERP_COLOR_CODE.ERP_444,
   },
 
   errorText: {
@@ -94,7 +94,7 @@ export const styles = StyleSheet.create({
   },
   note: {
     fontSize: 14,
-    color: '#777',
+    color: ERP_COLOR_CODE.ERP_777,
     textAlign: 'center',
     lineHeight: 20,
     marginTop: 20,

@@ -42,20 +42,20 @@ export const styles = StyleSheet.create({
   },
   dateText: {
     fontSize: 12,
-    color: '#777',
+    color: ERP_COLOR_CODE.ERP_777,
     marginLeft: 8,
   },
   description: {
     fontSize: 14,
-    color: '#555',
+    color: ERP_COLOR_CODE.ERP_555,
   },
   sender: {
     fontSize: 12,
-    color: '#777',
+    color: ERP_COLOR_CODE.ERP_777,
   },
   timeText: {
     fontSize: 10,
-    color: '#777',
+    color: ERP_COLOR_CODE.ERP_777,
   },
   avatar: {
     width: 42,
@@ -73,7 +73,7 @@ export const styles = StyleSheet.create({
   },
   senderName: {
     fontSize: 14,
-    color: '#555',
+    color: ERP_COLOR_CODE.ERP_555,
     alignSelf: 'center',
   },
   footer: {

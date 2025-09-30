@@ -330,7 +330,7 @@ const LeaveListPage = ({ showFilter, onSelect }: any) => {
                       borderColor: ERP_COLOR_CODE.ERP_BORDER_LINE,
                     }}
                   >
-                    <MaterialIcons name="search" size={22} color="#777" />
+                    <MaterialIcons name="search" size={22} color={ERP_COLOR_CODE.ERP_777} />
                     <TextInput
                       placeholder="Search leave by type or remarks..."
                       style={{ flex: 1, marginLeft: 6 }}
@@ -355,7 +355,7 @@ const LeaveListPage = ({ showFilter, onSelect }: any) => {
                       >
                         <Text
                           style={{
-                            color: filter === tab ? ERP_COLOR_CODE.ERP_WHITE : '#444',
+                            color: filter === tab ? ERP_COLOR_CODE.ERP_WHITE : ERP_COLOR_CODE.ERP_444,
                             fontWeight: '600',
                             fontSize: 13,
                           }}

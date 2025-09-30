@@ -47,7 +47,7 @@ const LeaveDetailsBottomSheet = ({ visible, leave, onClose }: Props) => {
           </Text>
 
           <View style={{ flexDirection: 'row', marginTop: 6, alignItems: 'center' }}>
-            <MaterialIcons name="date-range" size={18} color="#444" />
+            <MaterialIcons name="date-range" size={18} color={ERP_COLOR_CODE.ERP_444} />
             <Text style={{ marginLeft: 6 }}>
               {leave.from} → {leave.to}
             </Text>

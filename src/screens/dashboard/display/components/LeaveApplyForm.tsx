@@ -231,7 +231,7 @@ const LeaveApplyForm = () => {
                   {touched.leaveType && errors.leaveType && (
                     <Text style={styles.errorText}>{errors.leaveType as string}</Text>
                   )}
-                  <Text style={{ marginTop: 5, fontSize: 12, color: '#555' }}>
+                  <Text style={{ marginTop: 5, fontSize: 12, color: ERP_COLOR_CODE.ERP_555 }}>
                     Balance: {leaveBalances[values.leaveType as keyof typeof leaveBalances]} days
                   </Text>
                 </View>

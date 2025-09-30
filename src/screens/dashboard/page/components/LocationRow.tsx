@@ -56,7 +56,7 @@ const LocationRow = ({ item, value, setValue }: any) => {
 
       <View style={styles.disabledBox}>
         {loading ? (
-          <Text style={{ color: '#555' }}>Fetching...</Text>
+          <Text style={{ color: ERP_COLOR_CODE.ERP_555 }}>Fetching...</Text>
         ) : (
           <>
             {address ? (

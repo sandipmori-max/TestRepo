@@ -95,7 +95,7 @@ const TaskDetailsBottomSheet = ({
 
           {/* Dates */}
           <View style={styles.row}>
-            <MaterialIcons name="date-range" size={18} color="#555" />
+            <MaterialIcons name="date-range" size={18} color={ERP_COLOR_CODE.ERP_555}/>
             <Text style={styles.dateText}>
               {formatDate(task.startDate)} → {formatDate(task.endDate)}
             </Text>
@@ -104,7 +104,7 @@ const TaskDetailsBottomSheet = ({
           {/* Assigned Developers */}
           {task.assignedTo?.length > 0 && (
             <View style={styles.row}>
-              <MaterialIcons name="person" size={18} color="#555" />
+              <MaterialIcons name="person" size={18} color={ERP_COLOR_CODE.ERP_555}/>
               <Text style={styles.assignedText}>
                 {task.assignedTo.length} developer(s) assigned
               </Text>
@@ -178,9 +178,9 @@ const styles = StyleSheet.create({
   row: { flexDirection: 'row', alignItems: 'center', marginBottom: 10 },
   badge: { paddingVertical: 4, paddingHorizontal: 12, borderRadius: 8, marginRight: 10 },
   badgeText: { color: ERP_COLOR_CODE.ERP_WHITE, fontSize: 13, fontWeight: '600' },
-  desc: { fontSize: 16, color: '#555', marginBottom: 12 },
-  dateText: { fontSize: 14, color: '#555', marginLeft: 6 },
-  assignedText: { fontSize: 14, color: '#555', marginLeft: 6 },
+  desc: { fontSize: 16, color: ERP_COLOR_CODE.ERP_555, marginBottom: 12 },
+  dateText: { fontSize: 14, color: ERP_COLOR_CODE.ERP_555, marginLeft: 6 },
+  assignedText: { fontSize: 14, color: ERP_COLOR_CODE.ERP_555, marginLeft: 6 },
   actions: { marginTop: 20 },
   button: { paddingVertical: 12, borderRadius: 10, marginBottom: 12, alignItems: 'center' },
   buttonText: { color: ERP_COLOR_CODE.ERP_WHITE, fontWeight: '700', fontSize: 15 },

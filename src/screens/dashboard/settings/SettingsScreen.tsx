@@ -238,7 +238,7 @@ const SettingsScreen = () => {
             onValueChange={() => {
               handleToggle(item.id);
             }}
-            trackColor={{ false: '#e0e0e0', true: '#4CAF50' }}
+            trackColor={{ false: ERP_COLOR_CODE.ERP_e0e0e0, true: '#4CAF50' }}
             thumbColor={item.value ? ERP_COLOR_CODE.ERP_WHITE : '#f4f3f4'}
           />
         ) : (

@@ -99,10 +99,10 @@ const AjaxPicker = ({ label, onValueChange, item, errors, dtext, formValues }: a
         }}
         activeOpacity={0.7}
       >
-        <Text style={{ color: selectedOption ? ERP_COLOR_CODE.ERP_BLACK : '#888', flex: 1 }}>
+        <Text style={{ color: selectedOption ? ERP_COLOR_CODE.ERP_BLACK : ERP_COLOR_CODE.ERP_888, flex: 1 }}>
           {selectedOption || `Select ${label}`}
         </Text>
-        <MaterialIcons name={'arrow-drop-down'} size={24} color="#555" />
+        <MaterialIcons name={'arrow-drop-down'} size={24} color={ERP_COLOR_CODE.ERP_555} />
       </TouchableOpacity>
 
       <Modal visible={open} animationType="slide" transparent>
@@ -133,7 +133,7 @@ const AjaxPicker = ({ label, onValueChange, item, errors, dtext, formValues }: a
               <TextInput
                 style={[styles.textInput, { paddingRight: 40 }]}
                 placeholder="Search here..."
-                placeholderTextColor="#888"
+                placeholderTextColor={ERP_COLOR_CODE.ERP_888}
                 value={search}
                 onChangeText={setSearch}
               />
@@ -148,7 +148,7 @@ const AjaxPicker = ({ label, onValueChange, item, errors, dtext, formValues }: a
                     transform: [{ translateY: -12 }],
                   }}
                 >
-                  <MaterialIcons name="close" size={20} color="#888" />
+                  <MaterialIcons name="close" size={20} color={ERP_COLOR_CODE.ERP_888}/>
                 </TouchableOpacity>
               )}
             </View>

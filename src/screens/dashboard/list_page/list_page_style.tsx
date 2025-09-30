@@ -57,12 +57,12 @@ export const styles = StyleSheet.create({
   label: {
     fontSize: 10,
     fontWeight: '600',
-    color: '#888',
+    color: ERP_COLOR_CODE.ERP_888,
   },
   value: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#444',
+    color: ERP_COLOR_CODE.ERP_444,
   },
   detailsSection: {
     marginTop: 12,
@@ -77,7 +77,7 @@ export const styles = StyleSheet.create({
   },
   detailKey: {
     fontWeight: '600',
-    color: '#555',
+    color: ERP_COLOR_CODE.ERP_555,
     flex: 1,
   },
   detailValue: {
@@ -146,7 +146,7 @@ export const styles = StyleSheet.create({
 
   metaItem: {
     fontSize: 13,
-    color: '#555',
+    color: ERP_COLOR_CODE.ERP_555,
   },
 
   divider: {
@@ -163,7 +163,7 @@ export const styles = StyleSheet.create({
 
   infoKey: {
     fontSize: 13,
-    color: '#777',
+    color: ERP_COLOR_CODE.ERP_777,
     fontWeight: '500',
   },
 
@@ -217,7 +217,7 @@ export const styles = StyleSheet.create({
   emptyText: {
     marginTop: 20,
     textAlign: 'center',
-    color: '#888',
+    color: ERP_COLOR_CODE.ERP_888,
   },
 
   searchContainer: {

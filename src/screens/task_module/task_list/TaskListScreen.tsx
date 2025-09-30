@@ -123,12 +123,12 @@ const TaskListScreen = ({ tasks, onSelectTask, showPicker, showFilter }) => {
             {showPicker && (
               <View style={styles.dateRow}>
                 <TouchableOpacity style={styles.dateButton} onPress={() => showDatePicker('start')}>
-                  <MaterialIcons name="date-range" size={18} color="#555" />
+                  <MaterialIcons name="date-range" size={18} color={ERP_COLOR_CODE.ERP_555} />
                   <Text style={styles.dateText}>Start: {formatDate(dateFilter.start)}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.dateButton} onPress={() => showDatePicker('end')}>
-                  <MaterialIcons name="event" size={18} color="#555" />
+                  <MaterialIcons name="event" size={18} color={ERP_COLOR_CODE.ERP_555} />
                   <Text style={styles.dateText}>End: {formatDate(dateFilter.end)}</Text>
                 </TouchableOpacity>
               </View>
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
   },
   dateText: { marginLeft: 6, fontSize: 13, color: ERP_COLOR_CODE.ERP_333 },
 
-  noTask: { textAlign: 'center', marginTop: 40, fontSize: 16, color: '#888' },
+  noTask: { textAlign: 'center', marginTop: 40, fontSize: 16, color: ERP_COLOR_CODE.ERP_888 },
 });
 
 export default TaskListScreen;

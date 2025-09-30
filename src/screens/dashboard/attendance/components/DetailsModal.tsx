@@ -84,19 +84,19 @@ const DetailsBottomSheet = ({ visible, onClose, item, baseLink }: any) => {
 
               <View style={{ backgroundColor: '#f5f5f5', borderRadius: 12, padding: 12, marginBottom: 12 }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 6 }}>
-                  <Text style={{ color: '#444' }}>Date</Text>
+                  <Text style={{ color: ERP_COLOR_CODE.ERP_444 }}>Date</Text>
                   <Text style={{ fontWeight: '600' }}>{item?.date}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 6 }}>
-                  <Text style={{ color: '#444' }}>In-Time</Text>
+                  <Text style={{ color: ERP_COLOR_CODE.ERP_444 }}>In-Time</Text>
                   <Text style={{ fontWeight: '600' }}>{formatTo12Hour(item?.intime) || '--'}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 6 }}>
-                  <Text style={{ color: '#444' }}>Out-Time</Text>
+                  <Text style={{ color: ERP_COLOR_CODE.ERP_444 }}>Out-Time</Text>
                   <Text style={{ fontWeight: '600' }}>{formatTo12Hour(item?.outtime) || '--'}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={{ color: '#444' }}>Worked Hours</Text>
+                  <Text style={{ color: ERP_COLOR_CODE.ERP_444 }}>Worked Hours</Text>
                   <Text style={{ fontWeight: '600' }}>
                     {getWorkedHours2(item?.intime, item?.outtime)}
                   </Text>

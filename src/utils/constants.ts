@@ -12,7 +12,12 @@ export const ERP_COLOR_CODE = {
   ERP_BORDER_LINE: '#ccc',
   ERP_COLOR: '#007bff',
   ERP_333: '#333',
+  ERP_444: '#444',
+  ERP_555: '#555',
   ERP_666: '#666',
+  ERP_777: '#777',
+  ERP_888: '#888',
+  ERP_e0e0e0: '#e0e0e0'
 };
 
 export const ERP_SCREEN_NAME = {

@@ -83,8 +83,8 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   title: { fontSize: 14, fontWeight: '700', color: ERP_COLOR_CODE.ERP_333, marginBottom: 4 },
-  desc: { fontSize: 12, color: '#555', marginBottom: 6 },
-  meta: { fontSize: 12, color: '#777', marginBottom: 6 },
+  desc: { fontSize: 12, color: ERP_COLOR_CODE.ERP_555, marginBottom: 6 },
+  meta: { fontSize: 12, color: ERP_COLOR_CODE.ERP_777, marginBottom: 6 },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   priorityText: { color: ERP_COLOR_CODE.ERP_BLACK, fontSize: 12, fontWeight: '400' },
-  assigned: { fontSize: 12, color: '#444' },
+  assigned: { fontSize: 12, color: ERP_COLOR_CODE.ERP_444 },
   statusBadge: {
     alignSelf: 'flex-start',
     paddingVertical: 4,
