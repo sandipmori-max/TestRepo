@@ -92,7 +92,7 @@ const AccountSwitcher: React.FC<AccountSwitcherProps> = ({ visible, onClose, onA
             if (!validation?.isValid) {
               return;
             }
-            // await DevERPService.getAuth();
+            await DevERPService.getAuth();
             handleSwitchAccount(item?.id);
           }
         }}

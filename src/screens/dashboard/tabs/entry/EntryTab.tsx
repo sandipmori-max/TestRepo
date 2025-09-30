@@ -63,7 +63,7 @@ const EntryTab = () => {
           />
 
           <ERPIcon
-            name={showBookmarksOnly ? 'bookmark' : 'dashboard'}
+            name={!showBookmarksOnly ? 'bookmark' : 'dashboard'}
             onPress={() => setShowBookmarksOnly(prev => !prev)}
           />
         </>
