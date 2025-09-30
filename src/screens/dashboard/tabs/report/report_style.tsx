@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { ERP_COLOR_CODE } from '../../../../utils/constants';
 
 export const styles = StyleSheet.create({
   centered: {
@@ -37,7 +38,7 @@ export const styles = StyleSheet.create({
     borderColor: 'rgba(107, 104, 104, 0.3)',
   },
   iconText: {
-     color: '#000',
+     color: ERP_COLOR_CODE.ERP_BLACK,
     opacity: 0.5,
     fontSize: 24,
     fontWeight: '700',
@@ -45,7 +46,7 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#000',
+    color: ERP_COLOR_CODE.ERP_BLACK,
     marginBottom: 4,
     textAlign: 'center',
   },

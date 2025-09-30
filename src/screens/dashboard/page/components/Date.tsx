@@ -18,7 +18,7 @@ const DateRow = ({ item, errors, value, showDatePicker }: any) => {
         style={[styles.dateBox, errors[item.field] && { borderColor: ERP_COLOR_CODE.ERP_ERROR }]}
         onPress={() => showDatePicker(item?.field, value)}
       >
-        <Text style={{ color: value ? '#000' : '#888' }}>
+        <Text style={{ color: value ? ERP_COLOR_CODE.ERP_BLACK : '#888' }}>
           {value ? formatDateHr(value, false) : 'dd/mmm/yyyy'}
         </Text>
         <MaterialIcons name="event" size={20} color="#555" />

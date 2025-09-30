@@ -221,18 +221,18 @@ const LeaveListPage = ({ showFilter, onSelect }: any) => {
 
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-              <MaterialIcons name={'date-range'} color={'#000'} size={14} />
+              <MaterialIcons name={'date-range'} color={ERP_COLOR_CODE.ERP_BLACK} size={14} />
               <Text style={{ fontSize: 13, color: '#666' }}>{item.from}</Text>
             </View>
-            <Text style={{ fontSize: 13, color: '#000' }}>→</Text>
+            <Text style={{ fontSize: 13, color: ERP_COLOR_CODE.ERP_BLACK }}>→</Text>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-              <MaterialIcons name={'date-range'} color={'#000'} size={14} />
+              <MaterialIcons name={'date-range'} color={ERP_COLOR_CODE.ERP_BLACK} size={14} />
               <Text style={{ fontSize: 13, color: '#666' }}>{item.to}</Text>
             </View>
           </View>
 
           {item.remarks ? (
-            <Text style={{ fontSize: 12, color: '#000', marginTop: 4 }}>{item.remarks}</Text>
+            <Text style={{ fontSize: 12, color: ERP_COLOR_CODE.ERP_BLACK, marginTop: 4 }}>{item.remarks}</Text>
           ) : null}
         </View>
       </View>

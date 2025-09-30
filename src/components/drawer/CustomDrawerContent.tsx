@@ -119,7 +119,7 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = props => {
               <View style={styles.itemRow}>
                 <MaterialIcons
                   name={`${item?.icon}`}
-                  color={isActive ? ERP_COLOR_CODE.ERP_WHITE : '#000'}
+                  color={isActive ? ERP_COLOR_CODE.ERP_WHITE : ERP_COLOR_CODE.ERP_BLACK}
                   size={20}
                 />
                 <Text
@@ -127,7 +127,7 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = props => {
                     styles.itemLabel,
                     isActive && styles.activeText,
                     {
-                      color: isActive ? ERP_COLOR_CODE.ERP_WHITE : '#000',
+                      color: isActive ? ERP_COLOR_CODE.ERP_WHITE : ERP_COLOR_CODE.ERP_BLACK,
                     },
                   ]}
                 >

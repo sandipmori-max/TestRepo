@@ -20,14 +20,14 @@ export const styles = StyleSheet.create({
     borderRadius: 100,
   },
   title: {
-    color: '#000',
+    color: ERP_COLOR_CODE.ERP_BLACK,
     fontSize: 30,
     fontWeight: '700',
     marginBottom: 8,
     textAlign: 'center',
   },
   subtitle: {
-    color: '#000000',
+    color: ERP_COLOR_CODE.ERP_BLACK,
     fontSize: 16,
     fontWeight: '500',
     textAlign: 'center',

@@ -12,6 +12,7 @@ import MaterialIcons from '@react-native-vector-icons/material-icons';
 import FastImage from 'react-native-fast-image';
 import { useBaseLink } from '../../../../hooks/useBaseLink';
 import { useTranslation } from 'react-i18next';
+import { ERP_COLOR_CODE } from '../../../../utils/constants';
 
 const ProfileTab = () => {
   const {t} = useTranslation()
@@ -107,7 +108,7 @@ const ProfileTab = () => {
                 }}
                 activeOpacity={0.8}
               >
-                <MaterialIcons name={'edit'} color={'#000'} size={20} />
+                <MaterialIcons name={'edit'} color={ERP_COLOR_CODE.ERP_BLACK} size={20} />
               </TouchableOpacity>
             </View>
           </TouchableOpacity>
@@ -119,7 +120,7 @@ const ProfileTab = () => {
           <TouchableOpacity style={styles.settingCard} onPress={() => setShowAccountSwitcher(true)}>
             <View style={styles.settingHeader}>
               <View style={styles.settingIcon}>
-                <MaterialIcons name={'group'} color={'#000'} size={22} />
+                <MaterialIcons name={'group'} color={ERP_COLOR_CODE.ERP_BLACK} size={22} />
               </View>
               <View style={styles.settingInfo}>
                 <Text style={styles.settingTitle}>{t('profile.manageAccounts')}</Text>
@@ -135,7 +136,7 @@ const ProfileTab = () => {
             <View style={styles.settingCard}>
               <View style={styles.settingHeader}>
                 <View style={styles.settingIcon}>
-                  <MaterialIcons name={'access-time'} color={'#000'} size={22} />
+                  <MaterialIcons name={'access-time'} color={ERP_COLOR_CODE.ERP_BLACK} size={22} />
                 </View>
                 <View style={styles.settingInfo}>
                   <Text style={styles.settingTitle}>{t('profile.lastLogin')}</Text>

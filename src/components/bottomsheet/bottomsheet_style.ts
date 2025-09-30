@@ -4,7 +4,7 @@ import { ERP_COLOR_CODE } from "../../utils/constants";
 export const styles = StyleSheet.create({
   backdrop: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: '#000',
+    backgroundColor: ERP_COLOR_CODE.ERP_BLACK,
   },
   sheet: {
     position: 'absolute',

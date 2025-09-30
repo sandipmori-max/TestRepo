@@ -22,7 +22,7 @@ const CustomAlert: React.FC<CustomAlertProps> = ({
   cancelText = 'Cancel',
   isFromButtonList = false,
   actionLoader,
-  color = '#000',
+  color = ERP_COLOR_CODE.ERP_BLACK,
   isBottomButtonVisible,
   isSettingVisible,
 }) => {
@@ -125,7 +125,7 @@ const CustomAlert: React.FC<CustomAlertProps> = ({
                       {actionLoader ? (
                         <>
                           <TouchableOpacity style={styles.buttonCancel}>
-                            <ActivityIndicator size={'small'} color={'#000'} />
+                            <ActivityIndicator size={'small'} color={ERP_COLOR_CODE.ERP_BLACK} />
                           </TouchableOpacity>
                         </>
                       ) : (
@@ -155,7 +155,7 @@ const CustomAlert: React.FC<CustomAlertProps> = ({
             >
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                 <MaterialIcons name="settings" size={20} color="#000" />
-                <Text style={{ color: '#000', fontWeight: '600', fontSize: 16 }}>
+                <Text style={{ color: ERP_COLOR_CODE.ERP_BLACK, fontWeight: '600', fontSize: 16 }}>
                   Open Settings
                 </Text>
               </View>

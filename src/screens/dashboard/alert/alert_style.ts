@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 16,
     marginBottom: 12,
-    shadowColor: '#000',
+    shadowColor: ERP_COLOR_CODE.ERP_BLACK,
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,

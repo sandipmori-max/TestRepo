@@ -69,7 +69,7 @@ const LeaveDetailsBottomSheet = ({ visible, leave, onClose }: Props) => {
           </View>
 
           {leave.remarks ? (
-            <Text style={{ marginTop: 10, fontSize: 14, color: '#000' }}>
+            <Text style={{ marginTop: 10, fontSize: 14, color: ERP_COLOR_CODE.ERP_BLACK }}>
               Remarks: {leave.remarks}
             </Text>
           ) : null}

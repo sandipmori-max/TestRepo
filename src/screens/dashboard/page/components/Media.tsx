@@ -280,7 +280,7 @@ const Media = ({ item, handleAttachment, infoData, baseLink, isFromNew }: any) =
         </TouchableOpacity>
 
         <TouchableOpacity onPress={handleChooseImage} style={styles.editBtn}>
-          <MaterialIcons name={'edit'} color={'#000'} size={20} />
+          <MaterialIcons name={'edit'} color={ERP_COLOR_CODE.ERP_BLACK} size={20} />
         </TouchableOpacity>
       </View>
 

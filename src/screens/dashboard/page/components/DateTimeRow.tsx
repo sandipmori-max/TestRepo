@@ -18,7 +18,7 @@ const DateTimeRow = ({ item, errors, value, showDateTimePicker }: any) => {
         style={[styles.dateBox, errors[item.field] && { borderColor: ERP_COLOR_CODE.ERP_ERROR }]}
         onPress={() => showDateTimePicker(item?.field, value)}
       >
-        <Text style={{ color: value ? '#000' : '#888' }}>
+        <Text style={{ color: value ? ERP_COLOR_CODE.ERP_BLACK : '#888' }}>
           {
            value ? formatDateHr(value, true) : 'dd/mmm/yyyy hh:mm'
           }

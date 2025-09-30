@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   },
   recordAvatar: { width: 50, height: 50, borderRadius: 25 },
   recordName: { fontSize: 14 },
-  recordDateTime: { fontWeight: '600', fontSize: 14, color: '#000' },
+  recordDateTime: { fontWeight: '600', fontSize: 14, color: ERP_COLOR_CODE.ERP_BLACK },
   recordPunchTime: { fontSize: 14, color: '#333' },
   statusBadgeRed: {
     backgroundColor: ERP_COLOR_CODE.ERP_ERROR,
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   },
   statusBadgeGrey: {
     backgroundColor: '#dad1d1',
-    color: '#000',
+    color: ERP_COLOR_CODE.ERP_BLACK,
     paddingHorizontal: 8,
     paddingVertical: 2,
     borderRadius: 4,
@@ -271,7 +271,7 @@ const List = ({ selectedMonth, showFilter, fromDate, toDate }: any) => {
               ]}
             >
               <Text
-                style={{ color: activeFilter === filter.key ? ERP_COLOR_CODE.ERP_WHITE : '#000', fontWeight: '600' }}
+                style={{ color: activeFilter === filter.key ? ERP_COLOR_CODE.ERP_WHITE : ERP_COLOR_CODE.ERP_BLACK, fontWeight: '600' }}
               >
                 {filter.label}
               </Text>
@@ -476,7 +476,7 @@ const List = ({ selectedMonth, showFilter, fromDate, toDate }: any) => {
                                   style={{
                                     width: 2,
                                     flex: 1,
-                                    backgroundColor: '#000'
+                                    backgroundColor: ERP_COLOR_CODE.ERP_BLACK
                                    }}
                                 />
                               )}

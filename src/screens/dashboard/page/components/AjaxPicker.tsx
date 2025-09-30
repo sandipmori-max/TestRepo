@@ -99,7 +99,7 @@ const AjaxPicker = ({ label, onValueChange, item, errors, dtext, formValues }: a
         }}
         activeOpacity={0.7}
       >
-        <Text style={{ color: selectedOption ? '#000' : '#888', flex: 1 }}>
+        <Text style={{ color: selectedOption ? ERP_COLOR_CODE.ERP_BLACK : '#888', flex: 1 }}>
           {selectedOption || `Select ${label}`}
         </Text>
         <MaterialIcons name={'arrow-drop-down'} size={24} color="#555" />
@@ -191,7 +191,7 @@ const AjaxPicker = ({ label, onValueChange, item, errors, dtext, formValues }: a
                                   color:
                                     key === label?.toLowerCase()
                                       ? ERP_COLOR_CODE.ERP_APP_COLOR
-                                      : '#000',
+                                      : ERP_COLOR_CODE.ERP_BLACK,
                                   fontSize: key === label?.toLowerCase() ? 16 : 14,
                                   fontWeight: key === label?.toLowerCase() ? '700' : '400',
                                 }}

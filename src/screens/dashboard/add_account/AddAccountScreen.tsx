@@ -245,7 +245,7 @@ const AddAccountScreen: React.FC<AddAccountScreenProps> = ({ visible, onClose })
                             >
                               <MaterialIcons
                                 name={!showPassword ? 'visibility-off' : 'visibility'}
-                                color={'#000'}
+                                color={ERP_COLOR_CODE.ERP_BLACK}
                                 size={20}
                               />
                             </TouchableOpacity>

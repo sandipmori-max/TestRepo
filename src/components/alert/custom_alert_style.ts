@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 10,
     fontSize: 12,
-    color: '#000',
+    color: ERP_COLOR_CODE.ERP_BLACK,
   },
   bottomSheet: {
     backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
@@ -111,7 +111,7 @@ export const styles = StyleSheet.create({
     gap: 8,
   },
   button: {
-    backgroundColor: '#000',
+    backgroundColor: ERP_COLOR_CODE.ERP_BLACK,
     paddingHorizontal: 16,
     paddingVertical: 10,
     borderRadius: 6,

@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
   },
   containerDark: {
     flex: 1,
-    backgroundColor: '#000',
+    backgroundColor: ERP_COLOR_CODE.ERP_BLACK,
   },
   chartContainer: {
     padding: 16,
@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 12,
-    color: '#000',
+    color: ERP_COLOR_CODE.ERP_BLACK,
   },
   header: {
     backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
     paddingVertical: 24,
     borderBottomWidth: 1,
     borderBottomColor: '#E9ECEF',
-    shadowColor: '#000',
+    shadowColor: ERP_COLOR_CODE.ERP_BLACK,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.05,
     shadowRadius: 8,
@@ -73,7 +73,7 @@ export const styles = StyleSheet.create({
     marginBottom: 16,
     backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     borderRadius: 16,
-    shadowColor: '#000',
+    shadowColor: ERP_COLOR_CODE.ERP_BLACK,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.08,
     shadowRadius: 12,

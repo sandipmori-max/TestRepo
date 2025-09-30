@@ -120,9 +120,9 @@ const ReadableView = ({
               justifyContent: 'flex-end',
             }}
           >
-            <Text style={{ fontWeight: '600', fontSize: 12, color: '#000' }}>{status}</Text>
+            <Text style={{ fontWeight: '600', fontSize: 12, color: ERP_COLOR_CODE.ERP_BLACK }}>{status}</Text>
             {!!date && (
-              <Text style={{ fontWeight: '800', fontSize: 12, color: '#000' }}>
+              <Text style={{ fontWeight: '800', fontSize: 12, color: ERP_COLOR_CODE.ERP_BLACK }}>
                 {formatDateToDDMMMYYYY(date)}
               </Text>
             )}

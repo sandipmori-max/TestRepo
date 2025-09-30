@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   priorityChip: {
     borderRadius: 8,
   },
-  priorityText: { color: '#000', fontSize: 12, fontWeight: '400' },
+  priorityText: { color: ERP_COLOR_CODE.ERP_BLACK, fontSize: 12, fontWeight: '400' },
   assigned: { fontSize: 12, color: '#444' },
   statusBadge: {
     alignSelf: 'flex-start',

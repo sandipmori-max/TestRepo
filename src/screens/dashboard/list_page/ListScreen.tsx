@@ -47,7 +47,7 @@ const ListScreen = () => {
     message: '',
     type: 'info' as 'error' | 'success' | 'info',
     actionValue: '',
-    color: '#000',
+    color: ERP_COLOR_CODE.ERP_BLACK,
     id: 0,
   });
 

@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { ERPTextInputProps } from './type';
 import { styles } from './input_style';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
+import { ERP_COLOR_CODE } from '../../utils/constants';
 
 const ERPTextInput: React.FC<ERPTextInputProps> = ({
   label,
@@ -44,7 +45,7 @@ const ERPTextInput: React.FC<ERPTextInputProps> = ({
           >
             <MaterialIcons
               name={!showPassword ? 'visibility-off' : 'visibility'}
-              color={'#000'}
+              color={ERP_COLOR_CODE.ERP_BLACK}
               size={20}
             />
           </TouchableOpacity>

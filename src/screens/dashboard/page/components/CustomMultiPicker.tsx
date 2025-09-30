@@ -91,7 +91,7 @@ const CustomMultiPicker = ({ label, selectedValue, onValueChange, item, errors, 
         }}
         activeOpacity={0.7}
       >
-        <Text style={{ color: selectedOptions.length ? '#000' : '#888', flex: 1 }}>
+        <Text style={{ color: selectedOptions.length ? ERP_COLOR_CODE.ERP_BLACK : '#888', flex: 1 }}>
           {selectedOptions.length ? selectedOptions.join(', ') : `Select ${label}`}
         </Text>
         <MaterialIcons name={open ? 'arrow-drop-up' : 'arrow-drop-down'} size={24} color="#555" />

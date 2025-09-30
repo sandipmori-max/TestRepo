@@ -226,7 +226,7 @@ const SettingsScreen = () => {
     >
       <View style={styles.settingHeader}>
         <View style={styles.settingIcon}>
-          <MaterialIcons name={item?.icon} color={'#000'} size={22} />
+          <MaterialIcons name={item?.icon} color={ERP_COLOR_CODE.ERP_BLACK} size={22} />
         </View>
         <View style={styles.settingInfo}>
           <Text style={styles.settingTitle}>{item?.title}</Text>

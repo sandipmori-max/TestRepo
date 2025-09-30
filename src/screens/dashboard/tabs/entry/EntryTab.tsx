@@ -114,7 +114,7 @@ const EntryTab = () => {
           <MaterialIcons
             size={24}
             name={bookmarks[item?.id] ? 'bookmark' : 'bookmark-outline'}
-            color={'#000'}
+            color={ERP_COLOR_CODE.ERP_BLACK}
           />
         </TouchableOpacity>
 

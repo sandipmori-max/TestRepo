@@ -152,7 +152,7 @@ const HomeScreen = () => {
                     style={[
                       styles.dashboardItemText,
                       {
-                        color: theme === 'dark' ? ERP_COLOR_CODE.ERP_WHITE : '#000',
+                        color: theme === 'dark' ? ERP_COLOR_CODE.ERP_WHITE : ERP_COLOR_CODE.ERP_BLACK,
                         flexShrink: 1,
                         includeFontPadding: false,
                         textAlignVertical: 'top',
@@ -302,7 +302,7 @@ const HomeScreen = () => {
               {dashboard?.length > 0 && (
                 <View
                   style={{
-                    borderColor: '#000',
+                    borderColor: ERP_COLOR_CODE.ERP_BLACK,
                     borderBottomWidth: 0.4,
                     flexDirection: 'row',
                     justifyContent: 'center',
@@ -329,7 +329,7 @@ const HomeScreen = () => {
                             textAlign: 'center',
                             fontSize: 16,
                             fontWeight: 'bold',
-                            color: '#000',
+                            color: ERP_COLOR_CODE.ERP_BLACK,
                           }}
                         >
                           {t('home.dashboard')}

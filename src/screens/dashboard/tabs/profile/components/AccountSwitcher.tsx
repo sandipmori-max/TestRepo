@@ -136,7 +136,7 @@ const AccountSwitcher: React.FC<AccountSwitcherProps> = ({ visible, onClose, onA
                   alignItems: 'center',
                 }}
               >
-                <MaterialIcons name={'date-range'} color={'#000'} size={18} />
+                <MaterialIcons name={'date-range'} color={ERP_COLOR_CODE.ERP_BLACK} size={18} />
                 <Text style={styles.lastLogin}> {lastLogin}</Text>
               </View>
 
@@ -148,7 +148,7 @@ const AccountSwitcher: React.FC<AccountSwitcherProps> = ({ visible, onClose, onA
                   alignItems: 'center',
                 }}
               >
-                <MaterialIcons name={'access-alarm'} color={'#000'} size={18} />
+                <MaterialIcons name={'access-alarm'} color={ERP_COLOR_CODE.ERP_BLACK} size={18} />
                 <Text style={styles.lastLogin}>{lastLoginHr}</Text>
               </View>
             </View>

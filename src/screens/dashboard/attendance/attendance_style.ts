@@ -132,7 +132,7 @@ export const styles = StyleSheet.create({
     marginBottom: 12,
   },
   formRow: { flexDirection: 'row' },
-  label: { fontSize: 14, color: '#000', fontWeight: '600', marginBottom: 6 },
+  label: { fontSize: 14, color: ERP_COLOR_CODE.ERP_BLACK, fontWeight: '600', marginBottom: 6 },
   input: {
     backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     borderWidth: 1,
@@ -212,7 +212,7 @@ export const styles = StyleSheet.create({
 
   recordDateTime: {
     fontSize: 12,
-    color: '#000',
+    color: ERP_COLOR_CODE.ERP_BLACK,
     marginTop: 2,
   },
 
