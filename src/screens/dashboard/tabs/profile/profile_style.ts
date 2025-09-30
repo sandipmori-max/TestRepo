@@ -4,11 +4,11 @@ import { ERP_COLOR_CODE } from '../../../../utils/constants';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:'#fff'
+    backgroundColor:ERP_COLOR_CODE.ERP_WHITE
   },
   scrollContainer: {
     flex: 1,
-    backgroundColor:'#fff'
+    backgroundColor:ERP_COLOR_CODE.ERP_WHITE
   },
   scrollContent: {
     paddingBottom: 20,
@@ -40,7 +40,7 @@ export const styles = StyleSheet.create({
     bottom: 2,
   },
   profileCard: {
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     margin: 16,
     padding: 16,
     borderRadius: 12,
@@ -82,7 +82,7 @@ export const styles = StyleSheet.create({
     fontWeight: '500',
   },
   sectionContainer: {
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     marginHorizontal: 16,
     marginBottom: 16,
     borderRadius: 12,
@@ -171,7 +171,7 @@ export const styles = StyleSheet.create({
   },
   editProfileText: {
     fontSize: 14,
-    color: '#fff',
+    color: ERP_COLOR_CODE.ERP_WHITE,
     fontWeight: '600',
   },
   bottomSpacing: {

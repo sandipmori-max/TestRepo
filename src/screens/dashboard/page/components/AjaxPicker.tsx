@@ -116,7 +116,7 @@ const AjaxPicker = ({ label, onValueChange, item, errors, dtext, formValues }: a
           <View
             style={{
               height: '75%',
-              backgroundColor: '#fff',
+              backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
               borderTopLeftRadius: 16,
               borderTopRightRadius: 16,
               padding: 16,

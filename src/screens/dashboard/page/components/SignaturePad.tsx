@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 12,
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
   },
   imageThumb: {
     borderColor: '#ccc',
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
   },
   bottomSheet: {
     height: Dimensions.get('window').height / 2.5,
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
     padding: 16,

@@ -17,12 +17,12 @@ export const styles = StyleSheet.create({
   back:{
     width: 24,
     height: 24,
-    tintColor: '#fff',
+    tintColor: ERP_COLOR_CODE.ERP_WHITE,
   },
   title: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#fff',
+    color: ERP_COLOR_CODE.ERP_WHITE,
   },
   closeButton: {
     paddingHorizontal: 12,
@@ -47,7 +47,7 @@ export const styles = StyleSheet.create({
   },
   activeAccount: {
     borderColor: ERP_COLOR_CODE.ERP_APP_COLOR,
-    backgroundColor: '#fff'
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE
   },
   accountContent: {
     flexDirection: 'row',
@@ -77,7 +77,7 @@ export const styles = StyleSheet.create({
     color: '#999',
   },
   activeText: {
-    color: ERP_COLOR_CODE.ERP_ACTIVE_BUTTON,
+    color: ERP_COLOR_CODE.ERP_BLACK,
   },
   activeIndicator: {
     backgroundColor: ERP_COLOR_CODE.ERP_APP_COLOR,

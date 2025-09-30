@@ -37,11 +37,11 @@ const StackNavigator = () => {
     headerStyle: {
       backgroundColor: ERP_COLOR_CODE.ERP_APP_COLOR,
     },
-    headerTintColor: '#fff',
+    headerTintColor: ERP_COLOR_CODE.ERP_WHITE,
     headerTitleStyle: {
       fontSize: 18,
       fontWeight: 'bold',
-      color: '#fff',
+      color: ERP_COLOR_CODE.ERP_WHITE,
     },
     cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     gestureEnabled: true,

@@ -180,7 +180,7 @@ const CreateTaskScreen = ({ onCreate }) => {
               style={[styles.priorityChip, priority === p && styles.priorityChipActive(p)]}
               onPress={() => setPriority(p as 'Low' | 'Medium' | 'High')}
             >
-              <Text style={[styles.priorityText, priority === p && { color: '#fff' }]}>{p}</Text>
+              <Text style={[styles.priorityText, priority === p && { color: ERP_COLOR_CODE.ERP_WHITE }]}>{p}</Text>
             </TouchableOpacity>
           ))}
         </View>
@@ -192,7 +192,7 @@ const CreateTaskScreen = ({ onCreate }) => {
 export default CreateTaskScreen;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff', padding: 16 },
+  container: { flex: 1, backgroundColor: ERP_COLOR_CODE.ERP_WHITE, padding: 16 },
 
   card: {
     borderRadius: 12,
@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.4)',
   },
   modalContent: {
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     padding: 16,
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
@@ -294,5 +294,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 10,
   },
-  createText: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
+  createText: { color: ERP_COLOR_CODE.ERP_WHITE, fontSize: 16, fontWeight: 'bold' },
 });

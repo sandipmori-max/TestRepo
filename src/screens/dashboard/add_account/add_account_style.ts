@@ -4,7 +4,7 @@ import { ERP_COLOR_CODE } from '../../../utils/constants';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: ERP_COLOR_CODE.ERP_BACKGROUND,
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
   },
 
   iconWrapper: {
@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
   back: {
     width: 24,
     height: 24,
-    tintColor: '#fff',
+    tintColor: ERP_COLOR_CODE.ERP_WHITE,
   },
   header: {
     flexDirection: 'row',
@@ -35,7 +35,7 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#fff',
+    color: ERP_COLOR_CODE.ERP_WHITE,
   },
   closeButton: {
     paddingVertical: 6,

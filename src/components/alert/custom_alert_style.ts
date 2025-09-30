@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { ERP_COLOR_CODE } from '../../utils/constants';
 
 export const styles = StyleSheet.create({
   overlay: {
@@ -24,7 +25,7 @@ export const styles = StyleSheet.create({
     color: '#000',
   },
   bottomSheet: {
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 16,
@@ -58,7 +59,7 @@ export const styles = StyleSheet.create({
     marginBottom: 6,
   },
   errorContainer: {
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
   },
   errorTitle: {
     fontSize: 18,
@@ -73,7 +74,7 @@ export const styles = StyleSheet.create({
     marginBottom: 8,
   },
   successContainer: {
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
   },
   successTitle: {
     fontSize: 18,
@@ -88,7 +89,7 @@ export const styles = StyleSheet.create({
     marginBottom: 8,
   },
   infoContainer: {
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
   },
   infoTitle: {
     fontSize: 18,
@@ -122,7 +123,7 @@ export const styles = StyleSheet.create({
     borderRadius: 6,
   },
   buttonText: {
-    color: '#fff',
+    color: ERP_COLOR_CODE.ERP_WHITE,
     fontWeight: '600',
     fontSize: 14,
   },

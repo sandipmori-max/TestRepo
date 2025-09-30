@@ -3,7 +3,7 @@ import { ERP_COLOR_CODE } from '../../../utils/constants';
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: ERP_COLOR_CODE.ERP_BACKGROUND,
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     justifyContent: 'center',
     paddingHorizontal: 20,
   },
@@ -75,7 +75,7 @@ export const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 10,
     marginBottom: 20,
-    shadowColor: ERP_COLOR_CODE.ERP_ACTIVE_BUTTON,
+    shadowColor: ERP_COLOR_CODE.ERP_BLACK,
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.6,
     marginTop: 12,

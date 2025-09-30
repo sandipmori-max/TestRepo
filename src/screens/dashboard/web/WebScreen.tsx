@@ -54,7 +54,7 @@ const WebScreen = () => {
       headerTitle: () => (
         <Text
           numberOfLines={1}
-          style={{ maxWidth: 180, fontSize: 18, fontWeight: '700', color: '#fff' }}
+          style={{ maxWidth: 180, fontSize: 18, fontWeight: '700', color: ERP_COLOR_CODE.ERP_WHITE }}
         >
           {isFromChart ? 'Dashboard' : item?.title || t('webScreen.details')}
         </Text>

@@ -132,7 +132,7 @@ const HomeScreen = () => {
       >
         <View
           style={{
-            backgroundColor: theme === 'dark' ? '#333' : '#fff',
+            backgroundColor: theme === 'dark' ? '#333' : ERP_COLOR_CODE.ERP_WHITE,
             borderRadius: 8,
           }}
         >
@@ -152,7 +152,7 @@ const HomeScreen = () => {
                     style={[
                       styles.dashboardItemText,
                       {
-                        color: theme === 'dark' ? '#fff' : '#000',
+                        color: theme === 'dark' ? ERP_COLOR_CODE.ERP_WHITE : '#000',
                         flexShrink: 1,
                         includeFontPadding: false,
                         textAlignVertical: 'top',
@@ -322,7 +322,7 @@ const HomeScreen = () => {
                       textColor="#000"
                       showValuesAsLabels
                       labelPosition="outside"
-                      innerCircleColor="#fff"
+                      innerCircleColor={ERP_COLOR_CODE.ERP_WHITE}
                       centerLabelComponent={() => (
                         <Text
                           style={{

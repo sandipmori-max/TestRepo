@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import { WebView } from 'react-native-webview';
 import FullViewLoader from '../../../components/loader/FullViewLoader';
+import { ERP_COLOR_CODE } from '../../../utils/constants';
 
 const PrivacyPolicyScreen = () => {
   return (
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#fff', 
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE, 
   },
 });
 

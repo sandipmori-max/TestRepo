@@ -91,7 +91,7 @@ const TaskListScreen = ({ tasks, onSelectTask, showPicker, showFilter }) => {
                         ]}
                         onPress={() => setStatus(s)}
                       >
-                        <Text style={[styles.chipText, status === s && { color: '#fff' }]}>
+                        <Text style={[styles.chipText, status === s && { color: ERP_COLOR_CODE.ERP_WHITE }]}>
                           {s}
                         </Text>
                       </TouchableOpacity>
@@ -111,7 +111,7 @@ const TaskListScreen = ({ tasks, onSelectTask, showPicker, showFilter }) => {
                       ]}
                       onPress={() => setPriority(p)}
                     >
-                      <Text style={[styles.chipText, priority === p && { color: '#fff' }]}>
+                      <Text style={[styles.chipText, priority === p && { color: ERP_COLOR_CODE.ERP_WHITE }]}>
                         {p}
                       </Text>
                     </TouchableOpacity>
@@ -162,9 +162,9 @@ const TaskListScreen = ({ tasks, onSelectTask, showPicker, showFilter }) => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff' },
+  container: { flex: 1, backgroundColor: ERP_COLOR_CODE.ERP_WHITE },
   filterCard: {
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     margin: 10,
   },
   searchInput: {

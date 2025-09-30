@@ -1,8 +1,8 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import {  StyleSheet } from 'react-native';
 import { ERP_COLOR_CODE } from '../../../utils/constants';
 
 export const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff' },
+  container: { flex: 1, backgroundColor: ERP_COLOR_CODE.ERP_WHITE },
   backBtn: { marginRight: 8 },
   backIcon: { fontSize: 20, color: '#222' },
   dateContainer: {
@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginHorizontal: 16,
     marginVertical: 8,
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
   },
   dateRow: {
     flex: 1,
@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
     color: '#1A1A1A',
    },
   dateButton: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     paddingHorizontal: 12,
     paddingVertical: 10,
     borderRadius: 8,
@@ -47,7 +47,7 @@ export const styles = StyleSheet.create({
     zIndex: 1000,
   },
   datePickerContent: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     borderRadius: 16,
     padding: 20,
     width: '90%',
@@ -84,7 +84,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: 16,
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     borderBottomWidth: 1,
     borderBottomColor: '#e0e0e0',
   },
@@ -93,7 +93,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
   },
   recordPunchTime: {
     fontSize: 14,
@@ -108,7 +108,7 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
   profileCard: {
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
   },
   profileRow: {
     flexDirection: 'row',
@@ -134,7 +134,7 @@ export const styles = StyleSheet.create({
   formRow: { flexDirection: 'row' },
   label: { fontSize: 14, color: '#000', fontWeight: '600', marginBottom: 6 },
   input: {
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     borderWidth: 1,
     borderColor: '#e0e0e0',
     borderRadius: 8,
@@ -158,7 +158,7 @@ export const styles = StyleSheet.create({
   },
   statusText: {
     textAlign: 'center',
-    color: '#fff',
+    color: ERP_COLOR_CODE.ERP_WHITE,
     fontWeight: '600',
     fontSize: 16,
   },
@@ -185,7 +185,7 @@ export const styles = StyleSheet.create({
   recordCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     borderRadius: 8,
     padding: 12,
     marginBottom: 10,
@@ -225,7 +225,7 @@ export const styles = StyleSheet.create({
   }),
 
   statusBadgeText: {
-    color: '#fff',
+    color: ERP_COLOR_CODE.ERP_WHITE,
     fontSize: 12,
     fontWeight: '600',
     textTransform: 'capitalize',
@@ -236,7 +236,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#696969ff',
     fontWeight: 'bold',
     fontSize: 16,
-    color: '#fff',
+    color: ERP_COLOR_CODE.ERP_WHITE,
     marginBottom: 10,
   },
 });

@@ -239,7 +239,7 @@ const SettingsScreen = () => {
               handleToggle(item.id);
             }}
             trackColor={{ false: '#e0e0e0', true: '#4CAF50' }}
-            thumbColor={item.value ? '#fff' : '#f4f3f4'}
+            thumbColor={item.value ? ERP_COLOR_CODE.ERP_WHITE : '#f4f3f4'}
           />
         ) : (
           <>{item?.title !== t('settings.aboutApp') && <Text style={styles.arrowIcon}>›</Text>}</>
@@ -432,7 +432,7 @@ const languageStyles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   modalContent: {
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 20,

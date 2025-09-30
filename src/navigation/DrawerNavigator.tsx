@@ -31,7 +31,7 @@ const DrawerNavigator = () => {
           headerStyle: {
             backgroundColor: theme === 'dark' ? '#000' : ERP_COLOR_CODE.ERP_APP_COLOR,
           },
-          headerTintColor: '#fff',
+          headerTintColor: ERP_COLOR_CODE.ERP_WHITE,
           title: t('navigation.home'),
         }}
         component={TabNavigator}

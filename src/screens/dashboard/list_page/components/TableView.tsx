@@ -4,6 +4,7 @@ import { styles } from '../list_page_style';
 import { formatHeaderTitle } from '../../../../utils/helpers';
 import NoData from '../../../../components/no_data/NoData';
 import { useNavigation } from '@react-navigation/native';
+import { ERP_COLOR_CODE } from '../../../../utils/constants';
 
 const TableView = ({
   configData,
@@ -96,7 +97,7 @@ const TableView = ({
 
   const renderItem = ({ item, index }: { item: any; index: number }) => {
     const isEven = index % 2 === 0;
-    const rowBackgroundColor = isEven ? '#ffffff' : '#f8faf3ff';
+    const rowBackgroundColor = isEven ? ERP_COLOR_CODE.ERP_WHITE : '#f8faf3ff';
     const authUser = item?.authuser;
 
     const btnKeys = Object.keys(item).filter(key => key.startsWith('btn_'));
@@ -180,7 +181,7 @@ const TableView = ({
                       handleActionButtonPressed(actionValue, label, color, item?.id);
                     }}
                   >
-                    <Text style={{ color: '#fff', fontWeight: '600', fontSize: 13 }}>{label}</Text>
+                    <Text style={{ color: ERP_COLOR_CODE.ERP_WHITE, fontWeight: '600', fontSize: 13 }}>{label}</Text>
                   </TouchableOpacity>
                 );
               })}
@@ -198,7 +199,7 @@ const TableView = ({
             flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: '#fff',
+            backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
           }}
         >
           <NoData />

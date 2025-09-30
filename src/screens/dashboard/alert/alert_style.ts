@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { ERP_COLOR_CODE } from '../../../utils/constants';
 
 export const styles = StyleSheet.create({
   container: {
@@ -17,7 +18,7 @@ export const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   card: {
-    backgroundColor: '#ffffff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     borderRadius: 8,
     padding: 16,
     marginBottom: 12,
@@ -66,7 +67,7 @@ export const styles = StyleSheet.create({
     marginRight: 12,
   },
   avatarText: {
-    color: '#fff',
+    color: ERP_COLOR_CODE.ERP_WHITE,
     fontSize: 14,
     fontWeight: 'bold',
   },

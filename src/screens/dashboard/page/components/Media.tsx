@@ -6,7 +6,6 @@ import {
   Dimensions,
   Text,
   TouchableOpacity,
-  Alert,
   Platform,
   Modal,
   StyleSheet,
@@ -16,15 +15,15 @@ import {
   AppState,
 } from 'react-native';
 import { launchCamera, launchImageLibrary, Asset } from 'react-native-image-picker';
-import { check, request, PERMISSIONS, RESULTS, openSettings } from 'react-native-permissions';
+import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 import CustomAlert from '../../../../components/alert/CustomAlert';
+import { ERP_COLOR_CODE } from '../../../../utils/constants';
 
 const Media = ({ item, handleAttachment, infoData, baseLink, isFromNew }: any) => {
   const [imageUri, setImageUri] = useState<string | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [pickerModalVisible, setPickerModalVisible] = useState(false);
   const [modalClose, setModalClose] = useState(false);
-
   const [loadingSmall, setLoadingSmall] = useState(false);
   const [loadingLarge, setLoadingLarge] = useState(false);
   const [cacheBuster, setCacheBuster] = useState(Date.now());
@@ -58,14 +57,23 @@ const Media = ({ item, handleAttachment, infoData, baseLink, isFromNew }: any) =
   // -------------------- Permissions --------------------
   const requestPermission = async (type: 'camera' | 'gallery'): Promise<boolean> => {
     try {
-      const permission =
-        type === 'camera'
-          ? Platform.OS === 'ios'
-            ? PERMISSIONS.IOS.CAMERA
-            : PERMISSIONS.ANDROID.CAMERA
-          : Platform.OS === 'ios'
-          ? PERMISSIONS.IOS.PHOTO_LIBRARY
-          : PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE;
+      let permission;
+
+      if (type === 'camera') {
+        permission = Platform.OS === 'ios' ? PERMISSIONS.IOS.CAMERA : PERMISSIONS.ANDROID.CAMERA;
+      } else {
+        // Gallery / Photos
+        if (Platform.OS === 'ios') {
+          permission = PERMISSIONS.IOS.PHOTO_LIBRARY;
+        } else {
+          // Android 13+
+          if (Platform.Version >= 33) {
+            permission = PERMISSIONS.ANDROID.READ_MEDIA_IMAGES;
+          } else {
+            permission = PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE;
+          }
+        }
+      }
 
       let result = await check(permission);
 
@@ -79,9 +87,7 @@ const Media = ({ item, handleAttachment, infoData, baseLink, isFromNew }: any) =
       if (result === RESULTS.BLOCKED || result === RESULTS.DENIED) {
         setAlertConfig({
           title: `${type === 'camera' ? 'Camera' : 'Gallery'} Permission Required`,
-          message: `Please enable ${
-            type === 'camera' ? 'camera' : 'gallery'
-          } access from Settings to continue.`,
+          message: `Please enable ${type === 'camera' ? 'camera' : 'gallery'} access from Settings to continue.`,
           type: 'error',
         });
         setModalClose(true);
@@ -89,7 +95,6 @@ const Media = ({ item, handleAttachment, infoData, baseLink, isFromNew }: any) =
         setAlertVisible(true);
 
         if (type === 'camera') pendingCameraAction.current = true; // Track if camera was pending
-
         return false;
       }
 
@@ -100,12 +105,9 @@ const Media = ({ item, handleAttachment, infoData, baseLink, isFromNew }: any) =
     }
   };
 
-  // -------------------- AppState listener for settings resume --------------------
+  // -------------------- AppState listener --------------------
   useEffect(() => {
     const subscription = AppState.addEventListener('change', async nextAppState => {
-      // if(!alertVisible){
-      //   return
-      // }
       if (
         appState.current.match(/inactive|background/) &&
         nextAppState === 'active' &&
@@ -188,6 +190,7 @@ const Media = ({ item, handleAttachment, infoData, baseLink, isFromNew }: any) =
           onPress: async () => {
             const granted = await requestPermission('gallery');
             if (!granted) return;
+
             launchImageLibrary(
               { mediaType: 'photo', quality: 0.8, includeBase64: true },
               response => {
@@ -206,13 +209,13 @@ const Media = ({ item, handleAttachment, infoData, baseLink, isFromNew }: any) =
         },
       ];
     }
+    return [];
   };
 
   const handleChooseImage = () => {
     setPickerModalVisible(true);
   };
-
-  // -------------------- PanResponder & Zoom --------------------
+   // -------------------- PanResponder & Zoom --------------------
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
@@ -308,11 +311,11 @@ const Media = ({ item, handleAttachment, infoData, baseLink, isFromNew }: any) =
                 setModalVisible(false);
               }}
             >
-              <MaterialIcons name="close" size={30} color="#fff" />
+              <MaterialIcons name="close" size={30} color={ERP_COLOR_CODE.ERP_WHITE} />
             </TouchableOpacity>
 
             {loadingLarge && (
-              <ActivityIndicator style={StyleSheet.absoluteFill} size="large" color="#fff" />
+              <ActivityIndicator style={StyleSheet.absoluteFill} size="large" color={ERP_COLOR_CODE.ERP_WHITE} />
             )}
 
             <Animated.View
@@ -414,7 +417,7 @@ const styles = StyleSheet.create({
     height: 36,
     width: 36,
     borderRadius: 36,
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     position: 'absolute',
     bottom: 28,
     justifyContent: 'center',
@@ -429,7 +432,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)',
   },
   modalContent: {
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
     padding: 20,
@@ -500,7 +503,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     justifyContent: 'center',
     alignItems: 'center',
   },

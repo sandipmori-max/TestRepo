@@ -1,16 +1,17 @@
 import { StyleSheet } from 'react-native';
+import { ERP_COLOR_CODE } from '../../../utils/constants';
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: 16,
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     borderBottomWidth: 1,
     borderBottomColor: '#e0e0e0',
   },
@@ -27,7 +28,7 @@ export const styles = StyleSheet.create({
     color: '#222',
   },
   profileCard: {
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     margin: 16,
     padding: 16,
     borderRadius: 12,
@@ -79,11 +80,11 @@ export const styles = StyleSheet.create({
   },
   editProfileText: {
     fontSize: 14,
-    color: '#fff',
+    color: ERP_COLOR_CODE.ERP_WHITE,
     fontWeight: '600',
   },
   sectionContainer: {
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     marginHorizontal: 16,
     marginVertical: 8,
     borderRadius: 12,

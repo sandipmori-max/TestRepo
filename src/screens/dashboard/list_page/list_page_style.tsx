@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
     borderRadius: 50,
   },
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     borderRadius: 10,
     padding: 16,
     marginVertical: 8,
@@ -41,7 +41,7 @@ export const styles = StyleSheet.create({
     borderRadius: 20,
   },
   statusText: {
-    color: '#fff',
+    color: ERP_COLOR_CODE.ERP_WHITE,
     fontWeight: '600',
     fontSize: 12,
   },
@@ -92,7 +92,7 @@ export const styles = StyleSheet.create({
     fontWeight: '600',
   },
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     borderRadius: 12,
     padding: 16,
     marginHorizontal: 16,
@@ -132,7 +132,7 @@ export const styles = StyleSheet.create({
   },
 
   statusText: {
-    color: '#fff',
+    color: ERP_COLOR_CODE.ERP_WHITE,
     fontSize: 12,
     fontWeight: '600',
   },
@@ -189,7 +189,7 @@ export const styles = StyleSheet.create({
   },
 
   actionBtnText: {
-    color: '#fff',
+    color: ERP_COLOR_CODE.ERP_WHITE,
     fontSize: 13,
     fontWeight: '600',
   },
@@ -226,7 +226,7 @@ export const styles = StyleSheet.create({
   searchInputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 8,
@@ -269,7 +269,7 @@ export const styles = StyleSheet.create({
     color: '#1A1A1A',
    },
   dateButton: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     paddingHorizontal: 12,
     paddingVertical: 10,
     borderRadius: 8,
@@ -294,7 +294,7 @@ export const styles = StyleSheet.create({
     zIndex: 1000,
   },
   datePickerContent: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     borderRadius: 16,
     padding: 20,
     width: '90%',
@@ -334,7 +334,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   cancelButtonText: {
-    color: '#FFFFFF',
+    color: ERP_COLOR_CODE.ERP_WHITE,
     fontSize: 16,
     fontWeight: '600',
   },
@@ -366,7 +366,7 @@ export const styles = StyleSheet.create({
   },
 
   card: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     borderRadius: 12,
     padding: 12,
     marginBottom: 12,
@@ -390,7 +390,7 @@ export const styles = StyleSheet.create({
     marginRight: 10,
   },
   leadIconText: {
-    color: '#FFFFFF',
+    color: ERP_COLOR_CODE.ERP_WHITE,
     fontWeight: '700',
     fontSize: 12,
   },
@@ -491,7 +491,7 @@ export const styles = StyleSheet.create({
     justifyContent:'center'
   },
   addButtonText: {
-    color: '#fff',
+    color: ERP_COLOR_CODE.ERP_WHITE,
     fontSize: 18,
     fontWeight: 'bold',
   },

@@ -10,6 +10,7 @@ import {
   ScrollView,
   StyleSheet,
 } from 'react-native';
+import { ERP_COLOR_CODE } from '../../../utils/constants';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -167,7 +168,7 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     height: SCREEN_HEIGHT * 0.52,
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
     padding: 16,
@@ -176,13 +177,13 @@ const styles = StyleSheet.create({
   title: { fontSize: 20, fontWeight: '700', color: '#333' },
   row: { flexDirection: 'row', alignItems: 'center', marginBottom: 10 },
   badge: { paddingVertical: 4, paddingHorizontal: 12, borderRadius: 8, marginRight: 10 },
-  badgeText: { color: '#fff', fontSize: 13, fontWeight: '600' },
+  badgeText: { color: ERP_COLOR_CODE.ERP_WHITE, fontSize: 13, fontWeight: '600' },
   desc: { fontSize: 16, color: '#555', marginBottom: 12 },
   dateText: { fontSize: 14, color: '#555', marginLeft: 6 },
   assignedText: { fontSize: 14, color: '#555', marginLeft: 6 },
   actions: { marginTop: 20 },
   button: { paddingVertical: 12, borderRadius: 10, marginBottom: 12, alignItems: 'center' },
-  buttonText: { color: '#fff', fontWeight: '700', fontSize: 15 },
+  buttonText: { color: ERP_COLOR_CODE.ERP_WHITE, fontWeight: '700', fontSize: 15 },
 });
 
 export default TaskDetailsBottomSheet;

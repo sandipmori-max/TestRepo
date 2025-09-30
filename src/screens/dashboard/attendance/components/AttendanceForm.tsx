@@ -234,7 +234,7 @@ const AttendanceForm = ({ setBlockAction, resData }: any) => {
                       },
                     ]}
                   >
-                    <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 26 }}>
+                    <Text style={{ color: ERP_COLOR_CODE.ERP_WHITE, fontWeight: 'bold', fontSize: 26 }}>
                       {user?.name ? user?.name.substring(0, 2).toUpperCase() : ''}
                     </Text>
                   </View>

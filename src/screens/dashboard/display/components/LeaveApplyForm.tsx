@@ -263,7 +263,7 @@ const LeaveApplyForm = () => {
                     >
                       <MaterialIcons
                         name={'data-saver-on'}
-                        color={touched.days && errors.days ? '#fff' : '#747070ff'}
+                        color={touched.days && errors.days ? ERP_COLOR_CODE.ERP_WHITE : '#747070ff'}
                         size={24}
                       />
                     </TouchableOpacity>
@@ -328,7 +328,7 @@ const LeaveApplyForm = () => {
                   )}
                 </View>
 
-                <View style={{ marginVertical: 12, backgroundColor: '#fff', borderRadius: 8 }}>
+                <View style={{ marginVertical: 12, backgroundColor: ERP_COLOR_CODE.ERP_WHITE, borderRadius: 8 }}>
                   <Text style={{ fontWeight: '600' }}>Preview (with Sandwich Rule):</Text>
                   <Text style={{ marginTop: 4 }}>Total Days Counted: {previewTotal}</Text>
                   {autoCounted.length > 0 && (

@@ -127,7 +127,7 @@ const FilePickerRow = ({ item, handleAttachment }) => {
         ))}
         {selectedFiles.length === 0 && (
           <TouchableOpacity style={styles.addBtn} onPress={openFilePicker}>
-            <MaterialIcons name="add" size={20} color="#fff" />
+            <MaterialIcons name="add" size={20} color={ERP_COLOR_CODE.ERP_WHITE} />
             <Text style={[styles.btnText, { marginLeft: 4 }]}>Select File</Text>
           </TouchableOpacity>
         )}
@@ -141,7 +141,7 @@ export default FilePickerRow;
 const styles = StyleSheet.create({
   container: {
     borderRadius: 8,
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
   },
   label: {
     fontSize: 16,
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   btnText: {
-    color: '#fff',
+    color: ERP_COLOR_CODE.ERP_WHITE,
     fontWeight: '600',
   },
 });

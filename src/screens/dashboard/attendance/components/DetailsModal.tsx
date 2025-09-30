@@ -11,6 +11,7 @@ import {
 import { formatTo12Hour, getWorkedHours2 } from '../../../../utils/helpers';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
 import FastImage from 'react-native-fast-image';
+import { ERP_COLOR_CODE } from '../../../../utils/constants';
 
 const { height } = Dimensions.get('screen');
 
@@ -31,7 +32,7 @@ const DetailsBottomSheet = ({ visible, onClose, item, baseLink }: any) => {
         <Animated.View
           style={{
             height: height * 0.65,
-            backgroundColor: '#fff',
+            backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
             borderTopLeftRadius: 20,
             borderTopRightRadius: 20,
             padding: 16,
@@ -53,7 +54,7 @@ const DetailsBottomSheet = ({ visible, onClose, item, baseLink }: any) => {
                       height: 80,
                       borderRadius: 40,
                       borderWidth: 2,
-                      borderColor: '#fff',
+                      borderColor: ERP_COLOR_CODE.ERP_WHITE,
                       backgroundColor: '#eee',
                     }}
                   />
@@ -66,7 +67,7 @@ const DetailsBottomSheet = ({ visible, onClose, item, baseLink }: any) => {
                       height: 80,
                       borderRadius: 40,
                       borderWidth: 2,
-                      borderColor: '#fff',
+                      borderColor: ERP_COLOR_CODE.ERP_WHITE,
                       backgroundColor: '#eee',
                       marginLeft: -20,
                     }}

@@ -57,7 +57,7 @@ const ReadableView = ({
     return (
       <View
         style={{
-          backgroundColor: '#fff',
+          backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
           borderRadius: 8,
           paddingHorizontal: 8,
           paddingBottom: 6,
@@ -99,7 +99,7 @@ const ReadableView = ({
             {item?.image && item?.image !== '' ? (
               <Image source={{ uri: baseUrl }} style={styles.profileImage} />
             ) : (
-              <Text style={{ color: '#fff', fontWeight: '400', fontSize: 16 }}>{avatarLetter}</Text>
+              <Text style={{ color: ERP_COLOR_CODE.ERP_WHITE, fontWeight: '400', fontSize: 16 }}>{avatarLetter}</Text>
             )}
           </View>
 
@@ -247,7 +247,7 @@ navigation.navigate('Page', {
                     handleActionButtonPressed(actionValue, label, color, item?.id);
                   }}
                 >
-                  <Text style={{ color: '#fff', fontWeight: '600', fontSize: 12 }}>{label}</Text>
+                  <Text style={{ color: ERP_COLOR_CODE.ERP_WHITE, fontWeight: '600', fontSize: 12 }}>{label}</Text>
                 </TouchableOpacity>
               );
             })}
@@ -265,7 +265,7 @@ navigation.navigate('Page', {
             flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: '#fff',
+            backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
           }}
         >
           <NoData />

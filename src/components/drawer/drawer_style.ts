@@ -14,25 +14,25 @@ export const styles = StyleSheet.create({
     height: 80,
     borderRadius: 40,
     marginBottom: 10,
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     borderWidth: 2,
     top: -40,
     position:'absolute',
-    borderColor: '#fff'
+    borderColor: ERP_COLOR_CODE.ERP_WHITE
   },
   username: {
-    color: '#fff',
+    color: ERP_COLOR_CODE.ERP_WHITE,
     fontSize: 18,
     fontWeight: 'bold',
   },
 
   userPhone: {
-    color: '#fff',
+    color: ERP_COLOR_CODE.ERP_WHITE,
     fontSize: 12,
     marginLeft: 6,
   },
   emailid:{
-    color: '#fff',
+    color: ERP_COLOR_CODE.ERP_WHITE,
   },
   menuContainer: {
     flex: 1,

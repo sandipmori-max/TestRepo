@@ -30,6 +30,7 @@ import DateTimeRow from './components/DateTimeRow';
 import LocationRow from './components/LocationRow';
 import FilePickerRow from './components/FilePicker';
 import CustomMultiPicker from './components/CustomMultiPicker';
+import { ERP_COLOR_CODE } from '../../../utils/constants';
 
 type PageRouteParams = { PageScreen: { item: any } };
 
@@ -98,7 +99,7 @@ const PageScreen = () => {
       headerTitle: () => (
         <Text
           numberOfLines={1}
-          style={{ maxWidth: isFromNew ? 280 : 180, fontSize: 18, fontWeight: '700', color: '#fff' }}
+          style={{ maxWidth: isFromNew ? 280 : 180, fontSize: 18, fontWeight: '700', color: ERP_COLOR_CODE.ERP_WHITE }}
         >
           {isFromNew ? `${pageTitle} ( New ) ` : title + ' ( Edit )' || 'Details'}
         </Text>
@@ -428,11 +429,11 @@ const PageScreen = () => {
   }, []);
 
   return (
-    <View style={{ flex: 1, padding: 16, backgroundColor: '#fff' }}>
+    <View style={{ flex: 1, padding: 16, backgroundColor: ERP_COLOR_CODE.ERP_WHITE }}>
       {loadingPageId ? (
         <FullViewLoader />
       ) : !!error ? (
-       <View style={{flex: 1, justifyContent:'center', alignContent:'center', backgroundColor:'#fff'}}>
+       <View style={{flex: 1, justifyContent:'center', alignContent:'center', backgroundColor:ERP_COLOR_CODE.ERP_WHITE}}>
          <ErrorMessage message={error} />
         </View>
       ) : controls?.length > 0 ? (

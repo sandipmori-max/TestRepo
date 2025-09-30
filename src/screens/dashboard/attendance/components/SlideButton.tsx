@@ -88,7 +88,7 @@ const SlideButton: React.FC<SlideButtonProps> = ({
           ]}
         >
           {loading ? (
-            <ActivityIndicator color="#fff" />
+            <ActivityIndicator color={ERP_COLOR_CODE.ERP_WHITE} />
           ) : (
             <MaterialIcons
               name={completed ? 'task-alt' : 'keyboard-double-arrow-right'}

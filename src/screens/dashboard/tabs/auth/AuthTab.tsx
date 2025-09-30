@@ -15,6 +15,7 @@ import {
 } from '../../../../utils/sqlite';
 import ErrorMessage from '../../../../components/error/Error';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
+import { ERP_COLOR_CODE } from '../../../../utils/constants';
 
 const accentColors = ['#dbe0f5ff', '#c8f3edff', '#faf1e0ff', '#f0e1e1ff', '#f2e3f8ff', '#e0f3edff'];
 
@@ -111,7 +112,7 @@ const EntryTab = () => {
           />
         </TouchableOpacity>
 
-        <View style={[styles.iconContainer, { backgroundColor: '#fff' }]}>
+        <View style={[styles.iconContainer, { backgroundColor: ERP_COLOR_CODE.ERP_WHITE }]}>
           <Text style={styles.iconText}>
             {item?.icon && item?.icon !== ''
               ? item.icon
@@ -179,7 +180,7 @@ const EntryTab = () => {
             flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: '#fff',
+            backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
           }}
         >
           <NoData />
@@ -191,7 +192,7 @@ const EntryTab = () => {
     <View
       style={{
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
       }}
     >
       <FlatList

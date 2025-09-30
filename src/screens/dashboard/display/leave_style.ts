@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f8f9fa' },
 
   profileCard: {
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     borderRadius: 8,
     },
 
@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
   },
 
   input: {
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     borderWidth: 1,
     borderColor: '#ddd',
     borderRadius: 10,
@@ -45,7 +45,7 @@ export const styles = StyleSheet.create({
 
   statusText: {
     textAlign: 'center',
-    color: '#fff',
+    color: ERP_COLOR_CODE.ERP_WHITE,
     fontWeight: '600',
     fontSize: 16,
   },
@@ -71,7 +71,7 @@ export const styles = StyleSheet.create({
   },
 
   optionTextSelected: {
-    color: '#fff',
+    color: ERP_COLOR_CODE.ERP_WHITE,
   },
 
   errorText: {
@@ -102,7 +102,7 @@ export const styles = StyleSheet.create({
   },
 
   submitText: {
-    color: '#fff',
+    color: ERP_COLOR_CODE.ERP_WHITE,
     fontSize: 16,
     fontWeight: '600',
   },

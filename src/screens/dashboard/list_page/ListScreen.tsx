@@ -16,6 +16,7 @@ import ERPIcon from '../../../components/icon/ERPIcon';
 import CustomAlert from '../../../components/alert/CustomAlert';
 import { handlePageActionThunk } from '../../../store/slices/page/thunk';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
+import { ERP_COLOR_CODE } from '../../../utils/constants';
 
 const ListScreen = () => {
   const navigation = useNavigation();
@@ -29,7 +30,7 @@ const ListScreen = () => {
   const [loadingListId, setLoadingListId] = useState<string | null>(null);
   const [listData, setListData] = useState<any[]>([]);
   const [configData, setConfigData] = useState<any[]>([]);
-
+ 
   const [error, setError] = useState<string | null>(null);
 
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -78,7 +79,7 @@ const ListScreen = () => {
       headerTitle: () => (
               <Text
                 numberOfLines={1}
-                style={{ maxWidth: 180, fontSize: 18, fontWeight: '700', color: '#fff' }}
+                style={{ maxWidth: 180, fontSize: 18, fontWeight: '700', color: ERP_COLOR_CODE.ERP_WHITE }}
               >
                 {pageTitle || 'List Data'}
               </Text>
@@ -229,6 +230,9 @@ const ListScreen = () => {
   const fetchListData = useCallback(
     async (fromDateStr: string, toDateStr: string) => {
       console.log("🚀 ~ fromDateStr:", fromDateStr)
+      if(isFilterVisible){
+        return;
+      }
       try {
         setError(null);
         setLoadingListId(item?.id || 0);
@@ -276,7 +280,7 @@ const ListScreen = () => {
         }, 10);
       }
     },
-    [item, dispatch],
+    [item, dispatch, isFilterVisible],
   );
 
   useEffect(() => {
@@ -322,7 +326,7 @@ const ListScreen = () => {
 
   if (parsedError) {
     return (
-      <View style={{ flex: 1, backgroundColor: '#fff' }}>
+      <View style={{ flex: 1, backgroundColor: ERP_COLOR_CODE.ERP_WHITE }}>
         <ErrorMessage message={parsedError} />
       </View>
     );
@@ -445,7 +449,7 @@ const ListScreen = () => {
             handleItemPressed({}, pageParamsName, pageTitle);
           }}
         >
-          <MaterialIcons size={32} name="add" color={'#fff'} />
+          <MaterialIcons size={32} name="add" color={ERP_COLOR_CODE.ERP_WHITE} />
         </TouchableOpacity>
       )}
 

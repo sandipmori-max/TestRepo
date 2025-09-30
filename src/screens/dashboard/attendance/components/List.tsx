@@ -45,7 +45,7 @@ const FILTERS = [
 
 const styles = StyleSheet.create({
   recordCard: {
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     borderRadius: 4,
     padding: 8,
     marginVertical: 6,
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   recordPunchTime: { fontSize: 14, color: '#333' },
   statusBadgeRed: {
     backgroundColor: ERP_COLOR_CODE.ERP_ERROR,
-    color: '#fff',
+    color: ERP_COLOR_CODE.ERP_WHITE,
     paddingHorizontal: 8,
     paddingVertical: 2,
     borderRadius: 4,
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   },
   statusBadgeBlue: {
     backgroundColor: '#a6bfc9ff',
-    color: '#fff',
+    color: ERP_COLOR_CODE.ERP_WHITE,
     paddingHorizontal: 8,
     paddingVertical: 2,
     borderRadius: 4,
@@ -232,7 +232,7 @@ const List = ({ selectedMonth, showFilter, fromDate, toDate }: any) => {
         selectedColor: color,
         customStyles: {
           container: { backgroundColor: color, borderRadius: 6 },
-          text: { color: '#fff', fontWeight: '600' },
+          text: { color: ERP_COLOR_CODE.ERP_WHITE, fontWeight: '600' },
         },
       };
 
@@ -250,7 +250,7 @@ const List = ({ selectedMonth, showFilter, fromDate, toDate }: any) => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#fff' }}>
+    <View style={{ flex: 1, backgroundColor: ERP_COLOR_CODE.ERP_WHITE }}>
       {showFilter && (
         <ScrollView
           horizontal
@@ -266,12 +266,12 @@ const List = ({ selectedMonth, showFilter, fromDate, toDate }: any) => {
               style={[
                 { paddingVertical: 6, paddingHorizontal: 14, borderRadius: 4, borderWidth: 1 },
                 activeFilter === filter.key
-                  ? { backgroundColor: ERP_COLOR_CODE.ERP_APP_COLOR, borderColor: '#fff' }
-                  : { backgroundColor: '#fff', borderColor: '#ccc' },
+                  ? { backgroundColor: ERP_COLOR_CODE.ERP_APP_COLOR, borderColor: ERP_COLOR_CODE.ERP_WHITE }
+                  : { backgroundColor: ERP_COLOR_CODE.ERP_WHITE, borderColor: '#ccc' },
               ]}
             >
               <Text
-                style={{ color: activeFilter === filter.key ? '#fff' : '#000', fontWeight: '600' }}
+                style={{ color: activeFilter === filter.key ? ERP_COLOR_CODE.ERP_WHITE : '#000', fontWeight: '600' }}
               >
                 {filter.label}
               </Text>
@@ -507,7 +507,7 @@ const List = ({ selectedMonth, showFilter, fromDate, toDate }: any) => {
                                         source={{ uri: baseLink + '/' + rec?.image2 }}
                                         style={[
                                           styles.recordAvatar,
-                                          { marginLeft: -32, borderWidth: 2, borderColor: '#fff' },
+                                          { marginLeft: -32, borderWidth: 2, borderColor: ERP_COLOR_CODE.ERP_WHITE },
                                         ]}
                                       />
                                     )}

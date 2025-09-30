@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native';
+import { ERP_COLOR_CODE } from '../../utils/constants';
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 24,
@@ -40,7 +41,7 @@ export const styles = StyleSheet.create({
     elevation: 3,
   },
   buttonText: {
-    color: '#FFFFFF',
+    color: ERP_COLOR_CODE.ERP_WHITE,
     fontSize: 16,
     fontWeight: '600',
   },

@@ -178,7 +178,7 @@ const PinSetupScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     paddingTop: 32,
     alignItems: 'center',
   },

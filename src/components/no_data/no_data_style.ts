@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
+import { ERP_COLOR_CODE } from '../../utils/constants';
 
 const { width } = Dimensions.get('window');
 
@@ -7,7 +8,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor:'#fff'
+    backgroundColor:ERP_COLOR_CODE.ERP_WHITE
   },
   image: {
     width: width * 0.6,

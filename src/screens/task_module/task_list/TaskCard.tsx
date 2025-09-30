@@ -1,6 +1,7 @@
 import MaterialIcons from '@react-native-vector-icons/material-icons';
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { ERP_COLOR_CODE } from '../../../utils/constants';
 
 const statusColors: Record<string, string> = {
   pending: '#f39c12',
@@ -63,7 +64,7 @@ const TaskCard = ({ task, onPress }) => {
 const styles = StyleSheet.create({
   card: {
     flexDirection: 'row',
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     marginVertical: 4,
     marginHorizontal: 10,
     borderRadius: 4,
@@ -100,7 +101,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderRadius: 8,
   },
-  statusText: { fontSize: 12, fontWeight: '600', color: '#fff' },
+  statusText: { fontSize: 12, fontWeight: '600', color: ERP_COLOR_CODE.ERP_WHITE },
 });
 
 export default TaskCard;

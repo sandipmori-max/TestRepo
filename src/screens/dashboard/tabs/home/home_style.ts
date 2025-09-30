@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     height: height,
     width: '100%',
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
   },
   columnWrapper: {
     justifyContent: 'space-between',
@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
     color: '#000',
   },
   header: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     paddingHorizontal: 20,
     paddingVertical: 24,
     borderBottomWidth: 1,
@@ -71,7 +71,7 @@ export const styles = StyleSheet.create({
   dashboardItem: {
     width: itemWidth,
     marginBottom: 16,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     borderRadius: 16,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
@@ -99,7 +99,7 @@ export const styles = StyleSheet.create({
     marginRight: 12,
   },
   iconText: {
-    color: '#FFFFFF',
+    color: ERP_COLOR_CODE.ERP_WHITE,
     fontSize: 14,
     fontWeight: '700',
     letterSpacing: 0.5,
@@ -126,7 +126,7 @@ export const styles = StyleSheet.create({
     minWidth: 10,
   },
   reportBadgeText: {
-    color: '#FFFFFF',
+    color: ERP_COLOR_CODE.ERP_WHITE,
     fontSize: 10,
     fontWeight: '400',
     textAlign: 'center',
@@ -247,12 +247,12 @@ export const styles = StyleSheet.create({
   },
   card: {
     width: '100%',
-    backgroundColor: '#ffffff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     borderRadius: 12,
   },
   cardAccent: {
     width: '100%',
-    backgroundColor: '#fff',
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     borderRadius: 12,
     padding: 12,
     marginBottom: 12,
@@ -284,7 +284,7 @@ export const styles = StyleSheet.create({
   },
   avatarText: {
     fontWeight: '700',
-    color:'#fff'
+    color:ERP_COLOR_CODE.ERP_WHITE
   },
   itemText: {
     flex: 1,

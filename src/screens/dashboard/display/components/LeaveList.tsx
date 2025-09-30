@@ -156,7 +156,7 @@ const LeaveListPage = ({ showFilter, onSelect }: any) => {
     <TouchableOpacity
       onPress={() => onSelect?.(item)}
       style={{
-        backgroundColor: '#fff',
+        backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
         marginVertical: 6,
         marginHorizontal: 16,
         padding: 16,
@@ -252,7 +252,7 @@ const LeaveListPage = ({ showFilter, onSelect }: any) => {
                 style={{
                   backgroundColor: ERP_COLOR_CODE.ERP_APP_COLOR,
                   borderTopWidth: 1,
-                  borderTopColor: '#fff',
+                  borderTopColor: ERP_COLOR_CODE.ERP_WHITE,
                 }}
               >
                 <View
@@ -323,7 +323,7 @@ const LeaveListPage = ({ showFilter, onSelect }: any) => {
                       margin: 16,
                       flexDirection: 'row',
                       alignItems: 'center',
-                      backgroundColor: '#fff',
+                      backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
                       borderRadius: 12,
                       paddingHorizontal: 10,
                       borderWidth: 1,
@@ -355,7 +355,7 @@ const LeaveListPage = ({ showFilter, onSelect }: any) => {
                       >
                         <Text
                           style={{
-                            color: filter === tab ? '#fff' : '#444',
+                            color: filter === tab ? ERP_COLOR_CODE.ERP_WHITE : '#444',
                             fontWeight: '600',
                             fontSize: 13,
                           }}
