@@ -240,7 +240,7 @@ const LeaveListPage = ({ showFilter, onSelect }: any) => {
   );
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#F8F9FA' }}>
+    <View style={{ flex: 1, backgroundColor: ERP_COLOR_CODE.ERP_F8F9FA }}>
       <FlatList
         data={['']}
         keyboardShouldPersistTaps="handled"
@@ -257,7 +257,7 @@ const LeaveListPage = ({ showFilter, onSelect }: any) => {
               >
                 <View
                   style={{
-                    backgroundColor: '#F8F9FA',
+                    backgroundColor: ERP_COLOR_CODE.ERP_F8F9FA,
                     margin: 1,
                     padding: 16,
                     alignItems: 'center',
@@ -381,7 +381,7 @@ const LeaveListPage = ({ showFilter, onSelect }: any) => {
                       color: ERP_COLOR_CODE.ERP_APP_COLOR,
                       paddingVertical: 6,
                       paddingHorizontal: 16,
-                      borderBottomColor: '#ddd',
+                      borderBottomColor: ERP_COLOR_CODE.ERP_ddd,
                     }}
                   >
                     {title}

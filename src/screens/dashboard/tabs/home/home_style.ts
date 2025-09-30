@@ -45,12 +45,12 @@ export const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 28,
     fontWeight: '700',
-    color: '#1A1A1A',
+    color: ERP_COLOR_CODE.ERP_1A1A1A,
     marginBottom: 4,
   },
   headerSubtitle: {
     fontSize: 16,
-    color: '#6C757D',
+    color: ERP_COLOR_CODE.ERP_6C757D,
     fontWeight: '400',
   },
 
@@ -110,12 +110,12 @@ export const styles = StyleSheet.create({
   dashboardItemText: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#1A1A1A',
+    color: ERP_COLOR_CODE.ERP_1A1A1A,
     lineHeight: 22,
   },
   dashboardItemSubtitle: {
     fontSize: 12,
-    color: '#6C757D',
+    color: ERP_COLOR_CODE.ERP_6C757D,
     marginTop: 2,
   },
   reportBadge: {
@@ -140,7 +140,7 @@ export const styles = StyleSheet.create({
   dataLabel: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#6C757D',
+    color: ERP_COLOR_CODE.ERP_6C757D,
     marginBottom: 2,
     textTransform: 'uppercase',
   },
@@ -154,13 +154,13 @@ export const styles = StyleSheet.create({
   urlLabel: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#6C757D',
+    color: ERP_COLOR_CODE.ERP_6C757D,
     marginBottom: 2,
     textTransform: 'uppercase',
   },
   dashboardItemUrl: {
     fontSize: 12,
-    color: '#007AFF',
+    color: ERP_COLOR_CODE.ERP_007AFF,
     lineHeight: 16,
   },
   actionIndicator: {
@@ -170,7 +170,7 @@ export const styles = StyleSheet.create({
     width: 6,
     height: 6,
     borderRadius: 3,
-    backgroundColor: '#007AFF',
+    backgroundColor: ERP_COLOR_CODE.ERP_007AFF,
   },
   cardFooter: {
     flexDirection: 'row',
@@ -198,7 +198,7 @@ export const styles = StyleSheet.create({
   loadingText: {
     marginTop: 16,
     fontSize: 16,
-    color: '#6C757D',
+    color: ERP_COLOR_CODE.ERP_6C757D,
     fontWeight: '500',
   },
 
@@ -224,13 +224,13 @@ export const styles = StyleSheet.create({
   emptyTitle: {
     fontSize: 20,
     fontWeight: '600',
-    color: '#1A1A1A',
+    color: ERP_COLOR_CODE.ERP_1A1A1A,
     marginBottom: 8,
     textAlign: 'center',
   },
   emptySubtitle: {
     fontSize: 16,
-    color: '#6C757D',
+    color: ERP_COLOR_CODE.ERP_6C757D,
     textAlign: 'center',
     lineHeight: 22,
   },

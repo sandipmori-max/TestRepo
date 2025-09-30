@@ -55,7 +55,7 @@ const DetailsBottomSheet = ({ visible, onClose, item, baseLink }: any) => {
                       borderRadius: 40,
                       borderWidth: 2,
                       borderColor: ERP_COLOR_CODE.ERP_WHITE,
-                      backgroundColor: '#eee',
+                      backgroundColor: ERP_COLOR_CODE.ERP_eee,
                     }}
                   />
                 )}
@@ -68,7 +68,7 @@ const DetailsBottomSheet = ({ visible, onClose, item, baseLink }: any) => {
                       borderRadius: 40,
                       borderWidth: 2,
                       borderColor: ERP_COLOR_CODE.ERP_WHITE,
-                      backgroundColor: '#eee',
+                      backgroundColor: ERP_COLOR_CODE.ERP_eee,
                       marginLeft: -20,
                     }}
                   />

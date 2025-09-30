@@ -1,10 +1,10 @@
-import {  StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { ERP_COLOR_CODE } from '../../../utils/constants';
 
 export const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: ERP_COLOR_CODE.ERP_WHITE },
   backBtn: { marginRight: 8 },
-  backIcon: { fontSize: 20, color: '#222' },
+  backIcon: { fontSize: 20, color: ERP_COLOR_CODE.ERP_222 },
   dateContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -19,8 +19,8 @@ export const styles = StyleSheet.create({
   dateLabel: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#1A1A1A',
-   },
+    color: ERP_COLOR_CODE.ERP_1A1A1A,
+  },
   dateButton: {
     backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     paddingHorizontal: 12,
@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
   },
   dateButtonText: {
     fontSize: 14,
-    color: '#1A1A1A',
+    color: ERP_COLOR_CODE.ERP_1A1A1A,
     fontWeight: '500',
   },
   datePickerModal: {
@@ -56,7 +56,7 @@ export const styles = StyleSheet.create({
   datePickerTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#1A1A1A',
+    color: ERP_COLOR_CODE.ERP_1A1A1A,
     textAlign: 'center',
   },
   datePickerGrid: {
@@ -69,7 +69,7 @@ export const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#F8F9FA',
+    backgroundColor: ERP_COLOR_CODE.ERP_F8F9FA,
     justifyContent: 'center',
     alignItems: 'center',
     margin: 2,
@@ -77,7 +77,7 @@ export const styles = StyleSheet.create({
   datePickerDayText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#1A1A1A',
+    color: ERP_COLOR_CODE.ERP_1A1A1A,
   },
   header: {
     flexDirection: 'row',
@@ -88,7 +88,7 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: ERP_COLOR_CODE.ERP_e0e0e0,
   },
-  headerTitle: { fontSize: 20, fontWeight: 'bold', color: '#222' },
+  headerTitle: { fontSize: 20, fontWeight: 'bold', color: ERP_COLOR_CODE.ERP_222 },
   loaderContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -141,13 +141,13 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 10,
     fontSize: 14,
-    color: '#222',
+    color: ERP_COLOR_CODE.ERP_222,
   },
   inputReadonly: {
-    backgroundColor: '#F0F0F0',
+    backgroundColor: ERP_COLOR_CODE.ERP_f0f0f0,
     color: ERP_COLOR_CODE.ERP_555,
   },
-  errorText: { color: '#dc3545', fontSize: 12, marginTop: 4 },
+  errorText: { color: ERP_COLOR_CODE.ERP_ERROR, fontSize: 12, marginTop: 4 },
   name: { fontSize: 17, fontWeight: 'bold' },
   email: { fontSize: 13, color: ERP_COLOR_CODE.ERP_555 },
   phone: { fontSize: 13, color: ERP_COLOR_CODE.ERP_888 },
@@ -201,7 +201,7 @@ export const styles = StyleSheet.create({
   recordName: {
     fontSize: 15,
     fontWeight: 'bold',
-    color: '#222',
+    color: ERP_COLOR_CODE.ERP_222,
   },
 
   recordEmail: {
@@ -220,7 +220,6 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 4,
     borderRadius: 6,
-    backgroundColor: status === 'checkin' ? '#28a745' : '#dc3545',
     alignSelf: 'flex-start',
   }),
 

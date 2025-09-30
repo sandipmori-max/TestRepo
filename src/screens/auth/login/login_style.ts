@@ -50,11 +50,11 @@ export const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: ERP_COLOR_CODE.ERP_ddd,
     padding: 15,
     borderRadius: 10,
     fontSize: 16,
-    backgroundColor: ERP_COLOR_CODE.ERP_INPUT_BACKGROUND,
+    backgroundColor: ERP_COLOR_CODE.ERP_fafafa,
     color: ERP_COLOR_CODE.ERP_333,
   },
   errorText: {
@@ -63,8 +63,7 @@ export const styles = StyleSheet.create({
     marginTop: 5,
   },
   errorContainer: {
-    backgroundColor: '#ffebee',
-    borderColor: '#f44336',
+     borderColor: ERP_COLOR_CODE.ERP_ERROR,
     borderWidth: 1,
     borderRadius: 8,
     padding: 12,
@@ -97,7 +96,7 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
   cancelButton: {
-    backgroundColor: ERP_COLOR_CODE.ERP_CANCEL_BUTTON,
+    backgroundColor: ERP_COLOR_CODE.ERP_f0f0f0,
     padding: 15,
     borderRadius: 10,
     marginBottom: 10,

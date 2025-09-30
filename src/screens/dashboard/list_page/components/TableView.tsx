@@ -240,7 +240,7 @@ const TableView = ({
             borderRadius: 8,
             backgroundColor: '#f1f1f1',
             borderWidth: 1,
-            borderColor: '#ddd',
+            borderColor: ERP_COLOR_CODE.ERP_ddd,
             marginBottom: 28,
           }}
         >

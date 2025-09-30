@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { ERP_COLOR_CODE } from '../../../utils/constants';
 
 export const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f8f9fa' },
+  container: { flex: 1, backgroundColor: ERP_COLOR_CODE.ERP_F8F9FA },
 
   profileCard: {
     backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
@@ -23,12 +23,12 @@ export const styles = StyleSheet.create({
   input: {
     backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: ERP_COLOR_CODE.ERP_ddd,
     borderRadius: 10,
     paddingHorizontal: 14,
     paddingVertical: 12,
     fontSize: 15,
-    color: '#222',
+    color: ERP_COLOR_CODE.ERP_222,
   },
 
   inputReadonly: {
@@ -52,7 +52,7 @@ export const styles = StyleSheet.create({
 
   optionBtn: {
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: ERP_COLOR_CODE.ERP_ddd,
     paddingVertical: 10,
     paddingHorizontal: 12,
     borderRadius: 10,

@@ -47,7 +47,7 @@ export const styles = StyleSheet.create({
   option: {
     padding: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#eee',
+    borderBottomColor: ERP_COLOR_CODE.ERP_eee,
   },
   disabledBox: {
     borderWidth: 1,

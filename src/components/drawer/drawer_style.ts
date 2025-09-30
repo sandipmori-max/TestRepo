@@ -54,7 +54,7 @@ export const styles = StyleSheet.create({
     fontWeight: '500',
   },
   activeText: {
-    color: '#007AFF',
+    color: ERP_COLOR_CODE.ERP_007AFF,
     fontWeight: 'bold',
   },
   drawerItem: {
@@ -65,7 +65,7 @@ export const styles = StyleSheet.create({
   activeItemBackground: {
     backgroundColor: ERP_COLOR_CODE.ERP_APP_COLOR,
     borderLeftWidth: 4,
-    borderLeftColor: '#350352ff',
+    borderLeftColor: ERP_COLOR_CODE.ERP_APP_COLOR,
     borderRadius: 8,
   },
   logoutButton: {

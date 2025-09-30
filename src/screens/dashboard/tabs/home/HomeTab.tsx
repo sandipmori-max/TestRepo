@@ -170,8 +170,8 @@ const HomeScreen = () => {
             <View style={{ marginVertical: item.data ? 4 : 0 }}>
               {loadingPageId === (item.id || String(index)) && (
                 <View style={{ marginBottom: 8, flexDirection: 'row', alignItems: 'center' }}>
-                  <ActivityIndicator size="small" color="#007AFF" />
-                  <Text style={{ marginLeft: 8, color: '#6C757D' }}>Loading page...</Text>
+                  <ActivityIndicator size="small" color={ERP_COLOR_CODE.ERP_007AFF} />
+                  <Text style={{ marginLeft: 8, color: ERP_COLOR_CODE.ERP_6C757D }}>Loading page...</Text>
                 </View>
               )}
               {item.data ? (

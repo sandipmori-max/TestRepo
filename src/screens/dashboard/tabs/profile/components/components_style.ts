@@ -74,7 +74,7 @@ export const styles = StyleSheet.create({
   },
   lastLogin: {
     fontSize: 12,
-    color: '#999',
+    color: ERP_COLOR_CODE.ERP_999,
   },
   activeText: {
     color: ERP_COLOR_CODE.ERP_BLACK,

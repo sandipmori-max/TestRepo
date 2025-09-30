@@ -44,7 +44,7 @@ export const styles = StyleSheet.create({
     width: 30,
     height: 30,
     borderRadius: 15,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: ERP_COLOR_CODE.ERP_f0f0f0,
     justifyContent: 'center',
     alignItems: 'center',
   },

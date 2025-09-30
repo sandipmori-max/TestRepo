@@ -4,7 +4,6 @@ import { ERP_COLOR_CODE } from '../../../utils/constants';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f7f9fc',
     paddingHorizontal: 16,
     paddingTop: 20,
   },
@@ -78,6 +77,6 @@ export const styles = StyleSheet.create({
   },
   footer: {
     alignItems: 'center',
-    width: '12%'
+    width: '12%',
   },
 });

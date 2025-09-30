@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
   loadingTitle: {
     fontSize: 20,
     fontWeight: '600',
-    color: ERP_COLOR_CODE.ERP_ACTIVE_BACKGROUND || '#007AFF',
+    color: ERP_COLOR_CODE.ERP_ACTIVE_BACKGROUND || ERP_COLOR_CODE.ERP_007AFF,
     textAlign: 'center',
     marginBottom: 12,
     lineHeight: 28,
@@ -65,7 +65,7 @@ export const styles = StyleSheet.create({
   webviewLoadingText: {
     fontSize: 16,
     fontWeight: '500',
-    color: ERP_COLOR_CODE.ERP_ACTIVE_BACKGROUND || '#007AFF',
+    color: ERP_COLOR_CODE.ERP_ACTIVE_BACKGROUND || ERP_COLOR_CODE.ERP_007AFF,
     textAlign: 'center',
   },
 });

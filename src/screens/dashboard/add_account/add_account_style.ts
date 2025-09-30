@@ -67,7 +67,7 @@ export const styles = StyleSheet.create({
   },
 
   errorText: {
-    color: '#d9534f',
+    color: ERP_COLOR_CODE.ERP_ERROR,
     fontSize: 13,
     marginTop: 4,
   },
@@ -128,7 +128,7 @@ export const styles = StyleSheet.create({
   },
   input1: {
     fontSize: 16,
-    borderColor: '#161515',
+    borderColor: ERP_COLOR_CODE.ERP_161515,
     paddingVertical: 14,
     flex: 1,
     borderRadius: 10,

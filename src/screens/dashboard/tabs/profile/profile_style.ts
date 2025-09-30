@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#222',
+    color: ERP_COLOR_CODE.ERP_222,
   },
   switchButton: {
     paddingHorizontal: 12,
@@ -56,7 +56,7 @@ export const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 30,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: ERP_COLOR_CODE.ERP_f0f0f0,
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 16,
@@ -68,7 +68,7 @@ export const styles = StyleSheet.create({
   profileName: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#222',
+    color: ERP_COLOR_CODE.ERP_222,
     marginBottom: 2,
   },
   profileEmail: {
@@ -78,7 +78,7 @@ export const styles = StyleSheet.create({
   },
   accountType: {
     fontSize: 12,
-    color: '#999',
+    color: ERP_COLOR_CODE.ERP_999,
     fontWeight: '500',
   },
   sectionContainer: {
@@ -93,7 +93,7 @@ export const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#222',
+    color: ERP_COLOR_CODE.ERP_222,
     padding: 16,
     paddingBottom: 8,
     backgroundColor: '#f9f9f9',
@@ -101,7 +101,7 @@ export const styles = StyleSheet.create({
   settingCard: {
     padding: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
+    borderBottomColor: ERP_COLOR_CODE.ERP_f0f0f0,
   },
   settingHeader: {
     flexDirection: 'row',
@@ -111,7 +111,7 @@ export const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: ERP_COLOR_CODE.ERP_f0f0f0,
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 12,
@@ -125,7 +125,7 @@ export const styles = StyleSheet.create({
   settingTitle: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#222',
+    color: ERP_COLOR_CODE.ERP_222,
     marginBottom: 2,
   },
   settingSubtitle: {
@@ -134,7 +134,7 @@ export const styles = StyleSheet.create({
   },
   arrowIcon: {
     fontSize: 20,
-    color: '#999',
+    color: ERP_COLOR_CODE.ERP_999,
   },
   actionsSection: {
     marginHorizontal: 16,

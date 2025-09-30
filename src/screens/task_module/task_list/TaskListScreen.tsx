@@ -169,11 +169,11 @@ const styles = StyleSheet.create({
   },
   searchInput: {
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: ERP_COLOR_CODE.ERP_ddd,
     borderRadius: 8,
     padding: 8,
     marginBottom: 10,
-    backgroundColor: '#fafafa',
+    backgroundColor: ERP_COLOR_CODE.ERP_fafafa,
   },
   filterRow: {
     flexDirection: 'row',
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
   chip: {
     paddingVertical: 6,
     paddingHorizontal: 12,
-    backgroundColor: '#eee',
+    backgroundColor: ERP_COLOR_CODE.ERP_eee,
     borderRadius: 8,
     marginRight: 8,
     marginBottom: 6,
@@ -198,9 +198,9 @@ const styles = StyleSheet.create({
   dateButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#fafafa',
+    backgroundColor: ERP_COLOR_CODE.ERP_fafafa,
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: ERP_COLOR_CODE.ERP_ddd,
     borderRadius: 8,
     padding: 8,
     flex: 1,

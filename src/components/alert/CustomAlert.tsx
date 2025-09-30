@@ -87,7 +87,7 @@ const CustomAlert: React.FC<CustomAlertProps> = ({
               <ERPTextInput
                 label={'Remarks'}
                 placeholder={'Enter remarks'}
-                placeholderTextColor="#999"
+                placeholderTextColor={ERP_COLOR_CODE.ERP_999}
                 autoCapitalize="none"
                 onChangeText={handleChangedRemarks}
                 value={remarks}

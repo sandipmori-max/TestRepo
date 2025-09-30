@@ -18,6 +18,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import DeviceInfo from 'react-native-device-info';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
 import { useTranslation } from 'react-i18next';
+import { ERP_COLOR_CODE } from '../../../utils/constants';
 
 const AddAccountScreen: React.FC<AddAccountScreenProps> = ({ visible, onClose }) => {
   const { t } = useTranslation();
@@ -199,7 +200,7 @@ const AddAccountScreen: React.FC<AddAccountScreenProps> = ({ visible, onClose })
                           <TextInput
                             style={styles.input}
                             placeholder={t('auth.enterCompanyCode')}
-                            placeholderTextColor="#999"
+                            placeholderTextColor={ERP_COLOR_CODE.ERP_999}
                             autoCapitalize="none"
                             onChangeText={handleChange('company_code')}
                             onBlur={handleBlur('company_code')}
@@ -215,7 +216,7 @@ const AddAccountScreen: React.FC<AddAccountScreenProps> = ({ visible, onClose })
                           <TextInput
                             style={styles.input}
                             placeholder={t('auth.enterUser')}
-                            placeholderTextColor="#999"
+                            placeholderTextColor={ERP_COLOR_CODE.ERP_999}
                             autoCapitalize="none"
                             onChangeText={handleChange('user')}
                             onBlur={handleBlur('user')}
@@ -233,7 +234,7 @@ const AddAccountScreen: React.FC<AddAccountScreenProps> = ({ visible, onClose })
                               style={styles.input1}
                               placeholder={t('auth.enterPassword')}
                               secureTextEntry={!showPassword}
-                              placeholderTextColor="#999"
+                              placeholderTextColor={ERP_COLOR_CODE.ERP_999}
                               value={values?.password}
                               onChangeText={handleChange('password')}
                               onBlur={handleBlur('password')}

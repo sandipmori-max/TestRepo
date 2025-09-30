@@ -213,20 +213,20 @@ const styles = StyleSheet.create({
 
   input: {
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: ERP_COLOR_CODE.ERP_ddd,
     borderRadius: 8,
     padding: 10,
-    backgroundColor: '#fafafa',
+    backgroundColor: ERP_COLOR_CODE.ERP_fafafa,
   },
 
   dropdown: {
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: ERP_COLOR_CODE.ERP_ddd,
     borderRadius: 8,
     padding: 12,
-    backgroundColor: '#fafafa',
+    backgroundColor: ERP_COLOR_CODE.ERP_fafafa,
   },
 
   modalContainer: {
@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 12,
     borderBottomWidth: 1,
-    borderColor: '#eee',
+    borderColor: ERP_COLOR_CODE.ERP_eee,
   },
 
   dateButton: {
@@ -264,22 +264,22 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: 10,
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: ERP_COLOR_CODE.ERP_ddd,
     borderRadius: 8,
     marginBottom: 8,
-    backgroundColor: '#fafafa',
+    backgroundColor: ERP_COLOR_CODE.ERP_fafafa,
   },
   dateText: { color: ERP_COLOR_CODE.ERP_333 },
 
   priorityContainer: { flexDirection: 'row', marginTop: 8 },
   priorityChip: {
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: ERP_COLOR_CODE.ERP_ddd,
     borderRadius: 8,
     paddingVertical: 6,
     paddingHorizontal: 14,
     marginRight: 8,
-    backgroundColor: '#fafafa',
+    backgroundColor: ERP_COLOR_CODE.ERP_fafafa,
   },
   priorityChipActive: (p: string) => ({
     backgroundColor: p === 'Low' ? '#4caf50' : p === 'Medium' ? '#ff9800' : '#f44336',

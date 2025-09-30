@@ -158,7 +158,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
                         : 'enterPassword'
                     }`,
                   )}
-                  placeholderTextColor="#999"
+                  placeholderTextColor={ERP_COLOR_CODE.ERP_999}
                   autoCapitalize="none"
                   secureTextEntry={field === 'password'}
                   showToggle={field === 'password'}

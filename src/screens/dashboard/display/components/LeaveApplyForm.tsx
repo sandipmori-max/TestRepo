@@ -320,7 +320,7 @@ const LeaveApplyForm = () => {
                       </View>
                     ))
                   ) : (
-                    <Text style={{ color: '#999' }}>No days added yet</Text>
+                    <Text style={{ color: ERP_COLOR_CODE.ERP_999 }}>No days added yet</Text>
                   )}
 
                   {touched.days && errors.days && (

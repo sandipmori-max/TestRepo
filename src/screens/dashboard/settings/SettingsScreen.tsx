@@ -447,11 +447,11 @@ const languageStyles = StyleSheet.create({
   modalTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#222',
+    color: ERP_COLOR_CODE.ERP_222,
   },
   closeButton: {
     fontSize: 20,
-    color: '#999',
+    color: ERP_COLOR_CODE.ERP_999,
   },
   languageList: {
     maxHeight: 300,
@@ -462,7 +462,7 @@ const languageStyles = StyleSheet.create({
     alignItems: 'center',
     padding: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
+    borderBottomColor: ERP_COLOR_CODE.ERP_f0f0f0,
   },
   selectedLanguage: {
     backgroundColor: '#f5f5f5',

@@ -346,7 +346,7 @@ const ListScreen = () => {
                 placeholder={`Search ${pageTitle.toLowerCase()} in list...`}
                 value={searchQuery}
                 onChangeText={handleSearchChange}
-                placeholderTextColor="#6C757D"
+                placeholderTextColor={ERP_COLOR_CODE.ERP_6C757D}
               />
               {searchQuery.length > 0 && (
                 <TouchableOpacity onPress={clearSearch} style={styles.clearButton}>
