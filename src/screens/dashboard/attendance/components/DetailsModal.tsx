@@ -78,7 +78,7 @@ const DetailsBottomSheet = ({ visible, onClose, item, baseLink }: any) => {
               <Text style={{ fontSize: 20, fontWeight: '700', textAlign: 'center', marginBottom: 4 }}>
                 {item?.employee}
               </Text>
-              <Text style={{ fontSize: 14, textAlign: 'center', color: '#666', marginBottom: 16 }}>
+              <Text style={{ fontSize: 14, textAlign: 'center', color: ERP_COLOR_CODE.ERP_666, marginBottom: 16 }}>
                 {item?.status?.toUpperCase()}
               </Text>
 

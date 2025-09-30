@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     marginBottom: 30,
-    color: '#666',
+    color: ERP_COLOR_CODE.ERP_666,
   },
   inputContainer: {
     marginBottom: 8,
@@ -103,7 +103,7 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
   },
   cancelButtonText: {
-    color: '#666',
+    color: ERP_COLOR_CODE.ERP_666,
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',

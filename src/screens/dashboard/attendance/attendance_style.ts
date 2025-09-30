@@ -104,7 +104,7 @@ export const styles = StyleSheet.create({
   loaderText: {
     marginTop: 16,
     fontSize: 16,
-    color: '#666',
+    color: ERP_COLOR_CODE.ERP_666,
     textAlign: 'center',
   },
   profileCard: {
@@ -126,7 +126,7 @@ export const styles = StyleSheet.create({
     marginRight: 14,
   },
   imageCol: { flex: 1, alignItems: 'center' },
-  imageLabel: { marginTop: 6, fontSize: 12, color: '#666' },
+  imageLabel: { marginTop: 6, fontSize: 12, color: ERP_COLOR_CODE.ERP_666 },
   placeholderAvatar: { backgroundColor: '#e0e0e0' },
   formGroup: {
     marginBottom: 12,
@@ -168,7 +168,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 6,
   },
-  locationText: { fontSize: 12, color: '#666', marginTop: 6 },
+  locationText: { fontSize: 12, color: ERP_COLOR_CODE.ERP_666, marginTop: 6 },
   loaderOverlay: {},
   listSection: {
     paddingHorizontal: 16,
@@ -206,7 +206,7 @@ export const styles = StyleSheet.create({
 
   recordEmail: {
     fontSize: 12,
-    color: '#666',
+    color: ERP_COLOR_CODE.ERP_666,
     marginTop: 2,
   },
 

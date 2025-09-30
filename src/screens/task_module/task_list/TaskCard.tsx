@@ -37,12 +37,12 @@ const TaskCard = ({ task, onPress }) => {
           }}
         >
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-            <MaterialIcons color="#666" size={14} name="hourglass-bottom" />
+            <MaterialIcons color={ERP_COLOR_CODE.ERP_666} size={14} name="hourglass-bottom" />
             <Text style={styles.date}>22 sep 2025</Text>
           </View>
 
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-            <MaterialIcons color="#666" size={14} name="hourglass-top" />
+            <MaterialIcons color={ERP_COLOR_CODE.ERP_666} size={14} name="hourglass-top" />
             <Text style={styles.date}>22 sep 2025</Text>
           </View>
         </View>

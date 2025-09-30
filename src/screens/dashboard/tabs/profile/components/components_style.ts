@@ -69,7 +69,7 @@ export const styles = StyleSheet.create({
   },
   accountEmail: {
     fontSize: 14,
-    color: '#666',
+    color: ERP_COLOR_CODE.ERP_666,
     marginBottom: 4,
   },
   lastLogin: {

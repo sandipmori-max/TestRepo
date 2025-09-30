@@ -50,7 +50,7 @@ export const styles = StyleSheet.create({
   },
   closeIconText: {
     fontSize: 16,
-    color: '#666',
+    color: ERP_COLOR_CODE.ERP_666,
     fontWeight: 'bold',
   },
   gif: {
@@ -68,7 +68,7 @@ export const styles = StyleSheet.create({
   },
   errorMessage: {
     fontSize: 14,
-    color: '#666',
+    color: ERP_COLOR_CODE.ERP_666,
     lineHeight: 20,
     textAlign: 'center',
     marginBottom: 8,
@@ -83,7 +83,7 @@ export const styles = StyleSheet.create({
   },
   successMessage: {
     fontSize: 14,
-    color: '#666',
+    color: ERP_COLOR_CODE.ERP_666,
     lineHeight: 20,
     textAlign: 'center',
     marginBottom: 8,
@@ -98,7 +98,7 @@ export const styles = StyleSheet.create({
   },
   infoMessage: {
     fontSize: 14,
-    color: '#666',
+    color: ERP_COLOR_CODE.ERP_666,
     lineHeight: 20,
     textAlign: 'center',
     marginBottom: 8,

@@ -65,7 +65,7 @@ export const styles = StyleSheet.create({
   },
   profileEmail: {
     fontSize: 14,
-    color: '#666',
+    color: ERP_COLOR_CODE.ERP_666,
     marginBottom: 2,
   },
   profileRole: {
@@ -132,7 +132,7 @@ export const styles = StyleSheet.create({
   },
   settingSubtitle: {
     fontSize: 14,
-    color: '#666',
+    color: ERP_COLOR_CODE.ERP_666,
   },
   arrowIcon: {
     fontSize: 20,

@@ -42,7 +42,7 @@ const LeaveDetailsBottomSheet = ({ visible, leave, onClose }: Props) => {
           <Text style={{ fontSize: 16, fontWeight: '600' }}>
             {leave.leaveType} Leave
           </Text>
-          <Text style={{ marginTop: 6, fontSize: 14, color: '#666' }}>
+          <Text style={{ marginTop: 6, fontSize: 14, color: ERP_COLOR_CODE.ERP_666 }}>
             Days: {leave.days}
           </Text>
 

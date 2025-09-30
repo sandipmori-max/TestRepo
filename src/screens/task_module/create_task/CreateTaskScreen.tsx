@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
     color: ERP_COLOR_CODE.ERP_333,
   },
 
-  label: { fontSize: 13, marginTop: 6, marginBottom: 4, color: '#666' },
+  label: { fontSize: 13, marginTop: 6, marginBottom: 4, color: ERP_COLOR_CODE.ERP_666 },
 
   input: {
     borderWidth: 1,
@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   modalTitle: { fontSize: 16, fontWeight: 'bold', color: ERP_COLOR_CODE.ERP_333 },
-  modalSubText: { fontSize: 13, color: '#666', marginBottom: 12 },
+  modalSubText: { fontSize: 13, color: ERP_COLOR_CODE.ERP_666, marginBottom: 12 },
 
   option: {
     flexDirection: 'row',

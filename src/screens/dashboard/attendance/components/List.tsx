@@ -542,7 +542,7 @@ const List = ({ selectedMonth, showFilter, fromDate, toDate }: any) => {
                                           }}
                                         >
                                           <MaterialIcons
-                                            color="#666"
+                                            color={ERP_COLOR_CODE.ERP_666}
                                             size={14}
                                             name="access-alarm"
                                           />
@@ -560,7 +560,7 @@ const List = ({ selectedMonth, showFilter, fromDate, toDate }: any) => {
                                             }}
                                           >
                                             <MaterialIcons
-                                              color="#666"
+                                              color={ERP_COLOR_CODE.ERP_666}
                                               size={14}
                                               name="history-toggle-off"
                                             />
@@ -576,7 +576,7 @@ const List = ({ selectedMonth, showFilter, fromDate, toDate }: any) => {
                                               gap: 4,
                                             }}
                                           >
-                                            <MaterialIcons color="#666" size={14} name="timeline" />
+                                            <MaterialIcons color={ERP_COLOR_CODE.ERP_666} size={14} name="timeline" />
                                             <Text style={styles.recordPunchTime}>
                                               {getWorkedHours2(rec?.intime, rec?.outtime)}
                                             </Text>
@@ -592,7 +592,7 @@ const List = ({ selectedMonth, showFilter, fromDate, toDate }: any) => {
                                             }}
                                           >
                                             <MaterialIcons
-                                              color="#666"
+                                              color={ERP_COLOR_CODE.ERP_666}
                                               size={14}
                                               name="access-alarm"
                                             />
