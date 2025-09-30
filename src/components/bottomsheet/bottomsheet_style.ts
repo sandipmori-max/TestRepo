@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
     width: 50,
     height: 4,
     borderRadius: 2,
-    backgroundColor: '#ccc',
+    backgroundColor: ERP_COLOR_CODE.ERP_BORDER_LINE,
     alignSelf: 'center',
     marginBottom: 10,
   },

@@ -514,7 +514,7 @@ const HomeScreen = () => {
                       navigation.navigate('Tasks', {isFromViewAll : true})
                     }}
                   >
-                    <Text style={{ color: '#ccc', fontSize: 12 }}>View all</Text>
+                    <Text style={{ color: ERP_COLOR_CODE.ERP_BORDER_LINE, fontSize: 12 }}>View all</Text>
                   </TouchableOpacity>
                 </View>
                 <TaskListScreen

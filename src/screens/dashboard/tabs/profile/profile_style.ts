@@ -45,7 +45,7 @@ export const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 12,
     borderWidth: 0.6,
-    borderColor: '#ccc'
+    borderColor: ERP_COLOR_CODE.ERP_BORDER_LINE
     
   },
   profileHeader: {
@@ -88,7 +88,7 @@ export const styles = StyleSheet.create({
     borderRadius: 12,
     overflow: 'hidden',
      borderWidth: 0.6,
-    borderColor: '#ccc'
+    borderColor: ERP_COLOR_CODE.ERP_BORDER_LINE
   },
   sectionTitle: {
     fontSize: 16,

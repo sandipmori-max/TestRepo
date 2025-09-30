@@ -90,7 +90,7 @@ export const styles = StyleSheet.create({
     borderRadius: 12,
     overflow: 'hidden',
     borderWidth: 1,
-    borderColor: '#ccc'
+    borderColor: ERP_COLOR_CODE.ERP_BORDER_LINE
   },
   sectionTitle: {
     fontSize: 16,

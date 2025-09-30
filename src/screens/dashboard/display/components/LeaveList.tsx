@@ -162,7 +162,7 @@ const LeaveListPage = ({ showFilter, onSelect }: any) => {
         padding: 16,
         borderRadius: 8,
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: ERP_COLOR_CODE.ERP_BORDER_LINE,
         borderLeftWidth: 6,
         borderLeftColor: getStatusColor(item.status),
       }}
@@ -327,7 +327,7 @@ const LeaveListPage = ({ showFilter, onSelect }: any) => {
                       borderRadius: 12,
                       paddingHorizontal: 10,
                       borderWidth: 1,
-                      borderColor: '#ccc',
+                      borderColor: ERP_COLOR_CODE.ERP_BORDER_LINE,
                     }}
                   >
                     <MaterialIcons name="search" size={22} color="#777" />

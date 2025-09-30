@@ -224,7 +224,7 @@ const List = ({ selectedMonth, showFilter, fromDate, toDate }: any) => {
       ) {
         color = '#ff9800';
       } else if (item?.status?.toLowerCase() === 'working') {
-        color = '#ccc';
+        color = ERP_COLOR_CODE.ERP_BORDER_LINE;
       }
 
       acc[dateStr] = {
@@ -267,7 +267,7 @@ const List = ({ selectedMonth, showFilter, fromDate, toDate }: any) => {
                 { paddingVertical: 6, paddingHorizontal: 14, borderRadius: 4, borderWidth: 1 },
                 activeFilter === filter.key
                   ? { backgroundColor: ERP_COLOR_CODE.ERP_APP_COLOR, borderColor: ERP_COLOR_CODE.ERP_WHITE }
-                  : { backgroundColor: ERP_COLOR_CODE.ERP_WHITE, borderColor: '#ccc' },
+                  : { backgroundColor: ERP_COLOR_CODE.ERP_WHITE, borderColor: ERP_COLOR_CODE.ERP_BORDER_LINE },
               ]}
             >
               <Text
@@ -390,7 +390,7 @@ const List = ({ selectedMonth, showFilter, fromDate, toDate }: any) => {
                         height: 10,
                         borderRadius: 5,
                         backgroundColor:
-                          currentView === 'pie' ? ERP_COLOR_CODE.ERP_APP_COLOR : '#ccc',
+                          currentView === 'pie' ? ERP_COLOR_CODE.ERP_APP_COLOR : ERP_COLOR_CODE.ERP_BORDER_LINE,
                       }}
                     />
                     <TouchableOpacity
@@ -402,7 +402,7 @@ const List = ({ selectedMonth, showFilter, fromDate, toDate }: any) => {
                         height: 10,
                         borderRadius: 5,
                         backgroundColor:
-                          currentView === 'calendar' ? ERP_COLOR_CODE.ERP_APP_COLOR : '#ccc',
+                          currentView === 'calendar' ? ERP_COLOR_CODE.ERP_APP_COLOR : ERP_COLOR_CODE.ERP_BORDER_LINE,
                       }}
                     />
                   </View>

@@ -87,7 +87,7 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
   },
   disabledButton: {
-    backgroundColor: '#ccc',
+    backgroundColor: ERP_COLOR_CODE.ERP_BORDER_LINE,
     shadowOpacity: 0,
   },
   loginButtonText: {

@@ -151,7 +151,7 @@ const TableView = ({
         <View
           style={{
             borderBottomWidth: 1,
-            borderBottomColor: '#ccc',
+            borderBottomColor: ERP_COLOR_CODE.ERP_BORDER_LINE,
             flexDirection: 'row',
             flexWrap: 'wrap',
             alignItems: 'center',

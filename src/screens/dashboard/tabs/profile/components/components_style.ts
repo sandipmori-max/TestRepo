@@ -43,7 +43,7 @@ export const styles = StyleSheet.create({
     padding: 8,
     marginBottom: 8,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: ERP_COLOR_CODE.ERP_BORDER_LINE,
   },
   activeAccount: {
     borderColor: ERP_COLOR_CODE.ERP_APP_COLOR,

@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     borderRadius: 4,
     borderWidth: 0.8,
-    borderColor: '#ccc',
+    borderColor: ERP_COLOR_CODE.ERP_BORDER_LINE,
     overflow: 'hidden',
   },
   date: { fontSize: 12, color: '#333' },

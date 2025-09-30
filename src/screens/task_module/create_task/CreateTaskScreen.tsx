@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 15,
     fontWeight: '700',
-    backgroundColor: '#ccc',
+    backgroundColor: ERP_COLOR_CODE.ERP_BORDER_LINE,
     paddingVertical: 4,
     paddingLeft: 8,
     marginBottom: 4,

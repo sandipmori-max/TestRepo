@@ -4,7 +4,7 @@ import { ERP_COLOR_CODE } from '../../../utils/constants';
 export const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: ERP_COLOR_CODE.ERP_BORDER_LINE,
     borderRadius: 6,
     padding: 10,
   },
@@ -19,14 +19,14 @@ export const styles = StyleSheet.create({
   },
   textInput: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: ERP_COLOR_CODE.ERP_BORDER_LINE,
     borderRadius: 10,
     padding: 10,
     backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
   },
   pickerBox: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: ERP_COLOR_CODE.ERP_BORDER_LINE,
     borderRadius: 10,
     padding: 12,
     backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
@@ -39,7 +39,7 @@ export const styles = StyleSheet.create({
     marginTop: 4,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: ERP_COLOR_CODE.ERP_BORDER_LINE,
     backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     overflow: 'hidden',
     elevation: 3,
@@ -51,14 +51,14 @@ export const styles = StyleSheet.create({
   },
   disabledBox: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: ERP_COLOR_CODE.ERP_BORDER_LINE,
     borderRadius: 10,
     padding: 12,
     backgroundColor: '#f1f1f1',
   },
   dateBox: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: ERP_COLOR_CODE.ERP_BORDER_LINE,
     borderRadius: 10,
     padding: 12,
     backgroundColor: ERP_COLOR_CODE.ERP_WHITE,

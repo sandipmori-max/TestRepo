@@ -257,7 +257,7 @@ export const styles = StyleSheet.create({
     padding: 12,
     marginBottom: 12,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: ERP_COLOR_CODE.ERP_BORDER_LINE,
   },
   cardTitle: {
     fontSize: 16,
@@ -271,7 +271,7 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     marginVertical: 4,
     borderRadius: 8,
-    borderColor: '#ccc',
+    borderColor: ERP_COLOR_CODE.ERP_BORDER_LINE,
   },
   avatar: {
     width: 40,
