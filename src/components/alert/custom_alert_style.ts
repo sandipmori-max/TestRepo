@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
    inputLabel: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#333',
+    color: ERP_COLOR_CODE.ERP_333,
   },
     input: {
     borderWidth: 1,
@@ -64,7 +64,7 @@ export const styles = StyleSheet.create({
   errorTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#dc3545',
+    color: ERP_COLOR_CODE.ERP_ERROR,
   },
   errorMessage: {
     fontSize: 14,
@@ -94,7 +94,7 @@ export const styles = StyleSheet.create({
   infoTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#007bff',
+    color: ERP_COLOR_CODE.ERP_COLOR,
   },
   infoMessage: {
     fontSize: 14,

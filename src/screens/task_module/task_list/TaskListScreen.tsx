@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
     marginBottom: 6,
   },
-  chipText: { fontSize: 12, color: '#333' },
+  chipText: { fontSize: 12, color: ERP_COLOR_CODE.ERP_333 },
 
   dateRow: {
     flexDirection: 'row',
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginRight: 8,
   },
-  dateText: { marginLeft: 6, fontSize: 13, color: '#333' },
+  dateText: { marginLeft: 6, fontSize: 13, color: ERP_COLOR_CODE.ERP_333 },
 
   noTask: { textAlign: 'center', marginTop: 40, fontSize: 16, color: '#888' },
 });

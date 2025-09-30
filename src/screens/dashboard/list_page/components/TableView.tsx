@@ -19,13 +19,13 @@ const TableView = ({
   const navigation = useNavigation();
 
   const getButtonMeta = (key: string) => {
-    if (!key || !configData?.length) return { label: 'Action', color: '#007BFF' };
+    if (!key || !configData?.length) return { label: 'Action', color: ERP_COLOR_CODE.ERP_COLOR };
     const configItem = configData?.find(
       cfg => cfg?.datafield?.toLowerCase() === key?.toLowerCase(),
     );
     return {
       label: configItem?.headertext || 'Action',
-      color: configItem?.colorcode || '#007BFF',
+      color: configItem?.colorcode || ERP_COLOR_CODE.ERP_COLOR,
     };
   };
 
@@ -244,7 +244,7 @@ const TableView = ({
             marginBottom: 28,
           }}
         >
-          <Text style={{ fontSize: 14, fontWeight: '700', color: '#333' }}>Total Amount</Text>
+          <Text style={{ fontSize: 14, fontWeight: '700', color: ERP_COLOR_CODE.ERP_333 }}>Total Amount</Text>
           <Text
             style={{
               fontSize: 16,

@@ -12,6 +12,7 @@ import useTranslations from '../../../../hooks/useTranslations';
 import ERPTextInput from '../../../../components/input/ERPTextInput';
 import ERPButton from '../../../../components/button/ERPButton';
 import useFcmToken from '../../../../hooks/useFcmToken';
+import { ERP_COLOR_CODE } from '../../../../utils/constants';
 
 const LoginForm: React.FC<LoginFormProps> = ({
   deviceId,
@@ -182,7 +183,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
                     : t('auth.signIn')
                 }
                 onPress={handleSubmit as any}
-                color={isLoading || validationLoading || erpLoginLoading ? '#aaa' : '#007bff'}
+                color={isLoading || validationLoading || erpLoginLoading ? '#aaa' : ERP_COLOR_CODE.ERP_COLOR}
                 disabled={isLoading || validationLoading || erpLoginLoading}
                 style={styles.loginButton}
                 textStyle={styles.loginButtonText}

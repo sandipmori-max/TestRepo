@@ -66,7 +66,7 @@ export const styles = StyleSheet.create({
 
   optionText: {
     fontSize: 14,
-    color: '#333',
+    color: ERP_COLOR_CODE.ERP_333,
     textAlign: 'center',
   },
 

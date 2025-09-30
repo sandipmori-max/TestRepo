@@ -2,11 +2,12 @@ import React from 'react';
 import { TouchableOpacity, Text } from 'react-native';
 import { ERPButtonProps } from './type';
 import { styles } from './style';
+import { ERP_COLOR_CODE } from '../../utils/constants';
 
 const ERPButton: React.FC<ERPButtonProps> = ({
   text = '',
   onPress,
-  color = '#007bff',
+  color = ERP_COLOR_CODE.ERP_COLOR,
   disabled = false,
   style,
   textStyle,

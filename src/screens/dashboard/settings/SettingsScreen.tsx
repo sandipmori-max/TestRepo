@@ -469,7 +469,7 @@ const languageStyles = StyleSheet.create({
   },
   languageName: {
     fontSize: 16,
-    color: '#333',
+    color: ERP_COLOR_CODE.ERP_333,
   },
   selectedLanguageText: {
     fontWeight: 'bold',

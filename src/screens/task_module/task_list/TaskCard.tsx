@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     borderColor: ERP_COLOR_CODE.ERP_BORDER_LINE,
     overflow: 'hidden',
   },
-  date: { fontSize: 12, color: '#333' },
+  date: { fontSize: 12, color: ERP_COLOR_CODE.ERP_333 },
   statusBar: {
     width: 6,
     borderTopLeftRadius: 12,
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 8,
   },
-  title: { fontSize: 14, fontWeight: '700', color: '#333', marginBottom: 4 },
+  title: { fontSize: 14, fontWeight: '700', color: ERP_COLOR_CODE.ERP_333, marginBottom: 4 },
   desc: { fontSize: 12, color: '#555', marginBottom: 6 },
   meta: { fontSize: 12, color: '#777', marginBottom: 6 },
   row: {

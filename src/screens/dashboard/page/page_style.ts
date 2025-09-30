@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
 
   label: {
     fontSize: 14,
-    color: '#333',
+    color: ERP_COLOR_CODE.ERP_333,
     marginBottom: 6,
     fontWeight: '600',
   },

@@ -132,7 +132,7 @@ const HomeScreen = () => {
       >
         <View
           style={{
-            backgroundColor: theme === 'dark' ? '#333' : ERP_COLOR_CODE.ERP_WHITE,
+            backgroundColor: theme === 'dark' ? ERP_COLOR_CODE.ERP_333 : ERP_COLOR_CODE.ERP_WHITE,
             borderRadius: 8,
           }}
         >

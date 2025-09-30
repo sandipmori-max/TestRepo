@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 6,
-    color: '#333',
+    color: ERP_COLOR_CODE.ERP_333,
   },
   subtitle: {
     fontSize: 16,
@@ -55,7 +55,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     fontSize: 16,
     backgroundColor: ERP_COLOR_CODE.ERP_INPUT_BACKGROUND,
-    color: '#333',
+    color: ERP_COLOR_CODE.ERP_333,
   },
   errorText: {
     color: ERP_COLOR_CODE.ERP_ERROR,

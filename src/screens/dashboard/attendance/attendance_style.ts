@@ -178,7 +178,7 @@ export const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#333',
+    color: ERP_COLOR_CODE.ERP_333,
     marginBottom: 12,
   },
 

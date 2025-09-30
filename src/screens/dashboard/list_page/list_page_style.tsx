@@ -83,12 +83,12 @@ export const styles = StyleSheet.create({
   detailValue: {
     flex: 2,
     textAlign: 'right',
-    color: '#333',
+    color: ERP_COLOR_CODE.ERP_333,
   },
   expandText: {
     marginTop: 8,
     textAlign: 'center',
-    color: '#007bff',
+    color: ERP_COLOR_CODE.ERP_COLOR,
     fontWeight: '600',
   },
   card: {

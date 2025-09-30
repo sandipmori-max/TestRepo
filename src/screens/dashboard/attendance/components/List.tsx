@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   recordAvatar: { width: 50, height: 50, borderRadius: 25 },
   recordName: { fontSize: 14 },
   recordDateTime: { fontWeight: '600', fontSize: 14, color: ERP_COLOR_CODE.ERP_BLACK },
-  recordPunchTime: { fontSize: 14, color: '#333' },
+  recordPunchTime: { fontSize: 14, color: ERP_COLOR_CODE.ERP_333 },
   statusBadgeRed: {
     backgroundColor: ERP_COLOR_CODE.ERP_ERROR,
     color: ERP_COLOR_CODE.ERP_WHITE,

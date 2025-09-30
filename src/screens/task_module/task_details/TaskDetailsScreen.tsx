@@ -73,7 +73,7 @@ const TaskDetailsBottomSheet = ({
         <View style={styles.header}>
           <Text style={styles.title}>{task.title}</Text>
           <TouchableOpacity onPress={onClose}>
-            <MaterialIcons name="close" size={22} color="#333" />
+            <MaterialIcons name="close" size={22} color={ERP_COLOR_CODE.ERP_333} />
           </TouchableOpacity>
         </View>
 
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  title: { fontSize: 20, fontWeight: '700', color: '#333' },
+  title: { fontSize: 20, fontWeight: '700', color: ERP_COLOR_CODE.ERP_333 },
   row: { flexDirection: 'row', alignItems: 'center', marginBottom: 10 },
   badge: { paddingVertical: 4, paddingHorizontal: 12, borderRadius: 8, marginRight: 10 },
   badgeText: { color: ERP_COLOR_CODE.ERP_WHITE, fontSize: 13, fontWeight: '600' },

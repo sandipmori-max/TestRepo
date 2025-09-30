@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { ERP_COLOR_CODE } from '../../../../utils/constants';
 
 type BoolInputProps = {
   value: any;
@@ -38,19 +39,19 @@ const styles = StyleSheet.create({
     height: 20,
     borderRadius: 10,
     borderWidth: 1.5,
-    borderColor: '#333',
+    borderColor: ERP_COLOR_CODE.ERP_333,
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 4,
   },
   radioSelected: {
-    borderColor: '#007bff',
+    borderColor: ERP_COLOR_CODE.ERP_COLOR,
   },
   radioInner: {
     width: 12,
     height: 12,
     borderRadius: 6,
-    backgroundColor: '#007bff',
+    backgroundColor: ERP_COLOR_CODE.ERP_COLOR,
   },
 });
 

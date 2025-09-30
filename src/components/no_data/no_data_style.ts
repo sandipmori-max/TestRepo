@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: '600',
-    color: '#333333',
+    color: ERP_COLOR_CODE.ERP_333,
     marginBottom: 6,
   },
   subtitle: {

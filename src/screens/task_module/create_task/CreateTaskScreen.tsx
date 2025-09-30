@@ -122,7 +122,7 @@ const CreateTaskScreen = ({ onCreate }) => {
             <View style={styles.modalHeader}>
               <Text style={styles.modalTitle}>Select Developers</Text>
               <TouchableOpacity onPress={() => setDropdownVisible(false)}>
-                <MaterialIcons name="close" size={22} color="#333" />
+                <MaterialIcons name="close" size={22} color={ERP_COLOR_CODE.ERP_333} />
               </TouchableOpacity>
             </View>
             <Text style={styles.modalSubText}>Choose one or more juniors to assign this task.</Text>
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     paddingLeft: 8,
     marginBottom: 4,
-    color: '#333',
+    color: ERP_COLOR_CODE.ERP_333,
   },
 
   label: { fontSize: 13, marginTop: 6, marginBottom: 4, color: '#666' },
@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 8,
   },
-  modalTitle: { fontSize: 16, fontWeight: 'bold', color: '#333' },
+  modalTitle: { fontSize: 16, fontWeight: 'bold', color: ERP_COLOR_CODE.ERP_333 },
   modalSubText: { fontSize: 13, color: '#666', marginBottom: 12 },
 
   option: {
@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     backgroundColor: '#fafafa',
   },
-  dateText: { color: '#333' },
+  dateText: { color: ERP_COLOR_CODE.ERP_333 },
 
   priorityContainer: { flexDirection: 'row', marginTop: 8 },
   priorityChip: {
@@ -285,7 +285,7 @@ const styles = StyleSheet.create({
     backgroundColor: p === 'Low' ? '#4caf50' : p === 'Medium' ? '#ff9800' : '#f44336',
     borderColor: 'transparent',
   }),
-  priorityText: { fontSize: 13, fontWeight: '600', color: '#333' },
+  priorityText: { fontSize: 13, fontWeight: '600', color: ERP_COLOR_CODE.ERP_333 },
 
   createButton: {
     backgroundColor: ERP_COLOR_CODE.ERP_APP_COLOR,

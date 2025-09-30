@@ -65,7 +65,7 @@ export const styles = StyleSheet.create({
   accountName: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#333',
+    color: ERP_COLOR_CODE.ERP_333,
   },
   accountEmail: {
     fontSize: 14,

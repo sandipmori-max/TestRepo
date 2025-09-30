@@ -40,7 +40,7 @@ const DetailsBottomSheet = ({ visible, onClose, item, baseLink }: any) => {
           }}
         >
           <TouchableOpacity onPress={onClose} style={{ alignSelf: 'flex-end', padding: 6 }}>
-            <MaterialIcons name="close" size={28} color="#333" />
+            <MaterialIcons name="close" size={28} color={ERP_COLOR_CODE.ERP_333}/>
           </TouchableOpacity>
 
           {item ? (

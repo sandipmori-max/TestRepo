@@ -60,7 +60,7 @@ const LocationRow = ({ item, value, setValue }: any) => {
         ) : (
           <>
             {address ? (
-              <Text style={{ marginTop: 4, color: '#333' }}>{address}</Text>
+              <Text style={{ marginTop: 4, color: ERP_COLOR_CODE.ERP_333 }}>{address}</Text>
             ) : (
               <Text style={{ marginTop: 4, color: '#999' }}>Address not found</Text>
             )}

@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 12,
-    color: '#333',
+    color: ERP_COLOR_CODE.ERP_333,
   },
   list: {
     paddingBottom: 20,
@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
   },
   unreadCard: {
     borderLeftWidth: 4,
-    borderLeftColor: '#007bff',
+    borderLeftColor: ERP_COLOR_CODE.ERP_COLOR,
   },
   cardHeader: {
     flexDirection: 'row',
@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
   cardTitle: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#333',
+    color: ERP_COLOR_CODE.ERP_333,
     flex: 1,
   },
   dateText: {
@@ -61,7 +61,7 @@ export const styles = StyleSheet.create({
     width: 42,
     height: 42,
     borderRadius: 6,
-    backgroundColor: '#007bff',
+    backgroundColor: ERP_COLOR_CODE.ERP_COLOR,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 12,

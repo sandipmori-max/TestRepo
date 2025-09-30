@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
     marginBottom: 6,
-    color: '#333',
+    color: ERP_COLOR_CODE.ERP_333,
   },
   inputWrapper: {
     position: 'relative',
