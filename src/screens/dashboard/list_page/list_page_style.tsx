@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 8,
     paddingTop: 0,
-    backgroundColor: ERP_COLOR_CODE.ERP_F8F9FA,
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
   },
    profileImage: {
     width: 40,

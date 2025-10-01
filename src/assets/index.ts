@@ -1,5 +1,6 @@
 const ERP_BASE_URL_ICONS = './icons';
 const ERP_BASE_URL_GIF = './gif';
+const ERP_BASE_URL_SVG = './svg';
 
 const APP_LOGO = require(`${ERP_BASE_URL_ICONS}/logo.png`);
 
@@ -23,6 +24,12 @@ const SEARCH_LOADER = require(`${ERP_BASE_URL_GIF}/search.gif`);
 const NO_INTERNET = require(`${ERP_BASE_URL_GIF}/not_internet.png`);
 const NO_DATA = require(`${ERP_BASE_URL_GIF}/no_data.png`);
 const SUCCESS = require(`${ERP_BASE_URL_GIF}/success.gif`);
+
+const NO_SIGNAL = require(`${ERP_BASE_URL_GIF}/no_signal.svg`);
+const EMPTY = require(`${ERP_BASE_URL_GIF}/empty.svg`);
+const ERRORS = require(`${ERP_BASE_URL_GIF}/error.svg`);
+const NODATA = require(`${ERP_BASE_URL_GIF}/no_data.svg`);
+ 
 
 export const ERP_ICON = {
   APP_LOGO,
@@ -49,3 +56,10 @@ export const ERP_GIF = {
   NO_INTERNET,
   SUCCESS,
 };
+
+export const ERP_SVG = {
+  NO_SIGNAL,
+  EMPTY,
+  ERRORS,
+  NODATA
+}

@@ -54,7 +54,6 @@ export const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     fontSize: 16,
-    backgroundColor: ERP_COLOR_CODE.ERP_fafafa,
     color: ERP_COLOR_CODE.ERP_333,
   },
   errorText: {

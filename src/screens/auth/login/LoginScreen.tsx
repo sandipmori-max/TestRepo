@@ -19,6 +19,7 @@ import { styles } from './login_style';
 import LoginHeader from './components/LoginHeader';
 import LoginForm from './components/LoginForm';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ERP_COLOR_CODE } from '../../../utils/constants';
 
 const LoginScreen = ({ navigation, route }: any) => {
   const { t } = useTranslations();
@@ -88,7 +89,7 @@ const LoginScreen = ({ navigation, route }: any) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <KeyboardAvoidingView
-        style={{ flex: 1 }}
+        style={{ flex: 1, backgroundColor: ERP_COLOR_CODE.ERP_WHITE }}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
         <FlatList

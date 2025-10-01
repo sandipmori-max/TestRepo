@@ -119,6 +119,7 @@ const HomeScreen = () => {
             backgroundColor: accentColors[index % accentColors.length],
             borderRadius: 8,
             width: isHorizontal ? '100%' : '48%',
+            height: 120,
           },
         ]}
         activeOpacity={0.7}

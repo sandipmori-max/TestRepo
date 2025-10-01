@@ -108,6 +108,7 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
   profileCard: {
+    marginTop: 16,
     backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
   },
   profileRow: {
