@@ -154,7 +154,9 @@ const AjaxPicker = ({ label, onValueChange, item, errors, dtext, formValues }: a
             </View>
 
             {loader ? (
-              <FullViewLoader />
+             <View>
+               <FullViewLoader />
+              </View>
             ) : (
               <ScrollView keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
                 {options?.length > 0 ? (
