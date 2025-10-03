@@ -62,7 +62,7 @@ const AccountSwitcher: React.FC<AccountSwitcherProps> = ({ visible, onClose, onA
     const isActive = item?.id.toString() === activeAccountId?.toString();
     const lastLogin = formatDateHr(item?.lastLoginAt, false);
     const lastLoginHr = formatTimeTo12Hour(item?.lastLoginAt);
-   
+
     let normalizedBase = (item?.user?.companyLink || '').replace(/\/+$/, '');
     normalizedBase = normalizedBase.replace(/\/devws\/?/, '/');
     normalizedBase = normalizedBase.replace(/^https:\/\//i, 'http://');
@@ -71,10 +71,11 @@ const AccountSwitcher: React.FC<AccountSwitcherProps> = ({ visible, onClose, onA
       <TouchableOpacity
         style={[styles.accountItem, isActive && styles.activeAccount]}
         onPress={async () => {
+          DevERPService.setAppId(item?.user?.app_id || '');
+          await AsyncStorage.setItem('appid', item?.user?.app_id);
+
           if (isTokenValid(item?.user?.tokenValidTill)) {
             DevERPService.setToken(item?.user?.token || '');
-            DevERPService.setAppId(item?.user?.app_id || '');
-            await AsyncStorage.setItem('appid', item?.user?.app_id)
             await AsyncStorage.setItem('erp_token', item?.user?.token || '');
             await AsyncStorage.setItem('auth_token', item?.user?.token || '');
             await AsyncStorage.setItem('erp_token_valid_till', item?.user?.token || '');
@@ -92,7 +93,6 @@ const AccountSwitcher: React.FC<AccountSwitcherProps> = ({ visible, onClose, onA
             if (!validation?.isValid) {
               return;
             }
-            await DevERPService.getAuth();
             handleSwitchAccount(item?.id);
           }
         }}
@@ -113,12 +113,10 @@ const AccountSwitcher: React.FC<AccountSwitcherProps> = ({ visible, onClose, onA
             <Text style={[styles.accountName, isActive && styles.activeText]}>
               {item?.user?.name.charAt(0).toUpperCase() + item?.user?.name.slice(1)}
             </Text>
-            <Text 
-            numberOfLines={1}
-            style={[styles.accountEmail, isActive && styles.activeText]}>
-              {item?.user?.companyName} 
+            <Text numberOfLines={1} style={[styles.accountEmail, isActive && styles.activeText]}>
+              {item?.user?.companyName}
             </Text>
-             
+
             <View
               style={{
                 width: isActive ? '100%' : '80%',

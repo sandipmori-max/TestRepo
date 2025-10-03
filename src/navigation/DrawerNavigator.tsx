@@ -2,7 +2,6 @@ import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import AttendanceScreen from '../screens/dashboard/attendance/AttendanceScreen';
-import DisplayScreen from '../screens/dashboard/display/DisplayScreen';
 import AlertScreen from '../screens/dashboard/alert/AlertScreen';
 import PrivacyPolicyScreen from '../screens/dashboard/privacy/PrivacyPolicyScreen';
 import TabNavigator from './TabNavigator';
@@ -40,12 +39,7 @@ const DrawerNavigator = () => {
         name="Attendance"
         component={AttendanceScreen}
         options={{ title: t('navigation.attendance') }}
-      />
-      {/* <Drawer.Screen
-        name="Tasks"
-        component={DisplayScreen}
-        options={{ title: t('navigation.display') }}
-      /> */}
+      /> 
       <Drawer.Screen
         name="Alert"
         component={AlertScreen}

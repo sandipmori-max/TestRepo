@@ -17,6 +17,8 @@ const ReadableView = ({
   pageParamsName,
   pageName,
   handleActionButtonPressed,
+  setIsFilterVisible,
+  setSearchQuery,
 }: any) => {
   const navigation = useNavigation();
   const screenWidth = Dimensions.get('window').width;
@@ -72,17 +74,19 @@ const ReadableView = ({
           style={{ flexDirection: 'row', alignItems: 'center' }}
           onPress={async () => {
             console.log('🚀 ~ Page:', item);
-            if(authUser){
+            if (authUser) {
               return;
             }
-            if(item?.id !== undefined){
-            navigation.navigate('Page', {
-              item,
-              title: pageParamsName,
-              id: item?.id,
-              url: pageName,
-            });
-          }
+            if (item?.id !== undefined) {
+              setIsFilterVisible(false)
+              setSearchQuery('')
+              navigation.navigate('Page', {
+                item,
+                title: pageParamsName,
+                id: item?.id,
+                url: pageName,
+              }); 
+            }
           }}
         >
           <View
@@ -99,7 +103,9 @@ const ReadableView = ({
             {item?.image && item?.image !== '' ? (
               <Image source={{ uri: baseUrl }} style={styles.profileImage} />
             ) : (
-              <Text style={{ color: ERP_COLOR_CODE.ERP_WHITE, fontWeight: '400', fontSize: 16 }}>{avatarLetter}</Text>
+              <Text style={{ color: ERP_COLOR_CODE.ERP_WHITE, fontWeight: '400', fontSize: 16 }}>
+                {avatarLetter}
+              </Text>
             )}
           </View>
 
@@ -120,7 +126,9 @@ const ReadableView = ({
               justifyContent: 'flex-end',
             }}
           >
-            <Text style={{ fontWeight: '600', fontSize: 12, color: ERP_COLOR_CODE.ERP_BLACK }}>{status}</Text>
+            <Text style={{ fontWeight: '600', fontSize: 12, color: ERP_COLOR_CODE.ERP_BLACK }}>
+              {status}
+            </Text>
             {!!date && (
               <Text style={{ fontWeight: '800', fontSize: 12, color: ERP_COLOR_CODE.ERP_BLACK }}>
                 {formatDateToDDMMMYYYY(date)}
@@ -133,15 +141,14 @@ const ReadableView = ({
             if (authUser) {
               return;
             }
-            if(item?.id !== undefined){
-navigation.navigate('Page', {
-              item,
-              title: pageParamsName,
-              id: item?.id,
-              url: pageName,
-            });
+            if (item?.id !== undefined) {
+              navigation.navigate('Page', {
+                item,
+                title: pageParamsName,
+                id: item?.id,
+                url: pageName,
+              });
             }
-            
           }}
         >
           {(remarks || address || amount) && (
@@ -247,7 +254,11 @@ navigation.navigate('Page', {
                     handleActionButtonPressed(actionValue, label, color, item?.id);
                   }}
                 >
-                  <Text style={{ color: ERP_COLOR_CODE.ERP_WHITE, fontWeight: '600', fontSize: 12 }}>{label}</Text>
+                  <Text
+                    style={{ color: ERP_COLOR_CODE.ERP_WHITE, fontWeight: '600', fontSize: 12 }}
+                  >
+                    {label}
+                  </Text>
                 </TouchableOpacity>
               );
             })}
@@ -284,7 +295,7 @@ navigation.navigate('Page', {
         renderItem={({ item, index }) => <RenderCard item={item} index={index} />}
         contentContainerStyle={styles.listContent}
       />
-      {filteredData?.length > 0 && totalAmount > 0 ? (
+      {filteredData?.length > 0 ? (
         <View
           style={{
             marginTop: 6,
@@ -293,20 +304,51 @@ navigation.navigate('Page', {
             backgroundColor: '#f1f1f1',
             borderWidth: 1,
             borderColor: ERP_COLOR_CODE.ERP_ddd,
-            marginBottom: 28,
+            marginBottom: 12,
           }}
         >
-          <Text style={{ fontSize: 14, fontWeight: '700', color: ERP_COLOR_CODE.ERP_333 }}>Total Amount</Text>
-          <Text
+          {totalAmount !== 0 && (
+            <View
+              style={{
+                justifyContent: 'space-between',
+                flexDirection: 'row',
+              }}
+            >
+              <Text style={{ fontSize: 14, fontWeight: '700', color: ERP_COLOR_CODE.ERP_333 }}>
+                Total Amount
+              </Text>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: 'bold',
+                  color: '#28a745',
+                  marginTop: 2,
+                }}
+              >
+                ₹ {totalAmount?.toFixed(2)}
+              </Text>
+            </View>
+          )}
+
+          <View
             style={{
-              fontSize: 16,
-              fontWeight: 'bold',
-              color: '#28a745',
-              marginTop: 2,
+              justifyContent: 'space-between',
+              flexDirection: 'row',
             }}
           >
-            ₹ {totalAmount?.toFixed(2)}
-          </Text>
+            <Text style={{ fontSize: 14, fontWeight: '700', color: ERP_COLOR_CODE.ERP_333 }}>
+              Total Rows
+            </Text>
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: 'bold',
+                marginTop: 2,
+              }}
+            >
+              {filteredData?.length}
+            </Text>
+          </View>
         </View>
       ) : null}
     </View>

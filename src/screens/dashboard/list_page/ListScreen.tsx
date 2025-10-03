@@ -30,7 +30,7 @@ const ListScreen = () => {
   const [loadingListId, setLoadingListId] = useState<string | null>(null);
   const [listData, setListData] = useState<any[]>([]);
   const [configData, setConfigData] = useState<any[]>([]);
- 
+
   const [error, setError] = useState<string | null>(null);
 
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -74,16 +74,24 @@ const ListScreen = () => {
     item => item?.datafield && item?.datafield.toLowerCase() === 'date',
   );
 
+  const hasIdField = configData.some(
+    item => item?.datafield && item?.datafield.toLowerCase() === 'id',
+  );
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: () => (
-              <Text
-                numberOfLines={1}
-                style={{ maxWidth: 180, fontSize: 18, fontWeight: '700', color: ERP_COLOR_CODE.ERP_WHITE }}
-              >
-                {pageTitle || 'List Data'}
-              </Text>
-            ),
+        <Text
+          numberOfLines={1}
+          style={{
+            maxWidth: 180,
+            fontSize: 18,
+            fontWeight: '700',
+            color: ERP_COLOR_CODE.ERP_WHITE,
+          }}
+        >
+          {pageTitle || 'List Data'}
+        </Text>
+      ),
       headerRight: () => (
         <>
           <ERPIcon
@@ -229,10 +237,10 @@ const ListScreen = () => {
 
   const fetchListData = useCallback(
     async (fromDateStr: string, toDateStr: string) => {
-      console.log("🚀 ~ fromDateStr:", fromDateStr)
-      if(isFilterVisible){
-        return;
-      }
+      console.log('🚀 ~ fromDateStr:', fromDateStr);
+      // if (isFilterVisible) {
+      //   return;
+      // }
       try {
         setError(null);
         setLoadingListId(item?.id || 0);
@@ -280,7 +288,7 @@ const ListScreen = () => {
         }, 10);
       }
     },
-    [item, dispatch, isFilterVisible],
+    [item, dispatch],
   );
 
   useEffect(() => {
@@ -303,6 +311,8 @@ const ListScreen = () => {
   );
 
   const handleItemPressed = (item, page, pageTitle = '') => {
+    setIsFilterVisible(false);
+    setSearchQuery('');
     navigation.navigate('Page', {
       item,
       title: page,
@@ -335,9 +345,6 @@ const ListScreen = () => {
     <View style={styles.container}>
       {isFilterVisible && (
         <View>
-         <View style={{marginVertical: 4, alignContent:'flex-end', alignItems:'flex-end', width: '100%',}}>
-           <Text>Rows: [ {filteredData?.length} ]</Text>
-          </View>
           <View style={styles.searchContainer}>
             <View style={styles.searchInputContainer}>
               <MaterialIcons size={24} name="search" />
@@ -359,7 +366,6 @@ const ListScreen = () => {
           {hasDateField && (
             <View style={styles.dateContainer}>
               <View style={styles.dateRow}>
-                 
                 <TouchableOpacity
                   onPress={() => setShowDatePicker({ type: 'from', show: true })}
                   style={styles.dateButton}
@@ -368,7 +374,6 @@ const ListScreen = () => {
                 </TouchableOpacity>
               </View>
               <View style={styles.dateRow}>
-                
                 <TouchableOpacity
                   onPress={() => setShowDatePicker({ type: 'to', show: true })}
                   style={styles.dateButton}
@@ -421,6 +426,8 @@ const ListScreen = () => {
                     pageParamsName={pageParamsName}
                     handleItemPressed={handleItemPressed}
                     pageName={pageName}
+                    setIsFilterVisible={setIsFilterVisible}
+                    setSearchQuery={setSearchQuery}
                     handleActionButtonPressed={handleActionButtonPressed}
                   />
                 </>
@@ -434,6 +441,8 @@ const ListScreen = () => {
                     pageParamsName={pageParamsName}
                     handleItemPressed={handleItemPressed}
                     pageName={pageName}
+                     setIsFilterVisible={setIsFilterVisible}
+                    setSearchQuery={setSearchQuery}
                     handleActionButtonPressed={handleActionButtonPressed}
                   />
                 </>
@@ -442,9 +451,14 @@ const ListScreen = () => {
           )}
         </>
       )}
-      {!loadingListId && configData && (
+      {hasIdField && !loadingListId && configData && (
         <TouchableOpacity
-          style={styles.addButton}
+          style={[
+            styles.addButton,
+            {
+              bottom: filteredData.length === 0 ? 40 : totalAmount === 0 ? 64 : 78,
+            },
+          ]}
           onPress={() => {
             handleItemPressed({}, pageParamsName, pageTitle);
           }}

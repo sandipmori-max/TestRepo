@@ -65,7 +65,7 @@ export const loginUserThunk = createAsyncThunk(
       isAddingAccount = false,
       user_credentials,
       response,
-      companyData
+      companyData,
     }: {
       company_code: string;
       password: string;
@@ -88,10 +88,7 @@ export const loginUserThunk = createAsyncThunk(
       const tokenValidTill = isAddingAccount
         ? newvalidTill
         : await AsyncStorage.getItem('erp_token_valid_till');
-      console.log(
-        '🚀-🚀-🚀-🚀-🚀-🚀-response-🚀-🚀-🚀-🚀-🚀-🚀-🚀-🚀 ~ tokenValidTill:',
-        response,
-      );
+      console.log('🚀-🚀-🚀-🚀-🚀-🚀-response-🚀-🚀-🚀-🚀-🚀-🚀-🚀-🚀 ~ tokenValidTill:', response);
 
       if (!token) {
         return rejectWithValue('No authentication token found. Please login again.');
@@ -118,11 +115,10 @@ export const loginUserThunk = createAsyncThunk(
         rolename: response?.rolename,
         username: response?.username,
         companyLink: companyData?.response?.link,
-         companyName: companyData?.response?.name,
-         app_id: response?.app_id
-
+        companyName: companyData?.response?.name,
+        app_id: response?.app_id,
       };
-      console.log("🚀 ~ erpUser:------------------", erpUser)
+      console.log('🚀 ~ erpUser:------------------', erpUser);
 
       const db = await getDBConnection();
       await createAccountsTable(db);
@@ -175,18 +171,11 @@ export const switchAccountThunk = createAsyncThunk(
     try {
       const db = await getDBConnection();
       await createAccountsTable(db);
-      const accounts1 = await getAccounts(db);
-
-      console.log('🚀 ~ accounts before updated ------------------- updates:', accounts1);
-
+ 
       await updateAccountActive(db, accountId);
       const accounts = await getAccounts(db);
-      console.log('🚀 ~ accounts ------------------------------after updates:', accounts);
-      const targetAccount = accounts?.find((acc: Account) => acc?.id === accountId);
-      console.log('🚀 ~ */////////////////////////////////////targetAccount:', targetAccount);
-      await AsyncStorage.setItem('erp_token', targetAccount?.user?.token || '');
-      await AsyncStorage.setItem('auth_token', targetAccount?.user?.token || '');
-      DevERPService.setToken(targetAccount?.user?.token);
+       const targetAccount = accounts?.find((acc: Account) => acc?.id === accountId);
+ 
       if (!targetAccount) {
         return rejectWithValue('Account not found');
       }
@@ -196,7 +185,10 @@ export const switchAccountThunk = createAsyncThunk(
         if (tokenValidTill) {
           const validTill = new Date(tokenValidTill);
           if (validTill > new Date()) {
-            return {
+            await AsyncStorage.setItem('erp_token', targetAccount?.user?.token || '');
+            await AsyncStorage.setItem('auth_token', targetAccount?.user?.token || '');
+            DevERPService.setToken(targetAccount?.user?.token);
+             return {
               user: targetAccount.user,
               accountId,
               accounts,
@@ -205,8 +197,10 @@ export const switchAccountThunk = createAsyncThunk(
         }
       }
       await DevERPService.getAuth();
-        const updatedAccounts = await getAccounts(db);
+      const updatedAccounts = await getAccounts(db);
+      console.log("🚀 ~ updatedAccounts-----------------------------------------:", updatedAccounts)
       const updatedActiveAccount = await getActiveAccount(db);
+      console.log("🚀🚀🚀🚀🚀🚀 ~ updatedActiveAccount -----------------------------------------:", updatedActiveAccount)
 
       return {
         accounts: updatedAccounts,

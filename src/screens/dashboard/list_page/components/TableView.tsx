@@ -14,6 +14,8 @@ const TableView = ({
   pageParamsName,
   pageName,
   handleActionButtonPressed,
+  setIsFilterVisible,
+  setSearchQuery,
 }: any) => {
   const screenWidth = Dimensions.get('window').width;
   const navigation = useNavigation();
@@ -109,6 +111,8 @@ const TableView = ({
             return;
           }
           if (item?.id !== undefined) {
+            setIsFilterVisible(false);
+            setSearchQuery('');
             navigation.navigate('Page', {
               item,
               title: pageParamsName,
@@ -181,7 +185,11 @@ const TableView = ({
                       handleActionButtonPressed(actionValue, label, color, item?.id);
                     }}
                   >
-                    <Text style={{ color: ERP_COLOR_CODE.ERP_WHITE, fontWeight: '600', fontSize: 13 }}>{label}</Text>
+                    <Text
+                      style={{ color: ERP_COLOR_CODE.ERP_WHITE, fontWeight: '600', fontSize: 13 }}
+                    >
+                      {label}
+                    </Text>
                   </TouchableOpacity>
                 );
               })}
@@ -232,7 +240,7 @@ const TableView = ({
         }}
       ></FlatList>
 
-      {filteredData?.length > 0 && totalAmount > 0 ? (
+      {filteredData?.length > 0 ? (
         <View
           style={{
             marginTop: 6,
@@ -241,20 +249,51 @@ const TableView = ({
             backgroundColor: '#f1f1f1',
             borderWidth: 1,
             borderColor: ERP_COLOR_CODE.ERP_ddd,
-            marginBottom: 28,
+            marginBottom: 12,
           }}
         >
-          <Text style={{ fontSize: 14, fontWeight: '700', color: ERP_COLOR_CODE.ERP_333 }}>Total Amount</Text>
-          <Text
+          {totalAmount !== 0 && (
+            <View
+              style={{
+                justifyContent: 'space-between',
+                flexDirection: 'row',
+              }}
+            >
+              <Text style={{ fontSize: 14, fontWeight: '700', color: ERP_COLOR_CODE.ERP_333 }}>
+                Total Amount
+              </Text>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: 'bold',
+                  color: '#28a745',
+                  marginTop: 2,
+                }}
+              >
+                ₹ {totalAmount?.toFixed(2)}
+              </Text>
+            </View>
+          )}
+
+          <View
             style={{
-              fontSize: 16,
-              fontWeight: 'bold',
-              color: '#28a745',
-              marginTop: 2,
+              justifyContent: 'space-between',
+              flexDirection: 'row',
             }}
           >
-            ₹ {totalAmount?.toFixed(2)}
-          </Text>
+            <Text style={{ fontSize: 14, fontWeight: '700', color: ERP_COLOR_CODE.ERP_333 }}>
+              Total Rows
+            </Text>
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: 'bold',
+                marginTop: 2,
+              }}
+            >
+              {filteredData?.length}
+            </Text>
+          </View>
         </View>
       ) : null}
     </View>

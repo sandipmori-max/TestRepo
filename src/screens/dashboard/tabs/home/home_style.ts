@@ -67,17 +67,13 @@ export const styles = StyleSheet.create({
     paddingBottom: 20,
   },
 
-  // Dashboard Item
   dashboardItem: {
     width: itemWidth,
     marginBottom: 16,
     backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     borderRadius: 16,
-    shadowColor: ERP_COLOR_CODE.ERP_BLACK,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.08,
-    shadowRadius: 12,
-    elevation: 1,
+    borderColor: ERP_COLOR_CODE.ERP_BORDER,
+    borderWidth: 0.6,
     overflow: 'hidden',
   },
   dashboardItemContent: {

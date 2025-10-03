@@ -24,6 +24,14 @@ const Stack = createStackNavigator<any>();
 const StackNavigator = () => {
   const { isPinLoaded } = useAppSelector(state => state?.auth);
   console.log('🚀 ~ StackNavigator ~ isPinLoaded:', isPinLoaded);
+  const smoothTransition = {
+    gestureEnabled: false,
+    cardStyleInterpolator: ({ current }) => ({
+      cardStyle: {
+        opacity: current.progress,
+      },
+    }),
+  };
 
   const screenOptions = {
     headerShown: true,
@@ -60,6 +68,7 @@ const StackNavigator = () => {
         },
       },
     },
+    ...smoothTransition,
   };
 
   return (
@@ -69,8 +78,10 @@ const StackNavigator = () => {
         headerStyle: {},
       }}
     >
-      {isPinLoaded === true && <Stack.Screen name="Startup" component={StartupScreen} />}
-      <Stack.Screen name="Drawer" component={DrawerNavigator} />
+      {isPinLoaded === true && (
+        <Stack.Screen name="Startup" component={StartupScreen} options={smoothTransition} />
+      )}
+      <Stack.Screen name="Drawer" component={DrawerNavigator} options={smoothTransition} />
       <Stack.Screen options={screenOptions} name="Settings" component={SettingsScreen} />
       <Stack.Screen options={screenOptions} name="PinSet" component={PinSetupScreen} />
       <Stack.Screen

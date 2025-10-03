@@ -47,7 +47,10 @@ const PageScreen = () => {
 
   const [error, setError] = useState<string | null>(null);
   const [formValues, setFormValues] = useState<any>({});
-  console.log("🚀 ~ PageScreen ~ formValues:------++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++------", formValues)
+  console.log(
+    '🚀 ~ PageScreen ~ formValues:------++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++------',
+    formValues,
+  );
   const [datePickerVisible, setDatePickerVisible] = useState(false);
 
   const [dateTimePickerVisible, setDateTimePickerVisible] = useState(false);
@@ -97,16 +100,33 @@ const PageScreen = () => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: () => (
-        <Text
-          numberOfLines={1}
-          style={{ maxWidth: isFromNew ? 280 : 180, fontSize: 18, fontWeight: '700', color: ERP_COLOR_CODE.ERP_WHITE }}
-        >
-          {isFromNew ? `${pageTitle} ( New ) ` : title + ' ( Edit )' || 'Details'}
-        </Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', maxWidth: 210 }}>
+          <Text
+            numberOfLines={1}
+            style={{
+              flexShrink: 1,
+              fontSize: 18,
+              fontWeight: '700',
+              color: ERP_COLOR_CODE.ERP_WHITE,
+            }}
+          >
+            {title || pageTitle || 'Details'}
+          </Text>
+          <Text
+            style={{
+              fontSize: 18,
+              fontWeight: '700',
+              color: ERP_COLOR_CODE.ERP_WHITE,
+              marginLeft: 4,
+            }}
+          >
+            {isFromNew ? '( New )' : '( Edit )'}
+          </Text>
+        </View>
       ),
       headerRight: () => (
         <>
-          {(
+          {
             <ERPIcon
               name="refresh"
               isLoading={actionLoader}
@@ -117,7 +137,7 @@ const PageScreen = () => {
                 setErrorsList([]);
               }}
             />
-          )}
+          }
 
           {!authUser && controls.length > 0 && (
             <ERPIcon
@@ -290,25 +310,23 @@ const PageScreen = () => {
             onChange={val => setValue({ [item?.field]: val })}
           />
         );
-      }
-      else if (item?.field === "chemistname"){
-        content = <CustomMultiPicker 
-        
-         label={item?.fieldtitle}
+      } else if (item?.field === 'chemistname') {
+        content = (
+          <CustomMultiPicker
+            label={item?.fieldtitle}
             selectedValue={value}
             dtext={item?.dtext || item?.text || ''}
             onValueChange={setValue}
             options={item?.options || []}
             item={item}
-            errors={errors}/>
-      }
-      else if (item?.ctltype === 'FILE') {
-        content = <FilePickerRow item={item} handleAttachment  ={handleAttachment  }/>;
-      }
-      else if(item?.defaultvalue === "#location"){
-        content = <LocationRow item={item} setValue ={setValue }/>
-      }
-       else if (item?.defaultvalue == '#HTML') {
+            errors={errors}
+          />
+        );
+      } else if (item?.ctltype === 'FILE') {
+        content = <FilePickerRow item={item} handleAttachment={handleAttachment} />;
+      } else if (item?.defaultvalue === '#location') {
+        content = <LocationRow item={item} setValue={setValue} />;
+      } else if (item?.defaultvalue == '#HTML') {
         content = <HtmlRow item={item} />;
       } else if (item?.ctltype === 'IMAGE' && item?.field === 'signature') {
         content = (
@@ -433,8 +451,15 @@ const PageScreen = () => {
       {loadingPageId ? (
         <FullViewLoader />
       ) : !!error ? (
-       <View style={{flex: 1, justifyContent:'center', alignContent:'center', backgroundColor:ERP_COLOR_CODE.ERP_WHITE}}>
-         <ErrorMessage message={error} />
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignContent: 'center',
+            backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
+          }}
+        >
+          <ErrorMessage message={error} />
         </View>
       ) : controls?.length > 0 ? (
         <>
