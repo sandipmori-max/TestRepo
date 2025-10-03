@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
+  Platform,
   SafeAreaView,
   StyleSheet,
   View,
@@ -9,13 +10,15 @@ import FullViewLoader from '../../../components/loader/FullViewLoader';
 import { ERP_COLOR_CODE } from '../../../utils/constants';
 
 const PrivacyPolicyScreen = () => {
+
+   
   return (
     <SafeAreaView style={styles.container}>
       <WebView
         source={{ uri: 'http://www.deverp.com/index.aspx?q=deverp_privacy_policy' }}
         startInLoadingState={true}
         javaScriptEnabled={true}
-        domStorageEnabled={true}
+        domStorageEnabled={false}
         style={styles.webview}
         renderLoading={() => (
           <View style={styles.loaderContainer}>

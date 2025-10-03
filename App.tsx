@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, StatusBar, StyleSheet } from 'react-native';
+import { Alert, AppState, StatusBar, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -19,18 +19,31 @@ import {
   onNotificationOpenedAppListener,
   checkInitialNotification,
 } from './src/firebase/firebaseService';
+import { clearAllTempFiles } from './src/utils/helpers';
 
 const App = () => {
   const isConnected = useNetworkStatus();
   const [isSplashVisible, setSplashVisible] = useState(true);
 
   useEffect(() => {
+    clearAllTempFiles();
+  }, []);
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', nextState => {
+      if (nextState === 'background') {
+        clearAllTempFiles(); 
+      }
+    });
+
+    return () => subscription.remove();
+  }, []);
+  useEffect(() => {
     requestUserPermission();
     setBackgroundMessageHandler();
     const unsubscribeForeground = onMessageListener(remoteMessage => {
       Alert.alert(
         remoteMessage.notification?.title ?? 'New Message',
-        remoteMessage.notification?.body ?? JSON.stringify(remoteMessage.data)
+        remoteMessage.notification?.body ?? JSON.stringify(remoteMessage.data),
       );
     });
 

@@ -111,7 +111,7 @@ const WebScreen = () => {
             source={{ uri: isFromChart ? url : targetUrl }}
             startInLoadingState={true}
             javaScriptEnabled={true}
-            domStorageEnabled={true}
+            domStorageEnabled={false}
             style={styles.webview}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}

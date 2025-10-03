@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     marginVertical: 6,
     marginHorizontal: 12,
     borderWidth: 0.5,
-    width: '100%'
+    width: '100%',
   },
   recordAvatar: { width: 50, height: 50, borderRadius: 25 },
   recordName: { fontSize: 14 },
@@ -266,12 +266,24 @@ const List = ({ selectedMonth, showFilter, fromDate, toDate }: any) => {
               style={[
                 { paddingVertical: 6, paddingHorizontal: 14, borderRadius: 4, borderWidth: 1 },
                 activeFilter === filter.key
-                  ? { backgroundColor: ERP_COLOR_CODE.ERP_APP_COLOR, borderColor: ERP_COLOR_CODE.ERP_WHITE }
-                  : { backgroundColor: ERP_COLOR_CODE.ERP_WHITE, borderColor: ERP_COLOR_CODE.ERP_BORDER_LINE },
+                  ? {
+                      backgroundColor: ERP_COLOR_CODE.ERP_APP_COLOR,
+                      borderColor: ERP_COLOR_CODE.ERP_WHITE,
+                    }
+                  : {
+                      backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
+                      borderColor: ERP_COLOR_CODE.ERP_BORDER_LINE,
+                    },
               ]}
             >
               <Text
-                style={{ color: activeFilter === filter.key ? ERP_COLOR_CODE.ERP_WHITE : ERP_COLOR_CODE.ERP_BLACK, fontWeight: '600' }}
+                style={{
+                  color:
+                    activeFilter === filter.key
+                      ? ERP_COLOR_CODE.ERP_WHITE
+                      : ERP_COLOR_CODE.ERP_BLACK,
+                  fontWeight: '600',
+                }}
               >
                 {filter.label}
               </Text>
@@ -390,7 +402,9 @@ const List = ({ selectedMonth, showFilter, fromDate, toDate }: any) => {
                         height: 10,
                         borderRadius: 5,
                         backgroundColor:
-                          currentView === 'pie' ? ERP_COLOR_CODE.ERP_APP_COLOR : ERP_COLOR_CODE.ERP_BORDER_LINE,
+                          currentView === 'pie'
+                            ? ERP_COLOR_CODE.ERP_APP_COLOR
+                            : ERP_COLOR_CODE.ERP_BORDER_LINE,
                       }}
                     />
                     <TouchableOpacity
@@ -402,7 +416,9 @@ const List = ({ selectedMonth, showFilter, fromDate, toDate }: any) => {
                         height: 10,
                         borderRadius: 5,
                         backgroundColor:
-                          currentView === 'calendar' ? ERP_COLOR_CODE.ERP_APP_COLOR : ERP_COLOR_CODE.ERP_BORDER_LINE,
+                          currentView === 'calendar'
+                            ? ERP_COLOR_CODE.ERP_APP_COLOR
+                            : ERP_COLOR_CODE.ERP_BORDER_LINE,
                       }}
                     />
                   </View>
@@ -432,14 +448,14 @@ const List = ({ selectedMonth, showFilter, fromDate, toDate }: any) => {
                   <NoData />
                 </View>
               ) : (
-                <View style={{marginHorizontal: 12}}>
+                <View style={{ marginHorizontal: 12 }}>
                   <FlatList
-                  data={timelineData}
-                  keyExtractor={(item, index) => index.toString()}
-                  showsVerticalScrollIndicator={false}
-                  renderItem={({ item }) => (
-                    <View style={{ marginBottom: 8 }}>
-                       {/* <Text style={{ 
+                    data={timelineData}
+                    keyExtractor={(item, index) => index.toString()}
+                    showsVerticalScrollIndicator={false}
+                    renderItem={({ item }) => (
+                      <View style={{ marginBottom: 8 }}>
+                        {/* <Text style={{ 
                         backgroundColor: ERP_COLOR_CODE.ERP_APP_COLOR,
                         paddingHorizontal: 12,
                         paddingVertical: 4,
@@ -449,141 +465,100 @@ const List = ({ selectedMonth, showFilter, fromDate, toDate }: any) => {
                         {item.date}
                       </Text> */}
 
-                      {/* Timeline Records */}
-                      {item.records.map((rec, idx) => {
-                        const isLeaveFull = rec?.status?.toLowerCase() === 'leave';
-                        const workedHours =
-                          !rec?.intime || !rec?.outtime
-                            ? 0
-                            : getWorkedHours(rec?.intime, rec?.outtime);
-                        const isLessThanRequired = !isLeaveFull && workedHours < 8.5;
-                        const isLate = !isLeaveFull && rec?.intime && isLatePunchIn(rec?.intime);
+                        {/* Timeline Records */}
+                        {item.records.map((rec, idx) => {
+                          const isLeaveFull = rec?.status?.toLowerCase() === 'leave';
+                          const workedHours =
+                            !rec?.intime || !rec?.outtime
+                              ? 0
+                              : getWorkedHours(rec?.intime, rec?.outtime);
+                          const isLessThanRequired = !isLeaveFull && workedHours < 8.5;
+                          const isLate = !isLeaveFull && rec?.intime && isLatePunchIn(rec?.intime);
 
-                        return (
-                          <View key={rec.id} style={{ flexDirection: 'row', marginBottom: 0 }}>
-                            
-                            <View style={{ alignItems: 'center', width: 8 }}>
-                              <View
-                                style={{
-                                  width: 12,
-                                  height: 12,
-                                  borderRadius: 6,
-                                  backgroundColor: ERP_COLOR_CODE.ERP_APP_COLOR,
-                                }}
-                              />
-                              {  (
+                          return (
+                            <View key={rec.id} style={{ flexDirection: 'row', marginBottom: 0 }}>
+                              <View style={{ alignItems: 'center', width: 8 }}>
                                 <View
                                   style={{
-                                    width: 2,
-                                    flex: 1,
-                                    backgroundColor: ERP_COLOR_CODE.ERP_BLACK
-                                   }}
+                                    width: 12,
+                                    height: 12,
+                                    borderRadius: 6,
+                                    backgroundColor: ERP_COLOR_CODE.ERP_APP_COLOR,
+                                  }}
                                 />
-                              )}
-                            </View>
+                                {
+                                  <View
+                                    style={{
+                                      width: 2,
+                                      flex: 1,
+                                      backgroundColor: ERP_COLOR_CODE.ERP_BLACK,
+                                    }}
+                                  />
+                                }
+                              </View>
 
-                            <TouchableOpacity onPress={() => openDetails(rec)} style={{
-                              right: 16,
-                              flex: 1,
-                               marginTop: 12,
-                                }}>
-                              <View
-                                style={[
-                                  styles.recordCard,
-                                  
-                                ]}
+                              <TouchableOpacity
+                                onPress={() => openDetails(rec)}
+                                style={{
+                                  right: 16,
+                                  flex: 1,
+                                  marginTop: 12,
+                                }}
                               >
-                                <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                                  {/* Images */}
-                                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                    {rec?.image && (
-                                      <FastImage
-                                        source={{ uri: baseLink + '/' + rec?.image }}
-                                        style={styles.recordAvatar}
-                                      />
-                                    )}
-                                    {rec?.image2 && (
-                                      <FastImage
-                                        source={{ uri: baseLink + '/' + rec?.image2 }}
-                                        style={[
-                                          styles.recordAvatar,
-                                          { marginLeft: -32, borderWidth: 2, borderColor: ERP_COLOR_CODE.ERP_WHITE },
-                                        ]}
-                                      />
-                                    )}
-                                  </View>
-
-                                  {/* Details */}
-                                  <View style={{ flex: 1, marginLeft: 12 }}>
-                                    <View
-                                      style={{
-                                        flexDirection: 'row',
-                                        justifyContent: 'space-between',
-                                        marginBottom: 4,
-                                      }}
-                                    >
-                                      <Text style={styles.recordName}>{rec?.employee}</Text>
-                                      <Text style={styles.recordDateTime}>{rec?.date}</Text>
+                                <View style={[styles.recordCard]}>
+                                  <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                                    {/* Images */}
+                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                      {rec?.image && (
+                                        <FastImage
+                                          source={{
+                                            uri: baseLink + '/' + rec?.image,
+                                            priority: FastImage.priority.normal,
+                                            cache: FastImage.cacheControl.web,
+                                          }}
+                                          style={styles.recordAvatar}
+                                        />
+                                      )}
+                                      {rec?.image2 && (
+                                        <FastImage
+                                          source={{
+                                            uri: baseLink + '/' + rec?.image2,
+                                            priority: FastImage.priority.normal,
+                                            cache: FastImage.cacheControl.web,
+                                          }}
+                                          style={[
+                                            styles.recordAvatar,
+                                            {
+                                              marginLeft: -32,
+                                              borderWidth: 2,
+                                              borderColor: ERP_COLOR_CODE.ERP_WHITE,
+                                            },
+                                          ]}
+                                        />
+                                      )}
                                     </View>
 
-                                    { (
+                                    {/* Details */}
+                                    <View style={{ flex: 1, marginLeft: 12 }}>
                                       <View
                                         style={{
                                           flexDirection: 'row',
                                           justifyContent: 'space-between',
-                                          alignItems: 'center',
+                                          marginBottom: 4,
                                         }}
                                       >
+                                        <Text style={styles.recordName}>{rec?.employee}</Text>
+                                        <Text style={styles.recordDateTime}>{rec?.date}</Text>
+                                      </View>
+
+                                      {
                                         <View
                                           style={{
                                             flexDirection: 'row',
+                                            justifyContent: 'space-between',
                                             alignItems: 'center',
-                                            gap: 4,
                                           }}
                                         >
-                                          <MaterialIcons
-                                            color={ERP_COLOR_CODE.ERP_666}
-                                            size={14}
-                                            name="access-alarm"
-                                          />
-                                          <Text style={styles.recordPunchTime}>
-                                            {formatTo12Hour(rec?.intime) || '--'}
-                                          </Text>
-                                        </View>
-
-                                        {rec?.status?.toLowerCase() === 'working' ? (
-                                          <View
-                                            style={{
-                                              flexDirection: 'row',
-                                              alignItems: 'center',
-                                              gap: 4,
-                                            }}
-                                          >
-                                            <MaterialIcons
-                                              color={ERP_COLOR_CODE.ERP_666}
-                                              size={14}
-                                              name="history-toggle-off"
-                                            />
-                                            <Text style={styles.recordPunchTime}>
-                                              {rec?.status}
-                                            </Text>
-                                          </View>
-                                        ) : (
-                                          <View
-                                            style={{
-                                              flexDirection: 'row',
-                                              alignItems: 'center',
-                                              gap: 4,
-                                            }}
-                                          >
-                                            <MaterialIcons color={ERP_COLOR_CODE.ERP_666} size={14} name="timeline" />
-                                            <Text style={styles.recordPunchTime}>
-                                              {getWorkedHours2(rec?.intime, rec?.outtime)}
-                                            </Text>
-                                          </View>
-                                        )}
-
-                                        {rec?.status?.toLowerCase() !== 'working' && (
                                           <View
                                             style={{
                                               flexDirection: 'row',
@@ -597,58 +572,112 @@ const List = ({ selectedMonth, showFilter, fromDate, toDate }: any) => {
                                               name="access-alarm"
                                             />
                                             <Text style={styles.recordPunchTime}>
-                                              {formatTo12Hour(rec?.outtime) || '--'}
+                                              {formatTo12Hour(rec?.intime) || '--'}
+                                            </Text>
+                                          </View>
+
+                                          {rec?.status?.toLowerCase() === 'working' ? (
+                                            <View
+                                              style={{
+                                                flexDirection: 'row',
+                                                alignItems: 'center',
+                                                gap: 4,
+                                              }}
+                                            >
+                                              <MaterialIcons
+                                                color={ERP_COLOR_CODE.ERP_666}
+                                                size={14}
+                                                name="history-toggle-off"
+                                              />
+                                              <Text style={styles.recordPunchTime}>
+                                                {rec?.status}
+                                              </Text>
+                                            </View>
+                                          ) : (
+                                            <View
+                                              style={{
+                                                flexDirection: 'row',
+                                                alignItems: 'center',
+                                                gap: 4,
+                                              }}
+                                            >
+                                              <MaterialIcons
+                                                color={ERP_COLOR_CODE.ERP_666}
+                                                size={14}
+                                                name="timeline"
+                                              />
+                                              <Text style={styles.recordPunchTime}>
+                                                {getWorkedHours2(rec?.intime, rec?.outtime)}
+                                              </Text>
+                                            </View>
+                                          )}
+
+                                          {rec?.status?.toLowerCase() !== 'working' && (
+                                            <View
+                                              style={{
+                                                flexDirection: 'row',
+                                                alignItems: 'center',
+                                                gap: 4,
+                                              }}
+                                            >
+                                              <MaterialIcons
+                                                color={ERP_COLOR_CODE.ERP_666}
+                                                size={14}
+                                                name="access-alarm"
+                                              />
+                                              <Text style={styles.recordPunchTime}>
+                                                {formatTo12Hour(rec?.outtime) || '--'}
+                                              </Text>
+                                            </View>
+                                          )}
+                                        </View>
+                                      }
+
+                                      {isLeaveFull && (
+                                        <Text style={styles.statusBadgeRed}>Leave</Text>
+                                      )}
+                                      {isLate && <Text style={styles.statusBadgeBlue}>Late</Text>}
+                                      {rec?.status?.toLowerCase() !== 'working' &&
+                                        isLessThanRequired && (
+                                          <View
+                                            style={{
+                                              flexDirection: 'row',
+                                              justifyContent: 'space-between',
+                                            }}
+                                          >
+                                            <Text style={styles.statusBadgeGrey}>Less Hours</Text>
+                                            <Text style={styles.statusBadgeGrey}>
+                                              ({workedHours.toFixed(2)} hrs)
                                             </Text>
                                           </View>
                                         )}
+
+                                      <View
+                                        style={{
+                                          alignContent: 'center',
+                                          alignItems: 'center',
+                                          flexDirection: 'row',
+                                          gap: 4,
+                                          marginTop: 4,
+                                        }}
+                                      >
+                                        <MaterialIcons
+                                          size={16}
+                                          color={ERP_COLOR_CODE.ERP_ERROR}
+                                          name="location-on"
+                                        />
+                                        <Text>{rec?.location || 'Dummy location'} </Text>
                                       </View>
-                                    )}
-
-                                    {isLeaveFull && (
-                                      <Text style={styles.statusBadgeRed}>Leave</Text>
-                                    )}
-                                    {isLate && <Text style={styles.statusBadgeBlue}>Late</Text>}
-                                    {rec?.status?.toLowerCase() !== 'working' &&
-                                      isLessThanRequired && (
-                                        <View
-                                          style={{
-                                            flexDirection: 'row',
-                                            justifyContent: 'space-between',
-                                          }}
-                                        >
-                                          <Text style={styles.statusBadgeGrey}>Less Hours</Text>
-                                          <Text style={styles.statusBadgeGrey}>
-                                            ({workedHours.toFixed(2)} hrs)
-                                          </Text>
-                                        </View>
-                                      )}
-
-                                    <View
-                                      style={{
-                                        alignContent: 'center',
-                                        alignItems: 'center',
-                                        flexDirection: 'row',
-                                        gap: 4,
-                                        marginTop: 4,
-                                      }}
-                                    >
-                                      <MaterialIcons
-                                        size={16}
-                                        color={ERP_COLOR_CODE.ERP_ERROR}
-                                        name="location-on"
-                                      />
-                                      <Text>{rec?.location || 'Dummy location'} </Text>
                                     </View>
                                   </View>
                                 </View>
-                              </View>
-                            </TouchableOpacity>
-                          </View>
-                        );
-                      })}
-                    </View>
-                  )}
-                />
+                              </TouchableOpacity>
+                            </View>
+                          );
+                        })}
+                      </View>
+                    )}
+                  />
                 </View>
               )}
             </>

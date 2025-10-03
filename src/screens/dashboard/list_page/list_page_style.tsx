@@ -261,8 +261,6 @@ export const styles = StyleSheet.create({
   },
   dateRow: {
     flex: 1,
-    marginRight: 8,
-    
   },
   dateLabel: {
     fontSize: 14,

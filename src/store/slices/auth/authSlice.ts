@@ -260,10 +260,12 @@ const authSlice = createSlice({
           }
 
           let dashboardItems = [];
+          console.log("🚀 ~ dashboardData:", dashboardData)
 
           if (dashboardData.data && dashboardData.data.d) {
             try {
               const innerData = JSON.parse(dashboardData.data.d);
+              console.log("🚀 ~ +++++++++++++++++++++innerData:--------------", innerData)
               if (innerData?.success === 1 && innerData?.dbs) {
                 dashboardItems = innerData.dbs;
               }

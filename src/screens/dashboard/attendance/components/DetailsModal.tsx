@@ -40,7 +40,7 @@ const DetailsBottomSheet = ({ visible, onClose, item, baseLink }: any) => {
           }}
         >
           <TouchableOpacity onPress={onClose} style={{ alignSelf: 'flex-end', padding: 6 }}>
-            <MaterialIcons name="close" size={28} color={ERP_COLOR_CODE.ERP_333}/>
+            <MaterialIcons name="close" size={28} color={ERP_COLOR_CODE.ERP_333} />
           </TouchableOpacity>
 
           {item ? (
@@ -48,7 +48,11 @@ const DetailsBottomSheet = ({ visible, onClose, item, baseLink }: any) => {
               <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 16 }}>
                 {item?.image && (
                   <FastImage
-                    source={{ uri: baseLink + '/' + item?.image }}
+                    source={{
+                      uri: baseLink + '/' + item?.image,
+                      priority: FastImage.priority.normal,
+                      cache: FastImage.cacheControl.web,
+                    }}
                     style={{
                       width: 80,
                       height: 80,
@@ -61,7 +65,11 @@ const DetailsBottomSheet = ({ visible, onClose, item, baseLink }: any) => {
                 )}
                 {item?.image2 && (
                   <FastImage
-                    source={{ uri: baseLink + '/' + item?.image2 }}
+                    source={{
+                      uri: baseLink + '/' + item?.image2,
+                      priority: FastImage.priority.normal,
+                      cache: FastImage.cacheControl.web,
+                    }}
                     style={{
                       width: 80,
                       height: 80,
@@ -75,23 +83,45 @@ const DetailsBottomSheet = ({ visible, onClose, item, baseLink }: any) => {
                 )}
               </View>
 
-              <Text style={{ fontSize: 20, fontWeight: '700', textAlign: 'center', marginBottom: 4 }}>
+              <Text
+                style={{ fontSize: 20, fontWeight: '700', textAlign: 'center', marginBottom: 4 }}
+              >
                 {item?.employee}
               </Text>
-              <Text style={{ fontSize: 14, textAlign: 'center', color: ERP_COLOR_CODE.ERP_666, marginBottom: 16 }}>
+              <Text
+                style={{
+                  fontSize: 14,
+                  textAlign: 'center',
+                  color: ERP_COLOR_CODE.ERP_666,
+                  marginBottom: 16,
+                }}
+              >
                 {item?.status?.toUpperCase()}
               </Text>
 
-              <View style={{ backgroundColor: '#f5f5f5', borderRadius: 12, padding: 12, marginBottom: 12 }}>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 6 }}>
+              <View
+                style={{
+                  backgroundColor: '#f5f5f5',
+                  borderRadius: 12,
+                  padding: 12,
+                  marginBottom: 12,
+                }}
+              >
+                <View
+                  style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 6 }}
+                >
                   <Text style={{ color: ERP_COLOR_CODE.ERP_444 }}>Date</Text>
                   <Text style={{ fontWeight: '600' }}>{item?.date}</Text>
                 </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 6 }}>
+                <View
+                  style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 6 }}
+                >
                   <Text style={{ color: ERP_COLOR_CODE.ERP_444 }}>In-Time</Text>
                   <Text style={{ fontWeight: '600' }}>{formatTo12Hour(item?.intime) || '--'}</Text>
                 </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 6 }}>
+                <View
+                  style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 6 }}
+                >
                   <Text style={{ color: ERP_COLOR_CODE.ERP_444 }}>Out-Time</Text>
                   <Text style={{ fontWeight: '600' }}>{formatTo12Hour(item?.outtime) || '--'}</Text>
                 </View>

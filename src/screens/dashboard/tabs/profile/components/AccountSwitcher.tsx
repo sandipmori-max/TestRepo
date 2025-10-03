@@ -104,7 +104,7 @@ const AccountSwitcher: React.FC<AccountSwitcherProps> = ({ visible, onClose, onA
                 item?.user?.id
               }/profileimage.jpeg?ts=${new Date().getTime()}`,
               priority: FastImage.priority.normal,
-              cache: FastImage.cacheControl.reload,
+              cache: FastImage.cacheControl.web,
             }}
             style={styles.avatar}
           />

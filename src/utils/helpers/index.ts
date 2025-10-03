@@ -2,6 +2,9 @@ import { ERP_GIF, ERP_ICON } from '../../assets';
 import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 import moment from 'moment';
 import { PermissionsAndroid, Platform } from 'react-native';
+import RNFS from 'react-native-fs';
+import FastImage from 'react-native-fast-image';
+import WebView from 'react-native-webview';
 
 export const getBottomTabIcon = (iconName: string, focused: boolean) => {
   switch (iconName) {
@@ -52,72 +55,71 @@ export const getGifSource = (type: 'error' | 'success' | 'info') => {
   }
 };
 
-  export const requestCameraAndLocationPermission = async (): Promise<boolean> => {
-    try {
-      const cameraPerm =
-        Platform.OS === 'ios' ? PERMISSIONS.IOS.CAMERA : PERMISSIONS.ANDROID.CAMERA;
+export const requestCameraAndLocationPermission = async (): Promise<boolean> => {
+  try {
+    const cameraPerm = Platform.OS === 'ios' ? PERMISSIONS.IOS.CAMERA : PERMISSIONS.ANDROID.CAMERA;
 
-      const locationPerm =
-        Platform.OS === 'ios'
-          ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE
-          : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION;
+    const locationPerm =
+      Platform.OS === 'ios'
+        ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE
+        : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION;
 
-      // 📌 Check current statuses
-      const cameraStatus = await check(cameraPerm);
-      const locationStatus = await check(locationPerm);
+    // 📌 Check current statuses
+    const cameraStatus = await check(cameraPerm);
+    const locationStatus = await check(locationPerm);
 
-      // ✅ Handle camera permission
-      let cameraGranted = false;
-      if (cameraStatus === RESULTS.GRANTED) {
-        cameraGranted = true;
-      } else if (cameraStatus === RESULTS.DENIED) {
-        const res = await request(cameraPerm);
-        cameraGranted = res === RESULTS.GRANTED;
-        if (!cameraGranted) {
-          return false;
-          // Alert.alert('Camera Permission Denied', 'Camera access is required for this feature.');
-        }
-      } else if (cameraStatus === RESULTS.BLOCKED) {
+    // ✅ Handle camera permission
+    let cameraGranted = false;
+    if (cameraStatus === RESULTS.GRANTED) {
+      cameraGranted = true;
+    } else if (cameraStatus === RESULTS.DENIED) {
+      const res = await request(cameraPerm);
+      cameraGranted = res === RESULTS.GRANTED;
+      if (!cameraGranted) {
         return false;
-        // Alert.alert(
-        //   'Camera Permission Blocked',
-        //   'Camera access has been permanently denied. Please enable it in Settings.',
-        //   [
-        //     { text: 'Cancel', style: 'cancel' },
-        //     { text: 'Open Settings', onPress: () => Linking.openSettings() },
-        //   ],
-        // );
+        // Alert.alert('Camera Permission Denied', 'Camera access is required for this feature.');
       }
+    } else if (cameraStatus === RESULTS.BLOCKED) {
+      return false;
+      // Alert.alert(
+      //   'Camera Permission Blocked',
+      //   'Camera access has been permanently denied. Please enable it in Settings.',
+      //   [
+      //     { text: 'Cancel', style: 'cancel' },
+      //     { text: 'Open Settings', onPress: () => Linking.openSettings() },
+      //   ],
+      // );
+    }
 
-      // ✅ Handle location permission
-      let locationGranted = false;
-      if (locationStatus === RESULTS.GRANTED) {
-        locationGranted = true;
-      } else if (locationStatus === RESULTS.DENIED) {
-        const res = await request(locationPerm);
-        locationGranted = res === RESULTS.GRANTED;
-        // if (!locationGranted) {
-        //   Alert.alert('Location Permission Denied', 'Location access is required for this feature.');
-        // }
-        return false
-      } else if (locationStatus === RESULTS.BLOCKED) {
-        // Alert.alert(
-        //   'Location Permission Blocked',
-        //   'Location access has been permanently denied. Please enable it in Settings.',
-        //   [
-        //     { text: 'Cancel', style: 'cancel' },
-        //     { text: 'Open Settings', onPress: () => Linking.openSettings() },
-        //   ],
-        // );
-        return false
-      }
-
-      return cameraGranted && locationGranted;
-    } catch (error) {
-      console.warn('⚠️ Permission error:', error);
+    // ✅ Handle location permission
+    let locationGranted = false;
+    if (locationStatus === RESULTS.GRANTED) {
+      locationGranted = true;
+    } else if (locationStatus === RESULTS.DENIED) {
+      const res = await request(locationPerm);
+      locationGranted = res === RESULTS.GRANTED;
+      // if (!locationGranted) {
+      //   Alert.alert('Location Permission Denied', 'Location access is required for this feature.');
+      // }
+      return false;
+    } else if (locationStatus === RESULTS.BLOCKED) {
+      // Alert.alert(
+      //   'Location Permission Blocked',
+      //   'Location access has been permanently denied. Please enable it in Settings.',
+      //   [
+      //     { text: 'Cancel', style: 'cancel' },
+      //     { text: 'Open Settings', onPress: () => Linking.openSettings() },
+      //   ],
+      // );
       return false;
     }
-  };
+
+    return cameraGranted && locationGranted;
+  } catch (error) {
+    console.warn('⚠️ Permission error:', error);
+    return false;
+  }
+};
 
 export function formatDateToDDMMMYYYY(dateStr: string): string {
   const formatDate = (date: Date): string => {
@@ -397,7 +399,6 @@ export const isTokenValid = (tokenValidTill: string) => {
   return new Date(tokenValidTill).getTime() > Date.now();
 };
 
-
 export async function requestLocationPermissions(): Promise<boolean> {
   if (Platform.OS === 'android') {
     try {
@@ -539,3 +540,26 @@ export const getWorkedHours2 = (punchIn: string, punchOut: string) => {
   return `${hours}:${mins.toString().padStart(2, '0')} hr`;
 };
 
+export const clearAllTempFiles = async () => {
+  try {
+    const tempDir = RNFS.TemporaryDirectoryPath;
+    const files = await RNFS.readDir(tempDir);
+
+    for (const file of files) {
+      try {
+        await RNFS.unlink(file.path);
+        console.log('Deleted temp file:', file.path);
+      } catch (err) {
+        console.log('Error deleting file:', file.path, err);
+      }
+    }
+    FastImage.clearMemoryCache();
+    FastImage.clearDiskCache();
+    if (Platform.OS === 'android') {
+      WebView.clearCache(true); // clears disk cache
+    }
+    console.log('All temp files cleared!');
+  } catch (err) {
+    console.log('Error reading temp directory:', err);
+  }
+};

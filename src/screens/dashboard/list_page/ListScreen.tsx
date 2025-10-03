@@ -365,20 +365,40 @@ const ListScreen = () => {
 
           {hasDateField && (
             <View style={styles.dateContainer}>
+              {/* Start Date */}
               <View style={styles.dateRow}>
                 <TouchableOpacity
                   onPress={() => setShowDatePicker({ type: 'from', show: true })}
                   style={styles.dateButton}
                 >
-                  <Text style={styles.dateButtonText}>{fromDate || 'Select From Date'}</Text>
+                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <MaterialIcons
+                      name="calendar-today"
+                      size={18}
+                      color="#000"
+                      style={{ marginRight: 8 }}
+                    />
+                    <Text style={styles.dateButtonText}>{fromDate || 'Select From Date'}</Text>
+                  </View>
                 </TouchableOpacity>
               </View>
+              <View style={{height: 1, width: 8,}}> </View>
+
+              {/* End Date */}
               <View style={styles.dateRow}>
                 <TouchableOpacity
                   onPress={() => setShowDatePicker({ type: 'to', show: true })}
                   style={styles.dateButton}
                 >
-                  <Text style={styles.dateButtonText}>{toDate || 'Select To Date'}</Text>
+                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <MaterialIcons
+                      name="calendar-today"
+                      size={18}
+                      color="#000"
+                      style={{ marginRight: 8 }}
+                    />
+                    <Text style={styles.dateButtonText}>{toDate || 'Select To Date'}</Text>
+                  </View>
                 </TouchableOpacity>
               </View>
             </View>
@@ -441,7 +461,7 @@ const ListScreen = () => {
                     pageParamsName={pageParamsName}
                     handleItemPressed={handleItemPressed}
                     pageName={pageName}
-                     setIsFilterVisible={setIsFilterVisible}
+                    setIsFilterVisible={setIsFilterVisible}
                     setSearchQuery={setSearchQuery}
                     handleActionButtonPressed={handleActionButtonPressed}
                   />

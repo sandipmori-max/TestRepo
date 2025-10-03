@@ -71,6 +71,7 @@ const CustomAlert: React.FC<CustomAlertProps> = ({
               source={gifSource}
               style={styles.gif}
               resizeMode={FastImage.resizeMode.contain}
+              
             />
           )}
           {isFromButtonList ? (
