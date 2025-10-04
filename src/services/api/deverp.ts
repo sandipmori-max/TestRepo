@@ -52,7 +52,6 @@ class DevERPService {
       await this.ensureAuthToken();
 
       const response = await apiClient.post<T>(`${this.link}${endpoint}`, payload);
-      console.log('🚀 ~ DevERPService ~ apiCall ~ response:', response);
 
       if (
         (response as any).data?.success === 0 &&
@@ -79,7 +78,6 @@ class DevERPService {
     const response = await apiClient.post<DevERPResponse>(`${this.baseUrl}/appcode.aspx/getLink`, {
       code,
     });
-    console.log('🚀 ~ DevERPService ~ getAppLink ~ response:', response);
 
     if (response.data.success === 1 && response.data.link) {
       if (response.data.link.startsWith('https://')) {
@@ -94,7 +92,6 @@ class DevERPService {
      
     try {
       const response = await this.getAppLink(code);
-      console.log('🚀 ~ DevERPService ~ validateCompanyCode ~ response:', response);
       return response.success === 1
         ? {
             isValid: true,
@@ -128,14 +125,12 @@ class DevERPService {
       firebaseid: credentials.firebaseid || '',
       device: this.device,
     };
-    console.log('🚀 ~ DevERPService ~ loginToERP ~ loginData---------:', loginData);
 
     try {
       const response = await apiClient.post<LoginResponse>(
       `${this.link}msp_api.aspx/setAppID`,
       loginData,
     );
-    console.log('🚀 ~ DevERPService ~ loginToERP ~ response:************', response);
     return {...response.data, app_id: app_id};
     } catch (error) {
       console.log("🚀 ~ DevERPService ~ loginToERP ~ error:", error?.data?.message)
@@ -146,15 +141,12 @@ class DevERPService {
 
   async getAuth(): Promise<string> {
     await this.checkNetwork();
-    console.log('🚀 ~ DevERPService ~  this.appid ~  this.appid:', this.appid);
 
     const tokenData: TokenRequest = { appid: this.appid, device: this.device };
-    console.log('🚀 ~ DevERPService ~ getAuth ~ tokenData:', tokenData);
     const response = await apiClient.post<TokenResponse>(
       `${this.link}msp_api.aspx/getAuth`,
       tokenData,
     );
-    console.log('🚀 ~ DevERPService ~ getAuth ~ response:', response);
 
     if (String(response?.data.success) !== '1')
       throw new Error(response?.data?.message || 'Failed to get token');
@@ -174,10 +166,7 @@ class DevERPService {
       );
       if (tableCheckResult[0].rows.length > 0) {
         const activeAccount = await getActiveAccount(db);
-        console.log(
-          '🚀 ~ DevERPService ~ getAuth ~ activeAccount-*-*-*-*-*-*-*-*-*-*-*-*-*--/////////:',
-          activeAccount,
-        );
+       
         this.token = response.data.token || '';
         if (activeAccount) {
           const updatedUser = {
@@ -233,7 +222,6 @@ class DevERPService {
       outremarks: rawData?.remark || '',
       outlocation: `${rawData?.latitude},${rawData?.longitude}`,
     };
-    console.log('🚀 ~ DevERPService ~ markAttendance ~ punchOutData:', punchOutData);
 
     const punchInData = {
       id: '0',
@@ -242,10 +230,7 @@ class DevERPService {
       inremarks: rawData?.remark || '',
       inlocation: `${rawData?.latitude.toString()},${rawData?.longitude.toString()}`,
     };
-    console.log(
-      '🚀 ~ DevERPService ~ markAttendance ~ punchData:',
-      JSON.stringify(isPunchIn ? punchInData : punchOutData),
-    );
+   
 
     return this.apiCall<AttendanceResponse>(`msp_api.aspx/pageSave`, {
       token: this.token,
@@ -271,11 +256,6 @@ class DevERPService {
   }
 
   getLastPunchIn() {
-    console.log(
-      '🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 ~ DevERPService ~ getLastPunchIn ~ getLastPunchIn:',
-      this.token,
-    );
-
     return this.apiCall<any>('msp_api.aspx/getLastPunchIn', { token: this.token });
   }
 

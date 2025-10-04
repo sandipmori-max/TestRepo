@@ -64,6 +64,7 @@ const ListScreen = () => {
   const pageTitle = item?.title || item?.name || 'List Data';
   const pageParamsName = item?.name || 'List Data';
   const pageName = item?.url;
+  console.log("🚀 ~ ListScreen ~ pageName:", pageName)
 
   const totalAmount = filteredData?.reduce((sum, item) => {
     const amount = parseFloat(item?.amount) || 0;
@@ -237,7 +238,6 @@ const ListScreen = () => {
 
   const fetchListData = useCallback(
     async (fromDateStr: string, toDateStr: string) => {
-      console.log('🚀 ~ fromDateStr:', fromDateStr);
       // if (isFilterVisible) {
       //   return;
       // }
@@ -254,7 +254,6 @@ const ListScreen = () => {
           }),
         ).unwrap();
         const parsed = typeof raw === 'string' ? JSON.parse(raw) : raw;
-        console.log('🚀 ~ parsed--------:', parsed);
         let dataArray = [];
         let configArray = [];
 
@@ -471,7 +470,7 @@ const ListScreen = () => {
           )}
         </>
       )}
-      {hasIdField && !loadingListId && configData && (
+      {  !loadingListId && configData && (
         <TouchableOpacity
           style={[
             styles.addButton,
@@ -499,10 +498,8 @@ const ListScreen = () => {
         doneText={alertConfig.title}
         color={alertConfig.color}
         onDone={async remark => {
-          console.log('🚀 ~ async ~ remark:', alertConfig?.actionValue);
           try {
             const type = `page${alertConfig.title}`;
-            console.log(type);
             const res = await dispatch(
               handlePageActionThunk({
                 action: type,
@@ -512,7 +509,6 @@ const ListScreen = () => {
               }),
             ).unwrap();
 
-            console.log('✅ Success:', res);
             setAlertVisible(false);
             onRefresh();
           } catch (err) {

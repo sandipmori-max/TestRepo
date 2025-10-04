@@ -23,7 +23,6 @@ const Stack = createStackNavigator<any>();
 
 const StackNavigator = () => {
   const { isPinLoaded } = useAppSelector(state => state?.auth);
-  console.log('🚀 ~ StackNavigator ~ isPinLoaded:', isPinLoaded);
   const smoothTransition = {
     gestureEnabled: false,
     cardStyleInterpolator: ({ current }) => ({

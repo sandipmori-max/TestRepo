@@ -146,7 +146,6 @@ const List = ({ selectedMonth, showFilter, fromDate, toDate }: any) => {
   }, [fromDate, toDate, fetchListData]);
 
   let data = listData?.length > 0 ? [...listData] : [];
-  console.log('🚀 ~ List ~ data:', data);
   if (activeFilter !== 'all') {
     switch (activeFilter) {
       case 'leave':

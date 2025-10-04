@@ -408,7 +408,6 @@ export async function requestLocationPermissions(): Promise<boolean> {
         PermissionsAndroid.PERMISSIONS.ACCESS_BACKGROUND_LOCATION, // needed for background & terminated
       ]);
 
-      console.log('📌 Location permission results:', granted);
 
       const fine = granted['android.permission.ACCESS_FINE_LOCATION'];
       const coarse = granted['android.permission.ACCESS_COARSE_LOCATION'];
@@ -420,7 +419,6 @@ export async function requestLocationPermissions(): Promise<boolean> {
         background === PermissionsAndroid.RESULTS.GRANTED;
 
       if (allGranted) {
-        console.log('✅ Location permissions granted');
         return true;
       }
 
@@ -548,7 +546,6 @@ export const clearAllTempFiles = async () => {
     for (const file of files) {
       try {
         await RNFS.unlink(file.path);
-        console.log('Deleted temp file:', file.path);
       } catch (err) {
         console.log('Error deleting file:', file.path, err);
       }
@@ -556,7 +553,7 @@ export const clearAllTempFiles = async () => {
     FastImage.clearMemoryCache();
     FastImage.clearDiskCache();
     if (Platform.OS === 'android') {
-      WebView.clearCache(true); // clears disk cache
+      WebView.clearCache(true);
     }
     console.log('All temp files cleared!');
   } catch (err) {

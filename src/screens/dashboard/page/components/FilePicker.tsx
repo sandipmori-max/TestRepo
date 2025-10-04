@@ -28,7 +28,6 @@ const FilePickerRow = ({ item, handleAttachment }) => {
       const files = await pick({
         type: [types.allFiles],
       });
-      console.log('🚀 ~ openFilePicker ~ files:', files);
       setSelectedFiles(prev => [...prev, ...files]);
 
       let filePath = files[0].uri;
@@ -40,7 +39,6 @@ const FilePickerRow = ({ item, handleAttachment }) => {
       }
 
       const fileBase64 = await RNFS.readFile(filePath, 'base64');
-      console.log('🚀 ~ openFilePicker ~ fileBase64:', fileBase64);
 
       handleAttachment(
         `${files[0].name}; data:${files[0].nativeType};base64,${fileBase64}`,

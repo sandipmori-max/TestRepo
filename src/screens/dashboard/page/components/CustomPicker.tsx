@@ -10,12 +10,10 @@ import FullViewLoader from '../../../../components/loader/FullViewLoader';
 const CustomPicker = ({ label, selectedValue, onValueChange, item, errors, dtext }: any) => {
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState<any[]>([]);
-  console.log("🚀 ~ CustomPicker ~ options:", options)
   const dispatch = useAppDispatch();
   const [loader, setLoader] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
   
-  // Cache for storing options per dtlid
   const optionsCache = useRef<{ [key: string]: any[] }>({});
 
   useEffect(() => {

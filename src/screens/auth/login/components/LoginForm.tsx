@@ -80,11 +80,9 @@ const LoginForm: React.FC<LoginFormProps> = ({
       const companyValidation = await validateCompanyCode(() =>
         DevERPService.validateCompanyCode(values.company_code,),
       );
-      console.log("🚀 ~ handleLoginSubmit ~ companyValidation:", companyValidation)
       if (!companyValidation?.isValid) return;
 
       const currentFcmToken = fcmToken || (await getMessaging().getToken());
-      console.log("🚀 ~ handleLoginSubmit ~ currentFcmToken:", currentFcmToken)
 
       DevERPService.setDevice(deviceId);
 

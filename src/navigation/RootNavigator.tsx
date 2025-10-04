@@ -13,7 +13,6 @@ import StackNavigator from './StackNavigator';
 import FullViewLoader from '../components/loader/FullViewLoader';
 import DeviceInfo from 'react-native-device-info';
 import CustomAlert from '../components/alert/CustomAlert';
-import { generateGUID } from '../utils/helpers';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { requestLocationPermissions } from '../utils/helpers';
 import { useFocusEffect } from '@react-navigation/native';
@@ -22,7 +21,6 @@ import { setERPTheme } from '../utils/constants';
 const RootNavigator = () => {
   const dispatch = useAppDispatch();
   const { isLoading, isAuthenticated, accounts , user} = useAppSelector(state => state.auth);
-  console.log("🚀 ~ RootNavigator ------------------ Active user ~ user:", user)
   const theme = useAppSelector(state => state.theme);
 
   const [locationEnabled, setLocationEnabled] = useState<boolean | null>(null);
@@ -39,7 +37,6 @@ const RootNavigator = () => {
   const locationSyncInterval = useRef<NodeJS.Timeout | null>(null);
 
   const app_id = user?.app_id;
-  console.log("🚀 ~ RootNavigator ~ app_id:", app_id)
 
   // ------------------------- Request Location Permission -------------------------
   const requestLocationPermission = async (): Promise<boolean> => {
@@ -124,7 +121,6 @@ useEffect(() => {
         setAlertVisible(false);
       }
 
-      console.log(enabled ? '📍 Location ON' : '📍 Location OFF');
     }
   }, 1000); // check every 1 second
 
@@ -155,25 +151,19 @@ useEffect(() => {
 
   // ------------------------- Check & Start Location Sync -------------------------
   const startLocationSync = async () => {
-    console.log("🚀 ~ startLocationSync ~ isAuthenticated:", isAuthenticated)
     // if (!isAuthenticated) return;
 
     const enabled = await DeviceInfo.isLocationEnabled();
-    console.log("🚀 ~ startLocationSync ~ enabled:", enabled)
     if (!enabled) return;
 
     const hasPermission = await requestLocationPermission();
-    console.log("🚀 ~ startLocationSync ~ hasPermission:", hasPermission)
     const fullPermission = await requestLocationPermissions();
-    console.log("🚀 ~ startLocationSync ~ fullPermission:", fullPermission)
     if (!hasPermission || !fullPermission) return;
 
     // Clear any existing interval
-    console.log("🚀 ~ startLocationSync ~ locationSyncInterval:", locationSyncInterval)
     if (locationSyncInterval.current) clearInterval(locationSyncInterval.current);
 
     locationSyncInterval.current = setInterval(() => {
-      console.log('📌 Running location sync...');
       checkLocation();
     }, 1800);
   };
@@ -263,7 +253,6 @@ useEffect(() => {
         const fullPermission = await requestLocationPermissions();
 
         if (hasPermission && fullPermission) {
-          console.log('✅ Permissions granted after returning from Settings');
           setAlertVisible(false);
           setIsSettingVisible(false);
           setModalClose(true);

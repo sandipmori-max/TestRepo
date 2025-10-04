@@ -22,7 +22,7 @@ const initialState: AuthState = {
   dashboard: [],
   isDashboardLoading: false,
   activeToken: null,
-  isPinLoaded: false
+  isPinLoaded: false,
 };
 
 const authSlice = createSlice({
@@ -33,7 +33,6 @@ const authSlice = createSlice({
       state.error = null;
     },
     setIsPinLoaded: state => {
-      console.log("🚀 ~ isPinLoaded -------------------------------:", state)
       state.isPinLoaded = true;
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
@@ -50,6 +49,9 @@ const authSlice = createSlice({
     },
     setMenu: (state, action: PayloadAction<MenuItem[]>) => {
       state.menu = action?.payload;
+    },
+    setEmptyMenu: (state, action: PayloadAction<MenuItem[]>) => {
+      state.menu = [];
     },
     setMenuLoading: (state, action: PayloadAction<boolean>) => {
       state.isMenuLoading = action?.payload;
@@ -127,10 +129,6 @@ const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(switchAccountThunk.fulfilled, (state, action) => {
-        console.log(
-          '🚀 ~ action:---------->>>>>>>>🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀>>>>>>>>>----------',
-          action?.payload,
-        );
         state.isLoading = false;
         state.user = action?.payload?.user;
         state.activeAccountId = action?.payload?.accountId;
@@ -147,11 +145,6 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(switchAccountThunk.rejected, (state, action) => {
-        console.log(
-          '🚀 ~ action:- REJECTED--------->>>>>>>>🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀>>>>>>>>>----------',
-          action?.payload,
-        );
-
         state.isLoading = false;
         state.error = action?.payload as string;
       })
@@ -198,10 +191,10 @@ const authSlice = createSlice({
 
       .addCase(getERPMenuThunk.pending, state => {
         state.isMenuLoading = true;
+        state.menu = [];
       })
       .addCase(getERPMenuThunk.fulfilled, (state, action) => {
-        state.isMenuLoading = false;
-
+        state.menu = [];
         try {
           let menuData;
           if (typeof action.payload === 'string') {
@@ -225,7 +218,6 @@ const authSlice = createSlice({
               }
             }
           }
-          console.log('🚀 ~ menus:', menus);
 
           state.menu = menus.map((menu: any, index: number) => ({
             id: menu?.Link || `menu_${index}`,
@@ -236,13 +228,15 @@ const authSlice = createSlice({
             title: menu?.Title || '',
             isReport: menu?.IsReport,
           }));
+          console.log("🚀 ~ menus:", menus)
           state.error = null;
+          state.isMenuLoading = false;
         } catch (error) {
           state.menu = [];
+          state.isMenuLoading = false;
         }
       })
       .addCase(getERPMenuThunk.rejected, (state, action) => {
-        console.log('🚀 ~ action:', action);
         state.isMenuLoading = false;
         state.error = action.payload as string;
       })
@@ -260,12 +254,10 @@ const authSlice = createSlice({
           }
 
           let dashboardItems = [];
-          console.log("🚀 ~ dashboardData:", dashboardData)
 
           if (dashboardData.data && dashboardData.data.d) {
             try {
               const innerData = JSON.parse(dashboardData.data.d);
-              console.log("🚀 ~ +++++++++++++++++++++innerData:--------------", innerData)
               if (innerData?.success === 1 && innerData?.dbs) {
                 dashboardItems = innerData.dbs;
               }
@@ -284,7 +276,6 @@ const authSlice = createSlice({
               console.error('Error parsing inner d property:', innerParseError);
             }
           }
-          console.log('🚀 ~ dashboardItems:--------', dashboardItems);
 
           state.dashboard = dashboardItems.map((item: any, index: number) => ({
             id: item?.Link || `dashboard_${index}`,
@@ -295,12 +286,12 @@ const authSlice = createSlice({
             isReport: item.IsReport || '',
             footer: item?.footer || '',
           }));
-          state.isDashboardLoading = false;
           state.error = null;
         } catch (error) {
           console.error('Error parsing dashboard data:', error);
           state.dashboard = [];
         }
+        state.isDashboardLoading = false;
       })
       .addCase(getERPDashboardThunk.rejected, (state, action) => {
         state.isDashboardLoading = false;
@@ -314,10 +305,11 @@ export const {
   setLoading,
   logout,
   setMenu,
+  setEmptyMenu,
   setMenuLoading,
   setDashboard,
   setDashboardLoading,
   setActiveToken,
-  setIsPinLoaded
+  setIsPinLoaded,
 } = authSlice.actions;
 export default authSlice.reducer;

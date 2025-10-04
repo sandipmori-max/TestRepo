@@ -154,7 +154,7 @@ const AjaxPicker = ({ label, onValueChange, item, errors, dtext, formValues }: a
             </View>
 
             {loader ? (
-             <View>
+             <View style={{flex: 1, justifyContent:'center', alignContent:'center', alignItems:'center'}}>
                <FullViewLoader />
               </View>
             ) : (

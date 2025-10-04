@@ -78,17 +78,12 @@ export const loginUserThunk = createAsyncThunk(
     },
     { rejectWithValue },
   ) => {
-    console.log('🚀 ~ response:*-*-*-*-*-*-*-', response);
     try {
       const token = isAddingAccount ? newToken : await AsyncStorage.getItem('erp_token');
-      console.log(
-        '🚀 ~ companyData---------------------*****************------------------------------------------:',
-        companyData,
-      );
+      
       const tokenValidTill = isAddingAccount
         ? newvalidTill
         : await AsyncStorage.getItem('erp_token_valid_till');
-      console.log('🚀-🚀-🚀-🚀-🚀-🚀-response-🚀-🚀-🚀-🚀-🚀-🚀-🚀-🚀 ~ tokenValidTill:', response);
 
       if (!token) {
         return rejectWithValue('No authentication token found. Please login again.');
@@ -167,7 +162,6 @@ export const loginUserThunk = createAsyncThunk(
 export const switchAccountThunk = createAsyncThunk(
   'auth/switchAccount',
   async (accountId: string, { rejectWithValue }) => {
-    console.log('🚀 ~ accountId:', accountId);
     try {
       const db = await getDBConnection();
       await createAccountsTable(db);
@@ -198,9 +192,7 @@ export const switchAccountThunk = createAsyncThunk(
       }
       await DevERPService.getAuth();
       const updatedAccounts = await getAccounts(db);
-      console.log("🚀 ~ updatedAccounts-----------------------------------------:", updatedAccounts)
       const updatedActiveAccount = await getActiveAccount(db);
-      console.log("🚀🚀🚀🚀🚀🚀 ~ updatedActiveAccount -----------------------------------------:", updatedActiveAccount)
 
       return {
         accounts: updatedAccounts,
@@ -293,7 +285,6 @@ export const getERPMenuThunk = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await DevERPService.getMenu();
-      console.log('🚀 ~ getERPMenuThunk ~ raw response:', response);
 
       if (response && typeof response === 'string') {
         return response;
@@ -329,7 +320,6 @@ export const getERPPageThunk = createAsyncThunk<
 >('auth/getERPPage', async ({ page, id }, { rejectWithValue }) => {
   try {
     const pageData = await DevERPService.getPage(page, id);
-    console.log('🚀 ~ pageData:', pageData);
     return pageData;
   } catch (error: any) {
     console.log('🚀 ~ error:', error);

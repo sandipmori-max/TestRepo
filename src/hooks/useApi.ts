@@ -4,7 +4,6 @@ import { UseApiOptions, UseApiState } from './type';
 
 export const useApi = <T = any>(options: UseApiOptions = {}) => {
   const { retryCount = 3, retryDelay = 1000, onSuccess, onError, initialData = null } = options;
-  console.log("🚀 ~ useApi ~ initialData:", initialData)
 
   const [state, setState] = useState<UseApiState<T>>({
     data: initialData,

@@ -83,7 +83,6 @@ const AddAccountScreen: React.FC<AddAccountScreenProps> = ({ visible, onClose })
       const validation = await validateCompanyCode(() =>
         DevERPService.validateCompanyCode(values?.company_code),
       );
-      console.log('🚀 ~ handleAddAccount ~ validation:', validation);
       if (!validation?.isValid) {
         setLoader(false);
         return;
@@ -97,12 +96,10 @@ const AddAccountScreen: React.FC<AddAccountScreenProps> = ({ visible, onClose })
           firebaseid: currentFcmToken,
         }),
       );
-      console.log('🚀 ~ handleAddAccount ~ l222222222222222oginResult:', loginResult);
       if (loginResult?.success === '0' || loginResult?.success === 0) {
         const validation = await validateCompanyCode(() =>
           DevERPService.validateCompanyCode(user?.company_code),
         );
-        console.log('🚀 ~ handleAddAccount ~ ****----*****validation:', validation);
         setAlertConfig({
           title: 'Login failed',
           message: loginResult?.message || 'Unable to login',
@@ -111,10 +108,7 @@ const AddAccountScreen: React.FC<AddAccountScreenProps> = ({ visible, onClose })
         setAlertVisible(true);
         return;
       }
-      console.log(
-        '🚀 ~ handleAddAccount ~ loginResult:-----+-+-+-+-+-+-+-+-+-+-+-----------',
-        loginResult,
-      );
+     
 
       if (loginResult?.success !== 1) {
         setAlertConfig({
@@ -130,10 +124,7 @@ const AddAccountScreen: React.FC<AddAccountScreenProps> = ({ visible, onClose })
       await AsyncStorage.setItem('erp_token', loginResult?.token || '');
       await AsyncStorage.setItem('auth_token', loginResult?.token || '');
       await AsyncStorage.setItem('erp_token_valid_till', loginResult?.token || '');
-      console.log('🚀 ~ handleAddAccount ~ ++++++++++++++:', validation);
-      // await DevERPService.getAuth();
     
-
       dispatch(
         loginUserThunk({
           newToken: loginResult?.token,

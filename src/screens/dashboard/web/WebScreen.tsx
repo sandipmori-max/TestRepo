@@ -91,7 +91,6 @@ const WebScreen = () => {
     return `${fullUrl}${separator}&token=${token}`;
   }, [baseLink, item?.url, token]);
 
-  console.log('🚀 ~ targetUrl btnNew:', targetUrl);
 
   if ((!isFromChart && !targetUrl) || (isFromChart && !url)) {
     return (
@@ -132,15 +131,12 @@ const WebScreen = () => {
             allowsLinkPreview={false}
             onError={syntheticEvent => {
               const { nativeEvent } = syntheticEvent;
-              console.warn('WebView error: -', nativeEvent);
               setIsReloading(false);
             }}
             onLoadStart={() => {
-              console.log('WebView loading started');
               setIsReloading(true);
             }}
             onLoadEnd={() => {
-              console.log('WebView loading finished');
               setIsReloading(false);
               // const jsCode = `
               //   (function() {

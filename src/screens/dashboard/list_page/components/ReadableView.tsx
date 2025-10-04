@@ -73,7 +73,6 @@ const ReadableView = ({
           activeOpacity={0.8}
           style={{ flexDirection: 'row', alignItems: 'center' }}
           onPress={async () => {
-            console.log('🚀 ~ Page:', item);
             if (authUser) {
               return;
             }

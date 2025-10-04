@@ -14,6 +14,7 @@ import MaterialIcons from '@react-native-vector-icons/material-icons';
 import FastImage from 'react-native-fast-image';
 import { useBaseLink } from '../../../../../hooks/useBaseLink';
 import { ERP_COLOR_CODE } from '../../../../../utils/constants';
+import { setEmptyMenu, setMenu } from '../../../../../store/slices/auth/authSlice';
 
 interface AccountSwitcherProps {
   visible: boolean;
@@ -71,6 +72,7 @@ const AccountSwitcher: React.FC<AccountSwitcherProps> = ({ visible, onClose, onA
       <TouchableOpacity
         style={[styles.accountItem, isActive && styles.activeAccount]}
         onPress={async () => {
+          dispatch(setEmptyMenu([]))
           DevERPService.setAppId(item?.user?.app_id || '');
           await AsyncStorage.setItem('appid', item?.user?.app_id);
 

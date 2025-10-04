@@ -5,8 +5,6 @@ import { ERP_COLOR_CODE } from '../../../../utils/constants';
 import { formatDateHr } from '../../../../utils/helpers';
 
 const Disabled = ({ item, value, type }: any) => {
-  console.log("🚀 ~ Disabled ~ item:", item);
-  console.log("🚀 ~ Disabled ~ value:", value);
 
   const getDisplayValue = () => {
     if (type === 'DATETIME') {

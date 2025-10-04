@@ -44,15 +44,12 @@ const useFcmToken = () => {
 
       switch (authStatus) {
         case messaging.AuthorizationStatus.AUTHORIZED:
-          console.log('🔓 Push notification permission: AUTHORIZED');
           return true;
 
         case messaging.AuthorizationStatus.PROVISIONAL:
-          console.log('⚠️ Push notification permission: PROVISIONAL');
           return true;
 
         case messaging.AuthorizationStatus.DENIED:
-          console.log('❌ Push notification permission: DENIED');
           Alert.alert(
             'Permission Denied',
             'You denied notification permission. To enable notifications, please go to Settings.',
@@ -67,7 +64,6 @@ const useFcmToken = () => {
           return false;
 
         case messaging.AuthorizationStatus.NOT_DETERMINED:
-          console.log('🤔 Push notification permission: NOT_DETERMINED');
           Alert.alert(
             'Permission Not Determined',
             'Please allow notifications to stay updated.'

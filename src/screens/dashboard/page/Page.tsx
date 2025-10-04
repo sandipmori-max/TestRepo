@@ -42,15 +42,13 @@ const PageScreen = () => {
 
   const [loadingPageId, setLoadingPageId] = useState<string | null>(null);
   const [controls, setControls] = useState<any[]>([]);
+  console.log("🚀 ~ PageScreen ~ controls:", controls)
   const [errorsList, setErrorsList] = useState<string[]>([]);
   const [showErrorModal, setShowErrorModal] = useState(false);
 
   const [error, setError] = useState<string | null>(null);
   const [formValues, setFormValues] = useState<any>({});
-  console.log(
-    '🚀 ~ PageScreen ~ formValues:------++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++------',
-    formValues,
-  );
+  
   const [datePickerVisible, setDatePickerVisible] = useState(false);
 
   const [dateTimePickerVisible, setDateTimePickerVisible] = useState(false);
@@ -77,6 +75,7 @@ const PageScreen = () => {
 
   const route = useRoute<RouteProp<PageRouteParams, 'PageScreen'>>();
   const { item, title, id, isFromNew, url, pageTitle }: any = route?.params;
+  console.log("🚀 ~ PageScreen ~ id:", id)
   const authUser = item?.authuser;
 
   const validateForm = useCallback(() => {
@@ -209,6 +208,7 @@ const PageScreen = () => {
       const parsed = await dispatch(
         getERPPageThunk({ page: url, id: isFromNew ? 0 : id }),
       ).unwrap();
+      console.log("🚀 ~ parsed:", parsed)
 
       if (!isFromNew) {
         setInfoData({
@@ -219,6 +219,7 @@ const PageScreen = () => {
       }
 
       const pageControls = Array.isArray(parsed?.pagectl) ? parsed?.pagectl : [];
+      console.log("🚀 ~ pageControls:", pageControls)
 
       const normalizedControls = pageControls?.map(c => ({
         ...c,
@@ -285,7 +286,6 @@ const PageScreen = () => {
 
   const renderItem = useCallback(
     ({ item, index }: { item: any; index: number }) => {
-      console.log('itemitemitemitem', item);
       const setValue = (val: any) => {
         if (typeof val === 'object' && val !== null) {
           setFormValues(prev => ({ ...prev, ...val }));
@@ -326,7 +326,7 @@ const PageScreen = () => {
         content = <FilePickerRow item={item} handleAttachment={handleAttachment} />;
       } else if (item?.defaultvalue === '#location') {
         content = <LocationRow item={item} setValue={setValue} />;
-      } else if (item?.defaultvalue == '#HTML') {
+      } else if (item?.defaultvalue === '#html') {
         content = <HtmlRow item={item} />;
       } else if (item?.ctltype === 'IMAGE' && item?.field === 'signature') {
         content = (

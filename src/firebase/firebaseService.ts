@@ -21,17 +21,14 @@ export async function requestUserPermission(): Promise<void> {
 
     switch (authStatus) {
       case messaging.AuthorizationStatus.AUTHORIZED:
-        console.log('🔓 Push notification permission: AUTHORIZED');
         await getFcmToken();
         break;
 
       case messaging.AuthorizationStatus.PROVISIONAL:
-        console.log('⚠️ Push notification permission: PROVISIONAL (temporarily allowed)');
         await getFcmToken();
         break;
 
       case messaging.AuthorizationStatus.DENIED:
-        console.log('❌ Push notification permission: DENIED');
         Alert.alert(
           'Permission Denied',
           'You have denied notification permission. Please enable it in Settings to receive alerts.'
@@ -39,7 +36,6 @@ export async function requestUserPermission(): Promise<void> {
         break;
 
       case messaging.AuthorizationStatus.NOT_DETERMINED:
-        console.log('🤔 Push notification permission: NOT_DETERMINED');
         Alert.alert(
           'Permission Not Determined',
           'Please decide whether to allow notifications to stay updated.'
@@ -61,7 +57,6 @@ export async function getFcmToken(): Promise<string | null> {
   try {
     const token = await messaging().getToken();
     if (token) {
-      console.log('✅ FCM Token:', token);
       return token;
     }
     return null;
@@ -78,7 +73,6 @@ export function onMessageListener(
   callback: (message: FirebaseMessagingTypes.RemoteMessage) => void
 ) {
   return messaging().onMessage(async remoteMessage => {
-    console.log('📩 Foreground message:', remoteMessage);
     callback(remoteMessage);
   });
 }

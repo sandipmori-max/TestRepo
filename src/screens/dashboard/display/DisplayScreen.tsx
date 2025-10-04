@@ -60,7 +60,6 @@ const DisplayScreen = () => {
 
   const route = useRoute<any>();
   const { isFromViewAll = false } = route.params || {};
-  console.log('🚀 ~ DisplayScreen ~ isFromViewAll:', isFromViewAll);
   const [isListVisible, setIsListVisible] = useState<boolean>(false);
   const [showPicker, setShowPicker] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
