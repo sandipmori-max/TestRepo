@@ -1,4 +1,4 @@
-import React, { useCallback, useLayoutEffect, useState } from 'react';
+import React, { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import {
   View,
   Text,
@@ -6,6 +6,7 @@ import {
   ActivityIndicator,
   FlatList,
   Dimensions,
+  Animated,
 } from 'react-native';
 import { PieChart } from 'react-native-gifted-charts';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
@@ -22,9 +23,9 @@ import { ERP_COLOR_CODE } from '../../../../utils/constants';
 import TaskListScreen from '../../../task_module/task_list/TaskListScreen';
 import TaskDetailsBottomSheet from '../../../task_module/task_details/TaskDetailsScreen';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
-import RenderHTML from 'react-native-render-html';
 import Footer from './Footer';
 import PieChartSection from './chartData';
+const { height, width } = Dimensions.get('screen');
 
 const HomeScreen = () => {
   const { t } = useTranslation();
@@ -250,6 +251,18 @@ const HomeScreen = () => {
       updatedAt: '2025-09-10T10:00:00Z',
     },
   ];
+  const scrollY = useRef(new Animated.Value(0)).current;
+  const scale = scrollY.interpolate({
+    inputRange: [0, height * 0.3],
+    outputRange: [1, 0.8],
+    extrapolate: 'clamp',
+  });
+
+  const opacity = scrollY.interpolate({
+    inputRange: [0, height * 0.2],
+    outputRange: [1, 0.3],
+    extrapolate: 'clamp',
+  });
 
   function SmallItem({ left, primary, secondary, type }) {
     return (
@@ -270,20 +283,6 @@ const HomeScreen = () => {
 
   return (
     <View style={theme === 'dark' ? styles.containerDark : styles.container}>
-      <Text
-        numberOfLines={1}
-        style={{
-          color: 'white',
-          marginTop: 1,
-          backgroundColor: ERP_COLOR_CODE.ERP_APP_COLOR,
-          padding: 12,
-          textAlign: 'center',
-          borderBottomRightRadius: 24,
-          borderBottomLeftRadius: 24,
-        }}
-      >
-        {user?.companyName || ''}
-      </Text>
       {isDashboardLoading ? (
         <FullViewLoader />
       ) : error ? (
@@ -301,14 +300,50 @@ const HomeScreen = () => {
         <NoData />
       ) : (
         <>
-          <FlatList
+          <Animated.FlatList
             showsVerticalScrollIndicator={false}
             data={['']}
+            keyExtractor={(_, i) => i.toString()}
+            onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], {
+              useNativeDriver: true,
+            })}
+            scrollEventThrottle={16}
             renderItem={() => (
               <>
+                <Animated.View
+                  style={{
+                    transform: [{ scale }],
+                    opacity,
+                    alignItems: 'center',
+                    width: width,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: 'white',
+                      marginTop: 1,
+                      backgroundColor: ERP_COLOR_CODE.ERP_APP_COLOR,
+                      padding: 12,
+                      textAlign: 'center',
+                      width: width,
+                      borderBottomRightRadius: 24,
+                      borderBottomLeftRadius: 24,
+                      fontWeight: '600',
+                      fontSize: 16,
+                    }}
+                  >
+                    {user?.companyName || ''}
+                  </Text>
+                </Animated.View>
+
                 {/* Pie chart section */}
                 {pieChartData.length > 0 && (
-                  <PieChartSection pieChartData={pieChartData} navigation={navigation} t={t} />
+                  <PieChartSection
+                    scrollY={scrollY}
+                    pieChartData={pieChartData}
+                    navigation={navigation}
+                    t={t}
+                  />
                 )}
                 {/* Dashboard items */}
                 <View style={styles.dashboardSection}>

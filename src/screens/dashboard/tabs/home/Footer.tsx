@@ -51,7 +51,7 @@ const Footer = ({ footer, index, accentColors }) => {
       />
     );
   } else {
-    return <Text style={{ color: accentColors[index % accentColors.length] }}>{footer}</Text>;
+    return <Text style={{ color: accentColors[index % accentColors.length], fontSize: 16, fontWeight: '600' }}>{footer}</Text>;
   }
 };
 

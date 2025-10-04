@@ -57,7 +57,7 @@ export const styles = StyleSheet.create({
   dashboardSection: {
     flex: 1,
     paddingHorizontal: 16,
-    paddingTop: 20,
+    paddingTop: 0,
   },
 
   dashboardGrid: {
