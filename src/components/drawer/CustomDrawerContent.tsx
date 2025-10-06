@@ -31,7 +31,9 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = props => {
         <View style={styles.header}>
           <FastImage
             source={{
-              uri: `${baseLink}/FileUpload/1/UserMaster/${user?.id}/profileimage.jpeg?ts=${new Date().getTime()}`,
+              uri: `${baseLink}/FileUpload/1/UserMaster/${
+                user?.id
+              }/profileimage.jpeg?ts=${new Date().getTime()}`,
               priority: FastImage.priority.normal,
               cache: FastImage.cacheControl.web,
             }}
@@ -44,29 +46,52 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = props => {
           <View style={{ height: 2, width: 100 }} />
           <View style={{ top: 18, width: '100%', marginVertical: 8 }}>
             {/* Phone */}
-            <View style={{ flexDirection: 'row', alignItems: 'center', borderRadius: 8, padding: 6 }}>
-              <MaterialIcons name={'call'} color={'white'} size={14} />
-              <Text style={styles.userPhone}>{user?.mobileno || ''}</Text>
-            </View>
+            {user?.mobileno && (
+              <View
+                style={{ flexDirection: 'row', alignItems: 'center', borderRadius: 8, padding: 6 }}
+              >
+                <MaterialIcons name={'call'} color={'white'} size={14} />
+                <Text style={styles.userPhone}>{user?.mobileno || ''}</Text>
+              </View>
+            )}
+
             {/* Email */}
-            <View style={{ flexDirection: 'row', alignItems: 'center', borderRadius: 8, padding: 6, marginVertical: 4 }}>
-              <MaterialIcons name={'mail-outline'} color={'white'} size={14} />
-              <Text numberOfLines={1} style={styles.userPhone}>{user?.emailid || ''}</Text>
-            </View>
+            {user?.emailid && (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  borderRadius: 8,
+                  padding: 6,
+                  marginVertical: 4,
+                }}
+              >
+                <MaterialIcons name={'mail-outline'} color={'white'} size={14} />
+                <Text numberOfLines={1} style={styles.userPhone}>
+                  {user?.emailid || ''}
+                </Text>
+              </View>
+            )}
+
             {/* Role */}
-            <View style={{ flexDirection: 'row', alignItems: 'center', borderRadius: 8, padding: 6 }}>
-              <MaterialIcons name={'person'} color={'white'} size={14} />
-              <Text style={styles.userPhone}>{user?.rolename || ''}</Text>
-            </View>
+            {user?.rolename && (
+              <View
+                style={{ flexDirection: 'row', alignItems: 'center', borderRadius: 8, padding: 6 , marginBottom: 12}}
+              >
+                <MaterialIcons name={'person'} color={'white'} size={14} />
+                <Text style={styles.userPhone}>{user?.rolename || ''}</Text>
+              </View>
+            )}
           </View>
-          <View style={{ height: 15, width: 100 }} />
         </View>
 
         {/* Scrollable Menu */}
-        <ScrollView 
-        showsHorizontalScrollIndicator={false}
-        
-        style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 20 }} showsVerticalScrollIndicator={false}>
+        <ScrollView
+          showsHorizontalScrollIndicator={false}
+          style={{ flex: 1 }}
+          contentContainerStyle={{ paddingBottom: 20 }}
+          showsVerticalScrollIndicator={false}
+        >
           <View style={styles.menuContainer}>
             {ERP_DRAWER_LIST.map(item => {
               const isActive = currentRoute === item?.route;

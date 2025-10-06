@@ -252,6 +252,7 @@ const authSlice = createSlice({
           } else {
             dashboardData = action.payload;
           }
+            console.log("🚀 ~ dashboardData:", dashboardData)
 
           let dashboardItems = [];
 
@@ -276,6 +277,7 @@ const authSlice = createSlice({
               console.error('Error parsing inner d property:', innerParseError);
             }
           }
+            console.log("🚀 ~-------------- dashboardItems:", dashboardItems)
 
           state.dashboard = dashboardItems.map((item: any, index: number) => ({
             id: item?.Link || `dashboard_${index}`,

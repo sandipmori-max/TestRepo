@@ -78,6 +78,7 @@ class DevERPService {
     const response = await apiClient.post<DevERPResponse>(`${this.baseUrl}/appcode.aspx/getLink`, {
       code,
     });
+    console.log("🚀 ~ DevERPService ~ getAppLink ~ response:", response)
 
     if (response.data.success === 1 && response.data.link) {
       if (response.data.link.startsWith('https://')) {
@@ -111,13 +112,16 @@ class DevERPService {
     pass: string;
     firebaseid?: string;
    }): Promise<LoginResponse> {
+    console.log("log----------------------------" , this.link)
+
     await this.checkNetwork();
     const app_id = generateGUID();
     await AsyncStorage.setItem('appid', app_id)
     this.appid = app_id;
     this.link = (await AsyncStorage.getItem('erp_link')) || this.link;
-    if (!this.link) throw new Error('No ERP link available. Please validate company code first.');
+    // if (!this.link) throw new Error('No ERP link available. Please validate company code first.');
 
+    console.log(this.link)
     const loginData: LoginRequest = {
       user: credentials.user,
       pass: credentials.pass,
@@ -125,7 +129,6 @@ class DevERPService {
       firebaseid: credentials.firebaseid || '',
       device: this.device,
     };
-
     try {
       const response = await apiClient.post<LoginResponse>(
       `${this.link}msp_api.aspx/setAppID`,

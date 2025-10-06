@@ -92,26 +92,26 @@ export const loginUserThunk = createAsyncThunk(
       await AsyncStorage.setItem('auth_token', token);
 
       const erpUser: User = {
-        id: response?.userid,
-        name: user_credentials?.name || user_credentials?.user || company_code.toUpperCase(),
-        company_code: company_code,
+        id: response?.userid || "",
+        name: user_credentials?.name || user_credentials?.user || company_code.toUpperCase() || "",
+        company_code: company_code || "",
         avatar: `https://ui-avatars.com/api/?name=${(
           user_credentials?.name ||
           user_credentials?.user ||
           company_code
-        ).toUpperCase()}&background=007AFF&color=fff`,
+        ).toUpperCase()}&background=007AFF&color=fff` || "",
         accountType: 'erp',
-        token: token,
-        tokenValidTill: tokenValidTill,
+        token: token || "",
+        tokenValidTill: tokenValidTill || "",
         emailid: response?.emailid || '',
-        fullname: response?.fullname,
-        mobileno: response?.mobileno,
-        roleid: response?.roleid,
-        rolename: response?.rolename,
-        username: response?.username,
-        companyLink: companyData?.response?.link,
-        companyName: companyData?.response?.name,
-        app_id: response?.app_id,
+        fullname: response?.fullname || "",
+        mobileno: response?.mobileno || "",
+        roleid: response?.roleid || "",
+        rolename: response?.rolename || "",
+        username: response?.username || "",
+        companyLink: companyData?.response?.link || "",
+        companyName: companyData?.response?.name || "",
+        app_id: response?.app_id || "",
       };
       console.log('🚀 ~ erpUser:------------------', erpUser);
 
@@ -305,6 +305,7 @@ export const getERPDashboardThunk = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const dashboard = await DevERPService.getDashboard();
+      console.log("🚀 ~ ++++++++++++++++++++dashboard:", dashboard)
       return dashboard;
     } catch (error: any) {
       console.log('🚀 ~ error:', error);

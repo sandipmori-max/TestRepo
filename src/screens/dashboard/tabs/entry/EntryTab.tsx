@@ -16,7 +16,6 @@ import {
 import ErrorMessage from '../../../../components/error/Error';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
 import { ERP_COLOR_CODE } from '../../../../utils/constants';
-import { FontAwesome6Pro } from "@react-native-vector-icons/fontawesome6-pro";
 
 const accentColors = ['#dbe0f5ff', '#c8f3edff', '#faf1e0ff', '#f0e1e1ff', '#f2e3f8ff', '#e0f3edff'];
 
@@ -26,7 +25,7 @@ const EntryTab = () => {
   const { user } = useAppSelector(state => state?.auth);
   const { isAuthenticated, activeToken, error } = useAppSelector(state => state.auth);
   const { menu, isMenuLoading } = useAppSelector(state => state.auth);
-  console.log('🚀 ~ EntryTab ~ isMenuLoading:', isMenuLoading);
+  console.log('🚀 ~ EntryTab ~ isMenuLoading:', menu);
 
   const allList = menu?.filter(item => item?.isReport === 'E') ?? [];
   const [isRefresh, setIsRefresh] = useState<boolean>(false);

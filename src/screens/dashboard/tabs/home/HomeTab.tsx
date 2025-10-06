@@ -25,7 +25,7 @@ import TaskDetailsBottomSheet from '../../../task_module/task_details/TaskDetail
 import MaterialIcons from '@react-native-vector-icons/material-icons';
 import Footer from './Footer';
 import PieChartSection from './chartData';
-const { height, width } = Dimensions.get('screen');
+const { width } = Dimensions.get('screen');
 
 const HomeScreen = () => {
   const { t } = useTranslation();
@@ -252,17 +252,6 @@ const HomeScreen = () => {
     },
   ];
   const scrollY = useRef(new Animated.Value(0)).current;
-  const scale = scrollY.interpolate({
-    inputRange: [0, height * 0.3],
-    outputRange: [1, 0.8],
-    extrapolate: 'clamp',
-  });
-
-  const opacity = scrollY.interpolate({
-    inputRange: [0, height * 0.2],
-    outputRange: [1, 0.3],
-    extrapolate: 'clamp',
-  });
 
   function SmallItem({ left, primary, secondary, type }) {
     return (
@@ -283,6 +272,22 @@ const HomeScreen = () => {
 
   return (
     <View style={theme === 'dark' ? styles.containerDark : styles.container}>
+      <Text
+        style={{
+          color: 'white',
+          marginTop: 1,
+          backgroundColor: ERP_COLOR_CODE.ERP_APP_COLOR,
+          padding: 12,
+          textAlign: 'center',
+          width: width,
+          borderBottomRightRadius: 24,
+          borderBottomLeftRadius: 24,
+          fontWeight: '600',
+          fontSize: 16,
+        }}
+      >
+        {user?.companyName || ''}
+      </Text>
       {isDashboardLoading ? (
         <FullViewLoader />
       ) : error ? (
@@ -310,41 +315,11 @@ const HomeScreen = () => {
             scrollEventThrottle={16}
             renderItem={() => (
               <>
-                <Animated.View
-                  style={{
-                    transform: [{ scale }],
-                    opacity,
-                    alignItems: 'center',
-                    width: width,
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: 'white',
-                      marginTop: 1,
-                      backgroundColor: ERP_COLOR_CODE.ERP_APP_COLOR,
-                      padding: 12,
-                      textAlign: 'center',
-                      width: width,
-                      borderBottomRightRadius: 24,
-                      borderBottomLeftRadius: 24,
-                      fontWeight: '600',
-                      fontSize: 16,
-                    }}
-                  >
-                    {user?.companyName || ''}
-                  </Text>
-                </Animated.View>
-
                 {/* Pie chart section */}
                 {pieChartData.length > 0 && (
-                  <PieChartSection
-                    scrollY={scrollY}
-                    pieChartData={pieChartData}
-                    navigation={navigation}
-                    t={t}
-                  />
+                  <PieChartSection pieChartData={pieChartData} navigation={navigation} t={t} />
                 )}
+                {pieChartData.length === 0 && <View style={{ marginTop: 12 }} />}
                 {/* Dashboard items */}
                 <View style={styles.dashboardSection}>
                   <FlatList

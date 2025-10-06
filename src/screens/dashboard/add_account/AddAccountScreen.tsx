@@ -71,7 +71,9 @@ const AddAccountScreen: React.FC<AddAccountScreenProps> = ({ visible, onClose })
       DevERPService.setDevice(deviceId);
       setLoader(true);
       const userExists = accounts?.some(acc => acc?.user?.name === values?.user);
-      if (userExists) {
+      const codeExists = accounts?.some(acc => acc?.user?.company_code === values?.company_code);
+
+      if (userExists && codeExists) {
         setAlertConfig({
           title: 'Error',
           message: 'This user already exists in your accounts.',
@@ -100,6 +102,10 @@ const AddAccountScreen: React.FC<AddAccountScreenProps> = ({ visible, onClose })
         const validation = await validateCompanyCode(() =>
           DevERPService.validateCompanyCode(user?.company_code),
         );
+         if (!validation?.isValid) {
+        setLoader(false);
+        return;
+      }
         setAlertConfig({
           title: 'Login failed',
           message: loginResult?.message || 'Unable to login',
