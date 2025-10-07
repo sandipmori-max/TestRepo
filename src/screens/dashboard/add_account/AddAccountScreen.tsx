@@ -102,10 +102,10 @@ const AddAccountScreen: React.FC<AddAccountScreenProps> = ({ visible, onClose })
         const validation = await validateCompanyCode(() =>
           DevERPService.validateCompanyCode(user?.company_code),
         );
-         if (!validation?.isValid) {
-        setLoader(false);
-        return;
-      }
+        if (!validation?.isValid) {
+          setLoader(false);
+          return;
+        }
         setAlertConfig({
           title: 'Login failed',
           message: loginResult?.message || 'Unable to login',
@@ -114,7 +114,6 @@ const AddAccountScreen: React.FC<AddAccountScreenProps> = ({ visible, onClose })
         setAlertVisible(true);
         return;
       }
-     
 
       if (loginResult?.success !== 1) {
         setAlertConfig({
@@ -129,8 +128,8 @@ const AddAccountScreen: React.FC<AddAccountScreenProps> = ({ visible, onClose })
       DevERPService.setToken(loginResult?.token);
       await AsyncStorage.setItem('erp_token', loginResult?.token || '');
       await AsyncStorage.setItem('auth_token', loginResult?.token || '');
-      await AsyncStorage.setItem('erp_token_valid_till', loginResult?.token || '');
-    
+      await AsyncStorage.setItem('erp_token_valid_till', loginResult?.tokenValidTill || '');
+
       dispatch(
         loginUserThunk({
           newToken: loginResult?.token,
@@ -182,9 +181,7 @@ const AddAccountScreen: React.FC<AddAccountScreenProps> = ({ visible, onClose })
               <>
                 <View style={styles.formContainer}>
                   <Image source={ERP_ICON.APP_LOGO} style={styles.logo} resizeMode="contain" />
-
                   <Text style={styles.subtitle}>{t('account.msg')}</Text>
-
                   <Formik
                     initialValues={{ company_code: '', user: '', password: '' }}
                     validationSchema={erp_add_account_validation_schema}
@@ -282,10 +279,15 @@ const AddAccountScreen: React.FC<AddAccountScreenProps> = ({ visible, onClose })
           title={alertConfig.title}
           message={alertConfig.message}
           type={alertConfig.type}
-          onClose={() => {
+          onClose={async () => {
             setLoader(false);
             setAlertVisible(false);
             setAlertVisible(false);
+            DevERPService.setAppId(user?.app_id);
+            DevERPService.setToken(user?.token);
+            await AsyncStorage.setItem('erp_token', user?.token || '');
+            await AsyncStorage.setItem('auth_token', user?.token || '');
+            await AsyncStorage.setItem('erp_token_valid_till', user?.tokenValidTill || '');
           }}
           actionLoader={undefined}
         />

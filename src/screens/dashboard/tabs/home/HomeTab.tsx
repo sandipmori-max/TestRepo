@@ -8,7 +8,6 @@ import {
   Dimensions,
   Animated,
 } from 'react-native';
-import { PieChart } from 'react-native-gifted-charts';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 
@@ -91,13 +90,6 @@ const HomeScreen = () => {
     }, [isAuthenticated, dispatch]),
   );
 
-  // useEffect(() => {
-  //   const intervalId = setInterval(() => {
-  //     dispatch(getERPDashboardThunk());
-  //   }, 120 * 1000);
-  //   return () => clearInterval(intervalId);
-  // }, [dispatch]);
-
   const getInitials = (text?: string) => {
     if (!text) return '?';
     const trimmed = text?.trim();
@@ -127,9 +119,11 @@ const HomeScreen = () => {
           {
             paddingLeft: 4,
             marginHorizontal: 4,
-            backgroundColor: accentColors[index % accentColors.length],
             borderRadius: 8,
             width: isHorizontal ? '100%' : '48%',
+            flex: 1,
+            borderLeftColor :  accentColors[index % accentColors.length],
+            borderLeftWidth: 4
           },
         ]}
         activeOpacity={0.7}
@@ -334,7 +328,7 @@ const HomeScreen = () => {
                   />
                 </View>
 
-                <View style={styles.grid}>
+                 <View style={styles.grid}>
                   <View style={styles.card}>
                     <View style={{ flexDirection: 'row', marginVertical: 8, gap: 6 }}>
                       <MaterialIcons
@@ -504,7 +498,7 @@ const HomeScreen = () => {
                       setModalVisible(false);
                     }}
                   />
-                )}
+                )} 
                 <View style={{ height: 10, width: 100 }} />
               </>
             )}

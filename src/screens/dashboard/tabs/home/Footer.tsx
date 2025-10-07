@@ -4,10 +4,8 @@ import RenderHTML from "react-native-render-html";
  
 const { width } = Dimensions.get('screen');
 
-// Marquee-like component
 const MarqueeFooter = ({ html }) => {
   const translateX = useRef(new Animated.Value(width)).current;
-
   useEffect(() => {
     Animated.loop(
       Animated.timing(translateX, {
@@ -18,7 +16,6 @@ const MarqueeFooter = ({ html }) => {
     ).start();
   }, []);
 
-  // You can parse HTML to extract message & name, or just render plain scrolling HTML content
   return (
     <View style={{ overflow: "hidden", backgroundColor: "#f0f8ff", padding: 10, borderRadius: 5 }}>
       <Animated.View style={{ flexDirection: "row", transform: [{ translateX }] }}>

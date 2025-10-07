@@ -110,10 +110,14 @@ apiClient.interceptors.response.use(
         let parsedData: any;
 
         try {
-          parsedData = JSON.parse(raw);
-        } catch {
+          const sanitized = raw.replace(/[\u0000-\u001F]+/g, '');
+          const clean = sanitized.replace(/^\uFEFF/, '');
+          parsedData = JSON.parse(clean);
+        } catch (error){
+          console.log("🚀 ~ error:", error)
           if (typeof raw === "string" && raw.includes(",")) {
             const [successPart, ...msgParts] = raw.split(",");
+            console.log("🚀 ~ raw:", raw)
             parsedData = {
               success: successPart.trim(),
               message: msgParts.join(",").trim(),

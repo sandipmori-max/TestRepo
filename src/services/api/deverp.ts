@@ -52,6 +52,7 @@ class DevERPService {
       await this.ensureAuthToken();
 
       const response = await apiClient.post<T>(`${this.link}${endpoint}`, payload);
+      console.log("🚀 ~ DevERPService ~ apiCall ~ response:", response)
 
       if (
         (response as any).data?.success === 0 &&
@@ -197,8 +198,10 @@ class DevERPService {
   }
 
   getDashboard() {
-    return this.apiCall<DashboardResponse>('msp_api.aspx/getDB', { token: this.token }).then(res =>
-      JSON.stringify(res),
+    return this.apiCall<DashboardResponse>('msp_api.aspx/getDB', { token: this.token }).then(res => {
+    console.log("🚀 ~ DevERPService ~ getDashboard ~ res:", res)
+    return JSON.stringify(res);
+},
     );
   }
 
