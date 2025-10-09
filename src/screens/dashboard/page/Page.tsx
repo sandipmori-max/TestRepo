@@ -42,13 +42,11 @@ const PageScreen = () => {
 
   const [loadingPageId, setLoadingPageId] = useState<string | null>(null);
   const [controls, setControls] = useState<any[]>([]);
-  console.log('🚀 ~ PageScreen ~ controls:', controls);
   const [errorsList, setErrorsList] = useState<string[]>([]);
   const [showErrorModal, setShowErrorModal] = useState(false);
 
   const [error, setError] = useState<string | null>(null);
   const [formValues, setFormValues] = useState<any>({});
-  console.log("🚀 ~ PageScreen ~ formValues:", formValues)
 
   const [datePickerVisible, setDatePickerVisible] = useState(false);
 
@@ -77,7 +75,6 @@ const PageScreen = () => {
 
   const route = useRoute<RouteProp<PageRouteParams, 'PageScreen'>>();
   const { item, title, id, isFromNew, url, pageTitle }: any = route?.params;
-  console.log('🚀 ~ PageScreen ~ id:', id);
   const authUser = item?.authuser;
 
   const validateForm = useCallback(() => {
@@ -127,8 +124,7 @@ const PageScreen = () => {
       ),
       headerRight: () => (
         <>
-          {
-            !isFromNew && 
+          {!isFromNew && (
             <ERPIcon
               name="refresh"
               isLoading={actionLoader}
@@ -139,7 +135,7 @@ const PageScreen = () => {
                 setErrorsList([]);
               }}
             />
-          }
+          )}
 
           {!authUser && controls.length > 0 && (
             <ERPIcon
@@ -161,17 +157,7 @@ const PageScreen = () => {
                       } this record?`,
                       type: 'info',
                     });
-                  } catch (err: any) {
-                    setLoader(false);
-
-                    setAlertConfig({
-                      title: 'Record saved',
-                      message: err,
-                      type: 'error',
-                    });
-                    setAlertVisible(true);
-                    setGoBack(false);
-                  }
+                  } catch (err: any) {}
                 }
                 setActionSaveLoader(false);
                 // setConfirmationVisible(false);
@@ -281,6 +267,7 @@ const PageScreen = () => {
 
   const renderItem = useCallback(
     ({ item, index }: { item: any; index: number }) => {
+      console.log('🚀 ~ item:----------------', item);
       const setValue = (val: any) => {
         if (typeof val === 'object' && val !== null) {
           setFormValues(prev => ({ ...prev, ...val }));
@@ -317,14 +304,17 @@ const PageScreen = () => {
             errors={errors}
           />
         );
-      }
-      else if (isFromNew && item?.ctltype === 'FILE') {
+      } else if (isFromNew && item?.ctltype === 'FILE') {
         content = <FilePickerRow item={item} handleAttachment={handleAttachment} />;
-      }
-       else if (item?.defaultvalue === '#location') {
+      } else if (item?.defaultvalue === '#location') {
         content = <LocationRow item={item} setValue={setValue} />;
       } else if (item?.defaultvalue === '#html') {
-        content =<View> <HtmlRow item={item} isFromPage = {true} /></View>;
+        content = (
+          <View>
+            {' '}
+            <HtmlRow item={item} isFromPage={true} />
+          </View>
+        );
       } else if (item?.ctltype === 'IMAGE' && item?.field === 'signature') {
         content = (
           <SignaturePad
@@ -333,7 +323,11 @@ const PageScreen = () => {
             handleSignatureAttachment={handleSignatureAttachment}
           />
         );
-      } else if (item?.ctltype === "FILE" || item?.ctltype === 'IMAGE' || item?.ctltype === 'PHOTO') {
+      } else if (
+        item?.ctltype === 'FILE' ||
+        item?.ctltype === 'IMAGE' ||
+        item?.ctltype === 'PHOTO'
+      ) {
         content = (
           <Media
             baseLink={baseLink}
@@ -508,7 +502,6 @@ const PageScreen = () => {
         onConfirm={handleDateTimeConfirm}
         onCancel={hideDateTimePicker}
       />
-
       <DateTimePicker
         isVisible={datePickerVisible}
         mode="date"
@@ -547,27 +540,39 @@ const PageScreen = () => {
         }}
         onDone={async () => {
           if (confirmationVisible) {
-            setConfirmationVisible(false);
-            const submitValues: Record<string, any> = {};
-            controls?.forEach(f => {
-              if (f.refcol !== '1') submitValues[f?.field] = formValues[f?.field];
-            });
-            setLoader(true);
-            await dispatch(savePageThunk({ page: url, id, data: { ...submitValues } })).unwrap();
-            setLoader(false);
-            fetchPageData();
-            setAlertConfig({
-              title: 'Record saved',
-              message: `Record saved successfully!`,
-              type: 'success',
-            });
+            try {
+              setConfirmationVisible(false);
+              const submitValues: Record<string, any> = {};
+              controls?.forEach(f => {
+                if (f.refcol !== '1') submitValues[f?.field] = formValues[f?.field];
+              });
+              setLoader(true);
+              await dispatch(savePageThunk({ page: url, id, data: { ...submitValues } })).unwrap();
+              setLoader(false);
+              fetchPageData();
+              setAlertConfig({
+                title: 'Record saved',
+                message: `Record saved successfully!`,
+                type: 'success',
+              });
 
-            setAlertVisible(true);
-            setGoBack(true);
-            setTimeout(() => {
-              setAlertVisible(false);
-              navigation.goBack();
-            }, 1500);
+              setAlertVisible(true);
+              setGoBack(true);
+              setTimeout(() => {
+                setAlertVisible(false);
+                navigation.goBack();
+              }, 1500);
+            } catch (err) {
+              setLoader(false);
+
+              setAlertConfig({
+                title: 'Record saved',
+                message: err?.toString() || '',
+                type: 'error',
+              });
+              setAlertVisible(true);
+              setGoBack(false);
+            }
           }
         }}
         doneText={` ${isFromNew ? 'Save' : 'Update'}`}

@@ -116,9 +116,10 @@ const ReportTab = () => {
         ),
       headerRight: () => (
         <>
-          {!showSearch && <ERPIcon name="search" onPress={() => setShowSearch(true)} />}
+          {allList.length > 5 && !showSearch && <ERPIcon name="search" onPress={() => setShowSearch(true)} />}
           {!showSearch && (
             <>
+            
               <ERPIcon name="refresh" onPress={() => setIsRefresh(!isRefresh)} />
               <ERPIcon
                 name={!isHorizontal ? 'list' : 'apps'}

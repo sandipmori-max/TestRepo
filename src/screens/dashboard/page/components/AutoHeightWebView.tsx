@@ -7,12 +7,14 @@ const AutoHeightWebView = ({
   html,
   isFromPage,
   isHorizontal,
-  isFromMenu
+  isFromMenu,
+  textColor,
 }: {
   html: string;
   isFromPage?: boolean;
   isHorizontal: any;
-  isFromMenu: any
+  isFromMenu: any;
+  textColor: any;
 }) => {
   const [webViewHeight, setWebViewHeight] = useState(0);
   const { width } = useWindowDimensions();
@@ -125,13 +127,23 @@ const AutoHeightWebView = ({
                 fontWeight: 'bold',
                 flexDirection: 'row',
                 overflow: 'hidden',
-                maxWidth: isFromMenu ? '100%' : isHorizontal ? '100%' : 100,
+                color: isFromMenu ? textColor : '#000',
+                maxWidth: isFromMenu ? '80%' : isHorizontal ? '100%' : 100,
+              },
+              strong: {
+                fontSize: 16,
+                fontWeight: 'bold',
+                flexDirection: 'row',
+                overflow: 'hidden',
+                color: isFromMenu ? textColor : '#000',
+                maxWidth: isFromMenu ? '80%' : isHorizontal ? '100%' : 100,
               },
               p: {
                 fontWeight: 'bold',
                 flexDirection: 'row',
                 overflow: 'hidden',
-                maxWidth: isFromMenu ? '100%' : isHorizontal ? '100%' : 100,
+                color: isFromMenu ? textColor : '#000',
+                maxWidth: isFromMenu ? '80%' : isHorizontal ? '100%' : 100,
               },
               i: { fontStyle: 'italic' },
 

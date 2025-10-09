@@ -110,7 +110,7 @@ const EntryTab = () => {
         <>
           {!showSearch && (
             <>
-              <ERPIcon name="search" onPress={() => setShowSearch(true)} />{' '}
+              {allList.length > 5 && <ERPIcon name="search" onPress={() => setShowSearch(true)} />}
               <ERPIcon name="refresh" onPress={() => setIsRefresh(!isRefresh)} />
               <ERPIcon
                 name={!isHorizontal ? 'list' : 'apps'}

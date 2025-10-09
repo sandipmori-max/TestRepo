@@ -26,14 +26,14 @@ const MarqueeFooter = ({ html }) => {
   );
 };
 
-const Footer = ({ footer, index, accentColors , isHorizontal, isFromMenu}) => {
+const Footer = ({ footer, index, accentColors , isHorizontal, isFromMenu, textColor}) => {
   const isHTML = typeof footer === 'string' && footer.trim().startsWith('<');
   const isMarquee = isHTML && footer.includes('<marquee>');
 
   if (isMarquee) {
     return <MarqueeFooter html={footer} />;
   } else if (isHTML) {
-    return <AutoHeightWebView isHorizontal={isHorizontal} isFromMenu={isFromMenu} isFromPage={false} html={footer} />;
+    return <AutoHeightWebView textColor={textColor} isHorizontal={isHorizontal} isFromMenu={isFromMenu} isFromPage={false} html={footer} />;
   } else {
     return (
       <Text

@@ -133,7 +133,7 @@ const HomeScreen = () => {
       text: item?.title,
     }));
 
-  const renderDashboardItem = ({ item, index, isFromHtml , isFromMenu}: any) => {
+  const renderDashboardItem = ({ item, index, isFromHtml, isFromMenu }: any) => {
     return (
       <TouchableOpacity
         key={item?.id || index}
@@ -190,7 +190,11 @@ const HomeScreen = () => {
                     numberOfLines={2}
                     ellipsizeMode="tail"
                   >
-                    {isFromMenu ? item?.title : !isHorizontal ? item?.title.replace(' ', '\n') : item?.title}
+                    {isFromMenu
+                      ? item?.title
+                      : !isHorizontal
+                      ? item?.title.replace(' ', '\n')
+                      : item?.title}
                   </Text>
                 </View>
               </View>
@@ -207,7 +211,14 @@ const HomeScreen = () => {
               )}
               {item.data ? (
                 <View style={styles.dataContainer}>
-                   <Footer isFromMenu={isFromMenu} isHorizontal={isHorizontal} footer={item?.data} index={index} accentColors={accentColors} /> 
+                  <Footer
+                    textColor={accentColors[index % accentColors.length]}
+                    isFromMenu={isFromMenu}
+                    isHorizontal={isHorizontal}
+                    footer={item?.data}
+                    index={index}
+                    accentColors={accentColors}
+                  />
                 </View>
               ) : (
                 <View style={styles.dataContainer}>
@@ -218,8 +229,15 @@ const HomeScreen = () => {
               )}
             </View>
             {item?.footer ? (
-              <View style={{marginTop: 4}}>
-                <Footer isFromMenu={isFromMenu} isHorizontal={isHorizontal} footer={item?.footer} index={index} accentColors={accentColors} />
+              <View style={{ marginTop: 4 }}>
+                <Footer
+                  textColor={accentColors[index % accentColors.length]}
+                  isFromMenu={isFromMenu}
+                  isHorizontal={isHorizontal}
+                  footer={item?.footer}
+                  index={index}
+                  accentColors={accentColors}
+                />
               </View>
             ) : (
               <Text
@@ -294,7 +312,7 @@ const HomeScreen = () => {
           marginTop: 1,
           backgroundColor: ERP_COLOR_CODE.ERP_APP_COLOR,
           padding: 12,
-          width: width,
+          // width: width,
           borderBottomRightRadius: 24,
           borderBottomLeftRadius: 24,
         }}
@@ -311,13 +329,12 @@ const HomeScreen = () => {
         >
           <MaterialIcons name="business" size={24} color={ERP_COLOR_CODE.ERP_WHITE} />
           <Text
+            numberOfLines={1}
             style={{
               color: ERP_COLOR_CODE.ERP_WHITE,
-              backgroundColor: ERP_COLOR_CODE.ERP_APP_COLOR,
-              borderBottomRightRadius: 24,
-              borderBottomLeftRadius: 24,
               fontWeight: '600',
               fontSize: 16,
+              maxWidth: 280,
             }}
           >
             {user?.companyName || ''}
@@ -367,7 +384,8 @@ const HomeScreen = () => {
                     numColumns={isHorizontal ? 1 : 2}
                     columnWrapperStyle={!isHorizontal ? styles.columnWrapper : undefined}
                     renderItem={
-                      ({ item, index }) => renderDashboardItem({ item, index, isFromHtml: false ,  isFromMenu:false}) // 👈 custom prop passed here
+                      ({ item, index }) =>
+                        renderDashboardItem({ item, index, isFromHtml: false, isFromMenu: false }) // 👈 custom prop passed here
                     }
                     showsVerticalScrollIndicator={false}
                   />
@@ -380,7 +398,8 @@ const HomeScreen = () => {
                     data={htmlItems}
                     keyExtractor={item => item?.id}
                     renderItem={
-                      ({ item, index }) => renderDashboardItem({ item, index, isFromHtml: true , isFromMenu:true}) // 👈 custom prop passed here
+                      ({ item, index }) =>
+                        renderDashboardItem({ item, index, isFromHtml: true, isFromMenu: true }) // 👈 custom prop passed here
                     }
                     showsVerticalScrollIndicator={false}
                   />
