@@ -240,7 +240,7 @@ const AddAccountScreen: React.FC<AddAccountScreenProps> = ({ visible, onClose })
                             >
                               <MaterialIcons
                                 name={!showPassword ? 'visibility-off' : 'visibility'}
-                                color={ERP_COLOR_CODE.ERP_BLACK}
+                                color={ERP_COLOR_CODE.ERP_666}
                                 size={20}
                               />
                             </TouchableOpacity>
@@ -257,6 +257,12 @@ const AddAccountScreen: React.FC<AddAccountScreenProps> = ({ visible, onClose })
                           }}
                           disabled={loader}
                         >
+                          <MaterialIcons
+                            name="person-add-alt"
+                            size={24}
+                            color={ERP_COLOR_CODE.ERP_WHITE}
+                          />
+
                           {loader ? (
                             <Text style={styles.addButtonText}>{t('account.adding')}</Text>
                           ) : (

@@ -41,6 +41,7 @@ const ListScreen = () => {
   const [alertVisible, setAlertVisible] = useState(false);
   const [actionLoaders, setActionLoader] = useState(false);
   const [parsedError, setParsedError] = useState<any>();
+  const [apiError, setApiError] = useState<any>(false);
 
   const [alertConfig, setAlertConfig] = useState({
     title: '',
@@ -64,7 +65,6 @@ const ListScreen = () => {
   const pageTitle = item?.title || item?.name || 'List Data';
   const pageParamsName = item?.name || 'List Data';
   const pageName = item?.url;
-  console.log("🚀 ~ ListScreen ~ pageName:", pageName)
 
   const totalAmount = filteredData?.reduce((sum, item) => {
     const amount = parseFloat(item?.amount) || 0;
@@ -75,9 +75,6 @@ const ListScreen = () => {
     item => item?.datafield && item?.datafield.toLowerCase() === 'date',
   );
 
-  const hasIdField = configData.some(
-    item => item?.datafield && item?.datafield.toLowerCase() === 'id',
-  );
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: () => (
@@ -381,7 +378,7 @@ const ListScreen = () => {
                   </View>
                 </TouchableOpacity>
               </View>
-              <View style={{height: 1, width: 8,}}> </View>
+              <View style={{ height: 1, width: 8 }}> </View>
 
               {/* End Date */}
               <View style={styles.dateRow}>
@@ -470,7 +467,7 @@ const ListScreen = () => {
           )}
         </>
       )}
-      {  !loadingListId && configData && (
+      {!loadingListId && configData && (
         <TouchableOpacity
           style={[
             styles.addButton,
@@ -498,9 +495,13 @@ const ListScreen = () => {
         doneText={alertConfig.title}
         color={alertConfig.color}
         onDone={async remark => {
+          console.log('🚀 ~ remark:', remark);
+          console.log('🚀 ~ alertConfig:', alertConfig);
+
           try {
             const type = `page${alertConfig.title}`;
-            const res = await dispatch(
+            console.log('🚀 ~ type:', type);
+             await dispatch(
               handlePageActionThunk({
                 action: type,
                 id: alertConfig.id.toString(),
@@ -512,10 +513,31 @@ const ListScreen = () => {
             setAlertVisible(false);
             onRefresh();
           } catch (err) {
+            setAlertVisible(false);
+            setAlertConfig({
+              title: 'Api error',
+              message: err?.toString() || '',
+              type: 'info',
+              actionValue: '',
+              color: '',
+              id: 0,
+            });
+            setApiError(true);
+
             console.error('❌ Failed:', err);
           }
         }}
         isFromButtonList={true}
+      />
+
+      <CustomAlert
+        visible={apiError}
+        title={alertConfig.title}
+        message={alertConfig.message}
+        type={alertConfig.type}
+        onClose={() => setApiError(false)}
+        onCancel={() => setApiError(false)}
+        actionLoader={actionLoader}
       />
     </View>
   );

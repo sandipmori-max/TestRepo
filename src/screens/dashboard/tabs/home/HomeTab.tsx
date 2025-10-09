@@ -1,4 +1,4 @@
-import React, { useCallback, useLayoutEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import {
   View,
   Text,
@@ -26,6 +26,11 @@ import Footer from './Footer';
 import PieChartSection from './chartData';
 const { width } = Dimensions.get('screen');
 
+const hasHtmlContent = (str: string) => {
+  if (!str || typeof str !== 'string') return false;
+  return /<([a-z]+)([^>]*?)>/i.test(str);
+};
+
 const HomeScreen = () => {
   const { t } = useTranslation();
   const navigation = useNavigation<any>();
@@ -34,6 +39,7 @@ const HomeScreen = () => {
   const { dashboard, isDashboardLoading, isAuthenticated, error, user } = useAppSelector(
     state => state.auth,
   );
+  console.log('🚀 ~ HomeScreen ~ dashboard:', dashboard);
   const [loadingPageId, setLoadingPageId] = useState<any>(null);
   const [isRefresh, setIsRefresh] = useState<boolean>(false);
 
@@ -42,6 +48,23 @@ const HomeScreen = () => {
   const [isHorizontal, setIsHorizontal] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+
+  const translateX = useRef(new Animated.Value(width)).current;
+
+  const htmlItems = dashboard.filter(item => hasHtmlContent(item.data));
+  const emptyItems = dashboard.filter(item => item?.data === '');
+
+  const textItems = dashboard.filter(item => item.data && !hasHtmlContent(item.data));
+
+  useEffect(() => {
+    Animated.loop(
+      Animated.timing(translateX, {
+        toValue: -350,
+        duration: 10000,
+        useNativeDriver: true,
+      }),
+    ).start();
+  }, []);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -110,7 +133,7 @@ const HomeScreen = () => {
       text: item?.title,
     }));
 
-  const renderDashboardItem = ({ item, index }: any) => {
+  const renderDashboardItem = ({ item, index, isFromHtml , isFromMenu}: any) => {
     return (
       <TouchableOpacity
         key={item?.id || index}
@@ -120,10 +143,10 @@ const HomeScreen = () => {
             paddingLeft: 4,
             marginHorizontal: 4,
             borderRadius: 8,
-            width: isHorizontal ? '100%' : '48%',
+            width: isFromHtml ? '100%' : isHorizontal ? '100%' : '48%',
             flex: 1,
-            borderLeftColor :  accentColors[index % accentColors.length],
-            borderLeftWidth: 4
+            borderLeftColor: accentColors[index % accentColors.length],
+            borderLeftWidth: 3,
           },
         ]}
         activeOpacity={0.7}
@@ -167,7 +190,7 @@ const HomeScreen = () => {
                     numberOfLines={2}
                     ellipsizeMode="tail"
                   >
-                    {!isHorizontal ? item?.title.replace(' ', '\n') : item?.title}
+                    {isFromMenu ? item?.title : !isHorizontal ? item?.title.replace(' ', '\n') : item?.title}
                   </Text>
                 </View>
               </View>
@@ -184,7 +207,7 @@ const HomeScreen = () => {
               )}
               {item.data ? (
                 <View style={styles.dataContainer}>
-                  <Footer footer={item?.data} index={index} accentColors={accentColors} />
+                   <Footer isFromMenu={isFromMenu} isHorizontal={isHorizontal} footer={item?.data} index={index} accentColors={accentColors} /> 
                 </View>
               ) : (
                 <View style={styles.dataContainer}>
@@ -195,9 +218,9 @@ const HomeScreen = () => {
               )}
             </View>
             {item?.footer ? (
-              <>
-                <Footer footer={item?.footer} index={index} accentColors={accentColors} />
-              </>
+              <View style={{marginTop: 4}}>
+                <Footer isFromMenu={isFromMenu} isHorizontal={isHorizontal} footer={item?.footer} index={index} accentColors={accentColors} />
+              </View>
             ) : (
               <Text
                 style={{
@@ -266,22 +289,42 @@ const HomeScreen = () => {
 
   return (
     <View style={theme === 'dark' ? styles.containerDark : styles.container}>
-      <Text
+      <View
         style={{
-          color: 'white',
           marginTop: 1,
           backgroundColor: ERP_COLOR_CODE.ERP_APP_COLOR,
           padding: 12,
-          textAlign: 'center',
           width: width,
           borderBottomRightRadius: 24,
           borderBottomLeftRadius: 24,
-          fontWeight: '600',
-          fontSize: 16,
         }}
       >
-        {user?.companyName || ''}
-      </Text>
+        <Animated.View
+          style={{
+            justifyContent: 'center',
+            alignContent: 'center',
+            alignItems: 'center',
+            gap: 8,
+            flexDirection: 'row',
+            // transform: [{ translateX }],
+          }}
+        >
+          <MaterialIcons name="business" size={24} color={ERP_COLOR_CODE.ERP_WHITE} />
+          <Text
+            style={{
+              color: ERP_COLOR_CODE.ERP_WHITE,
+              backgroundColor: ERP_COLOR_CODE.ERP_APP_COLOR,
+              borderBottomRightRadius: 24,
+              borderBottomLeftRadius: 24,
+              fontWeight: '600',
+              fontSize: 16,
+            }}
+          >
+            {user?.companyName || ''}
+          </Text>
+        </Animated.View>
+      </View>
+
       {isDashboardLoading ? (
         <FullViewLoader />
       ) : error ? (
@@ -319,16 +362,30 @@ const HomeScreen = () => {
                   <FlatList
                     key={`${isHorizontal}`}
                     keyboardShouldPersistTaps="handled"
-                    data={dashboard}
+                    data={[...textItems, ...emptyItems]}
                     keyExtractor={item => item?.id}
                     numColumns={isHorizontal ? 1 : 2}
                     columnWrapperStyle={!isHorizontal ? styles.columnWrapper : undefined}
-                    renderItem={renderDashboardItem}
+                    renderItem={
+                      ({ item, index }) => renderDashboardItem({ item, index, isFromHtml: false ,  isFromMenu:false}) // 👈 custom prop passed here
+                    }
                     showsVerticalScrollIndicator={false}
                   />
                 </View>
 
-                 <View style={styles.grid}>
+                <View style={styles.dashboardSection}>
+                  <FlatList
+                    key={`${isHorizontal}`}
+                    keyboardShouldPersistTaps="handled"
+                    data={htmlItems}
+                    keyExtractor={item => item?.id}
+                    renderItem={
+                      ({ item, index }) => renderDashboardItem({ item, index, isFromHtml: true , isFromMenu:true}) // 👈 custom prop passed here
+                    }
+                    showsVerticalScrollIndicator={false}
+                  />
+                </View>
+                <View style={styles.grid}>
                   <View style={styles.card}>
                     <View style={{ flexDirection: 'row', marginVertical: 8, gap: 6 }}>
                       <MaterialIcons
@@ -498,7 +555,7 @@ const HomeScreen = () => {
                       setModalVisible(false);
                     }}
                   />
-                )} 
+                )}
                 <View style={{ height: 10, width: 100 }} />
               </>
             )}

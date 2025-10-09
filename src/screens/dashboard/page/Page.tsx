@@ -42,13 +42,14 @@ const PageScreen = () => {
 
   const [loadingPageId, setLoadingPageId] = useState<string | null>(null);
   const [controls, setControls] = useState<any[]>([]);
-  console.log("🚀 ~ PageScreen ~ controls:", controls)
+  console.log('🚀 ~ PageScreen ~ controls:', controls);
   const [errorsList, setErrorsList] = useState<string[]>([]);
   const [showErrorModal, setShowErrorModal] = useState(false);
 
   const [error, setError] = useState<string | null>(null);
   const [formValues, setFormValues] = useState<any>({});
-  
+  console.log("🚀 ~ PageScreen ~ formValues:", formValues)
+
   const [datePickerVisible, setDatePickerVisible] = useState(false);
 
   const [dateTimePickerVisible, setDateTimePickerVisible] = useState(false);
@@ -64,6 +65,7 @@ const PageScreen = () => {
   const [loader, setLoader] = useState(false);
   const [actionLoader, setActionLoader] = useState(false);
   const [actionSaveLoader, setActionSaveLoader] = useState(false);
+  const [confirmationVisible, setConfirmationVisible] = useState(false);
 
   const [infoData, setInfoData] = useState<any>({});
 
@@ -75,7 +77,7 @@ const PageScreen = () => {
 
   const route = useRoute<RouteProp<PageRouteParams, 'PageScreen'>>();
   const { item, title, id, isFromNew, url, pageTitle }: any = route?.params;
-  console.log("🚀 ~ PageScreen ~ id:", id)
+  console.log('🚀 ~ PageScreen ~ id:', id);
   const authUser = item?.authuser;
 
   const validateForm = useCallback(() => {
@@ -126,6 +128,7 @@ const PageScreen = () => {
       headerRight: () => (
         <>
           {
+            !isFromNew && 
             <ERPIcon
               name="refresh"
               isLoading={actionLoader}
@@ -150,23 +153,14 @@ const PageScreen = () => {
                     if (f.refcol !== '1') submitValues[f?.field] = formValues[f?.field];
                   });
                   try {
-                    setLoader(true);
-                    await dispatch(
-                      savePageThunk({ page: url, id, data: { ...submitValues } }),
-                    ).unwrap();
-                    setLoader(false);
-                    fetchPageData();
+                    setConfirmationVisible(true);
                     setAlertConfig({
-                      title: 'Record saved',
-                      message: `Record saved successfully!`,
-                      type: 'success',
+                      title: 'Record Confirmation',
+                      message: `Are you sure you want to ${
+                        isFromNew ? 'save' : 'update'
+                      } this record?`,
+                      type: 'info',
                     });
-                    setAlertVisible(true);
-                    setGoBack(true);
-                    setTimeout(() => {
-                      setAlertVisible(false);
-                      navigation.goBack();
-                    }, 1500);
                   } catch (err: any) {
                     setLoader(false);
 
@@ -180,6 +174,7 @@ const PageScreen = () => {
                   }
                 }
                 setActionSaveLoader(false);
+                // setConfirmationVisible(false);
               }}
             />
           )}
@@ -208,7 +203,7 @@ const PageScreen = () => {
       const parsed = await dispatch(
         getERPPageThunk({ page: url, id: isFromNew ? 0 : id }),
       ).unwrap();
-      console.log("🚀 ~ parsed:", parsed)
+      console.log('🚀 ~ parsed:', parsed);
 
       if (!isFromNew) {
         setInfoData({
@@ -219,7 +214,7 @@ const PageScreen = () => {
       }
 
       const pageControls = Array.isArray(parsed?.pagectl) ? parsed?.pagectl : [];
-      console.log("🚀 ~ pageControls:", pageControls)
+      console.log('🚀 ~ pageControls:', pageControls);
 
       const normalizedControls = pageControls?.map(c => ({
         ...c,
@@ -322,12 +317,14 @@ const PageScreen = () => {
             errors={errors}
           />
         );
-      } else if (item?.ctltype === 'FILE') {
+      }
+      else if (isFromNew && item?.ctltype === 'FILE') {
         content = <FilePickerRow item={item} handleAttachment={handleAttachment} />;
-      } else if (item?.defaultvalue === '#location') {
+      }
+       else if (item?.defaultvalue === '#location') {
         content = <LocationRow item={item} setValue={setValue} />;
       } else if (item?.defaultvalue === '#html') {
-        content = <HtmlRow item={item} />;
+        content =<View> <HtmlRow item={item} isFromPage = {true} /></View>;
       } else if (item?.ctltype === 'IMAGE' && item?.field === 'signature') {
         content = (
           <SignaturePad
@@ -336,7 +333,7 @@ const PageScreen = () => {
             handleSignatureAttachment={handleSignatureAttachment}
           />
         );
-      } else if (item?.ctltype === 'IMAGE' || item?.ctltype === 'PHOTO') {
+      } else if (item?.ctltype === "FILE" || item?.ctltype === 'IMAGE' || item?.ctltype === 'PHOTO') {
         content = (
           <Media
             baseLink={baseLink}
@@ -531,6 +528,50 @@ const PageScreen = () => {
             navigation.goBack();
           }
         }}
+        actionLoader={undefined}
+      />
+
+      <CustomAlert
+        visible={confirmationVisible}
+        title={alertConfig.title}
+        message={alertConfig.message}
+        type={alertConfig.type}
+        onClose={() => {
+          setConfirmationVisible(false);
+          setAlertVisible(false);
+        }}
+        isBottomButtonVisible={confirmationVisible}
+        onCancel={() => {
+          setConfirmationVisible(false);
+          setAlertVisible(false);
+        }}
+        onDone={async () => {
+          if (confirmationVisible) {
+            setConfirmationVisible(false);
+            const submitValues: Record<string, any> = {};
+            controls?.forEach(f => {
+              if (f.refcol !== '1') submitValues[f?.field] = formValues[f?.field];
+            });
+            setLoader(true);
+            await dispatch(savePageThunk({ page: url, id, data: { ...submitValues } })).unwrap();
+            setLoader(false);
+            fetchPageData();
+            setAlertConfig({
+              title: 'Record saved',
+              message: `Record saved successfully!`,
+              type: 'success',
+            });
+
+            setAlertVisible(true);
+            setGoBack(true);
+            setTimeout(() => {
+              setAlertVisible(false);
+              navigation.goBack();
+            }, 1500);
+          }
+        }}
+        doneText={` ${isFromNew ? 'Save' : 'Update'}`}
+        color={ERP_COLOR_CODE.ERP_green}
         actionLoader={undefined}
       />
     </View>

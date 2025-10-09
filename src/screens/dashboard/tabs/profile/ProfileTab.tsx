@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, } from 'react-native';
 
 import AccountSwitcher from './components/AccountSwitcher';
 import { styles } from './profile_style';
@@ -13,7 +13,7 @@ import FastImage from 'react-native-fast-image';
 import { useBaseLink } from '../../../../hooks/useBaseLink';
 import { useTranslation } from 'react-i18next';
 import { ERP_COLOR_CODE } from '../../../../utils/constants';
-
+ 
 const ProfileTab = () => {
   const {t} = useTranslation()
   const navigation = useNavigation<any>();
@@ -34,7 +34,7 @@ const ProfileTab = () => {
       headerRight: () => (
         <>
           <ERPIcon
-            name="add"
+            name="person-add-alt"
             onPress={() => {
               handleAddAccount();
             }}
@@ -108,7 +108,7 @@ const ProfileTab = () => {
                 }}
                 activeOpacity={0.8}
               >
-                <MaterialIcons name={'edit'} color={ERP_COLOR_CODE.ERP_BLACK} size={20} />
+                <MaterialIcons name={'edit'} color={ERP_COLOR_CODE.ERP_888} size={20} />
               </TouchableOpacity>
             </View>
           </TouchableOpacity>

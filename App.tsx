@@ -28,15 +28,15 @@ const App = () => {
   useEffect(() => {
     clearAllTempFiles();
   }, []);
-  useEffect(() => {
-    const subscription = AppState.addEventListener('change', nextState => {
-      if (nextState === 'background') {
-        clearAllTempFiles(); 
-      }
-    });
+  // useEffect(() => {
+  //   const subscription = AppState.addEventListener('change', nextState => {
+  //     if (nextState === 'background') {
+  //       clearAllTempFiles(); 
+  //     }
+  //   });
 
-    return () => subscription.remove();
-  }, []);
+  //   return () => subscription.remove();
+  // }, []);
   useEffect(() => {
     requestUserPermission();
     setBackgroundMessageHandler();

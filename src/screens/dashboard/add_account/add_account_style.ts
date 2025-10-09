@@ -72,6 +72,10 @@ export const styles = StyleSheet.create({
     marginTop: 4,
   },
   addButton: {
+    flexDirection:'row',
+    justifyContent:'center',
+    alignContent:'center',
+    gap: 8,
     backgroundColor: ERP_COLOR_CODE.ERP_APP_COLOR,
     paddingVertical: 15,
     borderRadius: 10,

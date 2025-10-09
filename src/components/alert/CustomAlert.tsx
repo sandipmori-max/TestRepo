@@ -26,6 +26,7 @@ const CustomAlert: React.FC<CustomAlertProps> = ({
   isBottomButtonVisible,
   isSettingVisible,
 }) => {
+  console.log("🚀 ~ CustomAlert ~ isFromButtonList:", isFromButtonList)
   const alertStyles = getAlertStyles(type);
   const gifSource = getGifSource(type);
 
@@ -40,7 +41,7 @@ const CustomAlert: React.FC<CustomAlertProps> = ({
   };
 
   const handleDonePress = () => {
-    if (isFromButtonList && remarks && remarks?.trim() === '') {
+    if (isFromButtonList && remarks?.trim() === '') {
       setError('Remarks are required.');
       return;
     }

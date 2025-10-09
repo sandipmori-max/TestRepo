@@ -25,7 +25,6 @@ const EntryTab = () => {
   const { user } = useAppSelector(state => state?.auth);
   const { isAuthenticated, activeToken, error } = useAppSelector(state => state.auth);
   const { menu, isMenuLoading } = useAppSelector(state => state.auth);
-  console.log('🚀 ~ EntryTab ~ isMenuLoading:', menu);
 
   const allList = menu?.filter(item => item?.isReport === 'E') ?? [];
   const [isRefresh, setIsRefresh] = useState<boolean>(false);

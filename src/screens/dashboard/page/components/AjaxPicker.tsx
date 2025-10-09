@@ -30,12 +30,21 @@ const AjaxPicker = ({ label, onValueChange, item, errors, dtext, formValues }: a
   }, [dtext, item]);
 
   const fetchOptions = useCallback(async () => {
+
+     const resolvedWhere = item?.ddlwhere.replace(/\{(\w+)\}/g, (_, key) => {
+      const lowerKey = key.toLowerCase();
+      console.log("🚀 ~ AjaxPicker ~ lowerKey:", lowerKey)
+      return formValues.hasOwnProperty(lowerKey) ? formValues[lowerKey] : `{${key}}`;
+    });
+     console.log("🚀 ~ AjaxPicker ~ resolvedWhere:", resolvedWhere)
+
+
     try {
       setLoader(true);
       const res = await dispatch(
         getAjaxThunk({
           dtlid: item?.dtlid,
-          where: item?.ddlwhere,
+          where: resolvedWhere,
           search: search,
         }),
       ).unwrap();
@@ -45,7 +54,7 @@ const AjaxPicker = ({ label, onValueChange, item, errors, dtext, formValues }: a
       setOptions([]);
       setLoader(false);
     }
-  }, [dispatch, item?.dtlid, item?.ddlwhere, search]);
+  }, [dispatch, item?.dtlid, item?.ddlwhere, search, formValues]);
 
   const handleOpen = async () => {
     setOpen(true);
