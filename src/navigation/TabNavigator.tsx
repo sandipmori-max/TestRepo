@@ -79,7 +79,6 @@ const TabNavigator = () => {
           ),
         }}
       />
-
       <Tab.Screen
         name="Report"
         component={ReportTab}

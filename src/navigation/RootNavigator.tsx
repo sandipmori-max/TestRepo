@@ -39,23 +39,29 @@ export async function requestLocationPermissions(): Promise<
       const coarse = granted['android.permission.ACCESS_COARSE_LOCATION'];
       const background = granted['android.permission.ACCESS_BACKGROUND_LOCATION'];
 
-      const allGranted =
+      if (
         fine === PermissionsAndroid.RESULTS.GRANTED &&
         coarse === PermissionsAndroid.RESULTS.GRANTED &&
-        background === PermissionsAndroid.RESULTS.GRANTED;
-      if (allGranted) return 'granted';
+        background === PermissionsAndroid.RESULTS.GRANTED
+      ) {
+        return 'granted';
+      }
 
-      const foregroundOnly =
+      if (
         fine === PermissionsAndroid.RESULTS.GRANTED &&
         coarse === PermissionsAndroid.RESULTS.GRANTED &&
-        background !== PermissionsAndroid.RESULTS.GRANTED;
-      if (foregroundOnly) return 'foreground-only';
+        background !== PermissionsAndroid.RESULTS.GRANTED
+      ) {
+        return 'foreground-only';
+      }
 
-      const blocked =
+      if (
         fine === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN ||
         coarse === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN ||
-        background === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN;
-      if (blocked) return 'blocked';
+        background === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN
+      ) {
+        return 'blocked';
+      }
 
       return 'denied';
     } catch (err) {
@@ -94,38 +100,40 @@ const RootNavigator = () => {
   }, [theme]);
 
   // ------------------------- Detect Location Enabled & Permission -------------------------
-useEffect(() => {
-  const interval = setInterval(async () => {
-    const enabled = await DeviceInfo.isLocationEnabled();
-    const permissionStatus = await requestLocationPermissions();
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      const enabled = await DeviceInfo.isLocationEnabled();
+      const permissionStatus = await requestLocationPermissions();
 
-    // Show modal if location service is OFF
-    if (!enabled) {
-      setAlertConfig({
-        title: 'Location Status',
-        message: 'Please enable location access to continue using the app.',
-        type: 'error',
-      });
-      setAlertVisible(true);
-      setModalClose(false);
-    } else {
-      setAlertVisible(false);
-      setModalClose(true);
-    }
+      // Show alert only if status changed
+      if (enabled !== lastLocationEnabled.current) {
+        if (!enabled) {
+          setAlertConfig({
+            title: 'Location Status',
+            message: 'Please enable location access to continue using the app.',
+            type: 'error',
+          });
+          setAlertVisible(true);
+          setModalClose(false);
+        } else {
+          setAlertVisible(false);
+          setModalClose(true);
+        }
+        lastLocationEnabled.current = enabled;
+      }
 
-    // Show modal if background denied
-    if (permissionStatus === 'foreground-only') {
-      setBackgroundDeniedModal(true);
-    } else {
-      setBackgroundDeniedModal(false);
-    }
+      // Show background permission modal only once when required
+      if (permissionStatus === 'foreground-only' && !backgroundDeniedModal) {
+        setBackgroundDeniedModal(true);
+      } else if (permissionStatus !== 'foreground-only' && backgroundDeniedModal) {
+        setBackgroundDeniedModal(false);
+      }
 
-    setLocationEnabled(enabled);
-  }, 1000);
+      setLocationEnabled(enabled);
+    }, 1000);
 
-  return () => clearInterval(interval);
-}, []);
-
+    return () => clearInterval(interval);
+  }, [backgroundDeniedModal]);
 
   // ------------------------- Device & Auth Setup -------------------------
   useEffect(() => {
@@ -150,10 +158,7 @@ useEffect(() => {
   // ------------------------- Request Foreground Permissions -------------------------
   const requestLocationPermission = async (): Promise<boolean> => {
     if (Platform.OS === 'android') {
-      const granted = await PermissionsAndroid.check(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-      );
-      return granted;
+      return await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
     }
     return true;
   };
@@ -185,21 +190,18 @@ useEffect(() => {
     try {
       const enabled = await DeviceInfo.isLocationEnabled();
 
-      if (!enabled) {
-        if (enabled !== locationEnabled) {
-          setAlertConfig({
-            title: 'Location Status',
-            message: enabled
-              ? `Location is now enabled`
-              : 'Please enable location access to continue using the app.',
-            type: enabled ? 'success' : 'error',
-          });
-          setAlertVisible(true);
-        }
+      if (enabled !== locationEnabled) {
+        setAlertConfig({
+          title: 'Location Status',
+          message: enabled
+            ? 'Location is now enabled'
+            : 'Please enable location access to continue using the app.',
+          type: enabled ? 'success' : 'error',
+        });
+        setAlertVisible(!enabled);
+        setModalClose(enabled);
+        setLocationEnabled(enabled);
       }
-
-      setModalClose(enabled);
-      setLocationEnabled(enabled);
 
       if (isAuthenticated && enabled) {
         if (accounts.length > 0 && Platform.OS === 'android') {
@@ -209,7 +211,7 @@ useEffect(() => {
               token: u?.user?.token,
               link: u?.user?.companyLink.replace(/^https:\/\//i, 'http://'),
             }));
-             NativeModules.LocationModule.setUserTokens(data);
+            NativeModules.LocationModule.setUserTokens(data);
             NativeModules.LocationModule?.startService();
           } else if (granted === 'foreground-only') {
             setBackgroundDeniedModal(true);
@@ -306,7 +308,6 @@ useEffect(() => {
               >
                 <Text style={styles.btnText}>Open Settings</Text>
               </TouchableOpacity>
-              
             </View>
           </View>
         </View>
