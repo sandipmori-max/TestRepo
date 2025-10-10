@@ -5,12 +5,11 @@ import { ERP_COLOR_CODE } from '../../../../utils/constants';
 import { useCurrentAddress } from '../../../../hooks/useCurrentLocation';
 
 const LocationRow = ({ item, value, setValue }: any) => {
-  console.log('🚀 ~ LocationRow ~ item:', item);
   const { coords, loading, error } = useCurrentAddress();
   const [address, setAddress] = useState<string>('');
 
   useEffect(() => {
-    if (item?.text !== '' && item?.text) {
+    if (item?.text !== '' && item?.text !== '#location') {
       setAddress(item?.text);
       return;
     } else {
@@ -30,6 +29,7 @@ const LocationRow = ({ item, value, setValue }: any) => {
               },
             );
             const data = await response.json();
+            console.log("🚀 ~ fetchAddress ~ data:", data)
             if (data?.address) {
               const { road, suburb, state, country, postcode } = data.address;
               const shortAddress = `${road || ''}, ${suburb || ''}, ${state || ''} - ${
@@ -43,6 +43,7 @@ const LocationRow = ({ item, value, setValue }: any) => {
               setAddress(data.display_name);
             }
           } catch (err) {
+            console.log("🚀 ~ fetchAddress ~ err:", err)
             console.warn('Failed to fetch address', err);
           }
         };
@@ -61,7 +62,7 @@ const LocationRow = ({ item, value, setValue }: any) => {
       </View>
 
       <View style={styles.disabledBox}>
-        {item?.text !== '' && item?.text ? (
+        {item?.text !== '' && item?.text && item?.text !== '#location' ? (
           <>
             <Text style={{ marginTop: 4, color: ERP_COLOR_CODE.ERP_333 }}>{item?.text}</Text>
           </>

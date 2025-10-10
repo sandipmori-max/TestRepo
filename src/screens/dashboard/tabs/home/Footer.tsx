@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { Animated, Text, View, useWindowDimensions, Dimensions } from 'react-native';
+import { Animated, Text, View, Dimensions } from 'react-native';
 import AutoHeightWebView from '../../page/components/AutoHeightWebView';
 
 const { width } = Dimensions.get('screen');
@@ -26,16 +26,33 @@ const MarqueeFooter = ({ html }) => {
   );
 };
 
-const Footer = ({ footer, index, accentColors , isHorizontal, isFromMenu, textColor, isFromListPage}) => {
-  console.log("🚀 ~ Footer ~ footer:", footer)
+const Footer = ({
+  footer,
+  index,
+  accentColors,
+  isHorizontal,
+  isFromMenu,
+  textColor,
+  isFromListPage,
+}) => {
+  console.log('🚀 ~ Footer ~ footer:', footer);
   const isHTML = typeof footer === 'string' && footer.trim().startsWith('<');
   const isMarquee = footer.includes('<marquee');
-  console.log("🚀 ~ Footer ~ isMarquee:", isMarquee)
+  console.log('🚀 ~ Footer ~ isMarquee:', isMarquee);
 
   if (isMarquee) {
     return <MarqueeFooter html={footer} />;
   } else if (isHTML) {
-    return <AutoHeightWebView isFromListPage={isFromListPage} textColor={textColor} isHorizontal={isHorizontal} isFromMenu={isFromMenu} isFromPage={false} html={footer} />;
+    return (
+      <AutoHeightWebView
+        isFromListPage={isFromListPage}
+        textColor={textColor}
+        isHorizontal={isHorizontal}
+        isFromMenu={isFromMenu}
+        isFromPage={false}
+        html={footer}
+      />
+    );
   } else {
     return (
       <Text

@@ -85,7 +85,7 @@ const AuthTab = () => {
             <TextInput
               value={searchText}
               onChangeText={setSearchText}
-              placeholder="Search..."
+              placeholder="Search auth here..."
               style={{
                 flex: 1,
                 backgroundColor: '#f0f0f0',
@@ -136,7 +136,7 @@ const AuthTab = () => {
         <ERPIcon extSize={24} isMenu={true} name="menu" onPress={() => navigation.openDrawer()} />
       ),
     });
-  }, [navigation, showBookmarksOnly, isHorizontal, isRefresh, showSearch, searchText]);
+  }, [navigation, showBookmarksOnly, isHorizontal, isRefresh, showSearch, searchText, allList]);
 
   useEffect(() => {
     if (isAuthenticated) {

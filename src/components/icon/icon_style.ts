@@ -9,7 +9,7 @@ export const baseStyle = (color: string, isMenu: boolean) =>
       borderColor: color,
       justifyContent: 'center',
       alignItems: 'center',
-      marginHorizontal: 8,
+      marginHorizontal: 4,
       borderRadius: 4,
     },
   }).container;

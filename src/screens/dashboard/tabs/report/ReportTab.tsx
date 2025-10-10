@@ -86,7 +86,7 @@ const ReportTab = () => {
             <TextInput
               value={searchText}
               onChangeText={setSearchText}
-              placeholder="Search..."
+              placeholder="Search report here..."
               style={{
                 flex: 1,
                 backgroundColor: '#f0f0f0',
@@ -116,10 +116,11 @@ const ReportTab = () => {
         ),
       headerRight: () => (
         <>
-          {allList.length > 5 && !showSearch && <ERPIcon name="search" onPress={() => setShowSearch(true)} />}
+          {allList.length > 5 && !showSearch && (
+            <ERPIcon name="search" onPress={() => setShowSearch(true)} />
+          )}
           {!showSearch && (
             <>
-            
               <ERPIcon name="refresh" onPress={() => setIsRefresh(!isRefresh)} />
               <ERPIcon
                 name={!isHorizontal ? 'list' : 'apps'}
@@ -137,7 +138,7 @@ const ReportTab = () => {
         <ERPIcon extSize={24} isMenu={true} name="menu" onPress={() => navigation.openDrawer()} />
       ),
     });
-  }, [navigation, showBookmarksOnly, isHorizontal, isRefresh, showSearch, searchText]);
+  }, [navigation, showBookmarksOnly, isHorizontal, isRefresh, showSearch, searchText, allList]);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -168,7 +169,7 @@ const ReportTab = () => {
             size={24}
             name={bookmarks[item?.id] ? 'bookmark' : 'bookmark-outline'}
             color={ERP_COLOR_CODE.ERP_BLACK}
-          />
+          />  
         </TouchableOpacity>
 
         <View style={[styles.iconContainer, { backgroundColor: ERP_COLOR_CODE.ERP_WHITE }]}>
@@ -209,7 +210,7 @@ const ReportTab = () => {
     );
   };
 
-  if (isMenuLoading ) {
+  if (isMenuLoading) {
     return (
       <View style={styles.centered}>
         <FullViewLoader />

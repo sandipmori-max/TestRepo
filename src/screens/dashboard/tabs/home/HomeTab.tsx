@@ -96,7 +96,7 @@ const searchTimeout = useRef<NodeJS.Timeout | null>(null);
           <TextInput
             value={searchText}
             onChangeText={setSearchText}
-            placeholder="Search..."
+            placeholder="Search dashboard here..."
             style={{
               flex: 1,
               backgroundColor: '#f0f0f0',

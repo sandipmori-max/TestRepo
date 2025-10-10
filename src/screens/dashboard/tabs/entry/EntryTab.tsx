@@ -78,7 +78,7 @@ const EntryTab = () => {
             <TextInput
               value={searchText}
               onChangeText={setSearchText}
-              placeholder="Search..."
+              placeholder="Search entry here..."
               style={{
                 flex: 1,
                 backgroundColor: '#f0f0f0',
@@ -128,7 +128,7 @@ const EntryTab = () => {
         <ERPIcon extSize={24} isMenu={true} name="menu" onPress={() => navigation.openDrawer()} />
       ),
     });
-  }, [navigation, showBookmarksOnly, isHorizontal, isRefresh, showSearch, searchText]);
+  }, [navigation, showBookmarksOnly, isHorizontal, isRefresh, showSearch, searchText, allList]);
 
   useEffect(() => {
     (async () => {
