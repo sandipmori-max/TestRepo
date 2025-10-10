@@ -7,6 +7,7 @@ import {
   FlatList,
   Dimensions,
   Animated,
+  TextInput,
 } from 'react-native';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
@@ -48,13 +49,34 @@ const HomeScreen = () => {
   const [isHorizontal, setIsHorizontal] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+ const [showSearch, setShowSearch] = useState(false);
+const [searchText, setSearchText] = useState('');
+const [filteredDashboard, setFilteredDashboard] = useState(dashboard);
+const searchTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const translateX = useRef(new Animated.Value(width)).current;
 
-  const htmlItems = dashboard.filter(item => hasHtmlContent(item.data));
-  const emptyItems = dashboard.filter(item => item?.data === '');
+  const htmlItems = filteredDashboard.filter(item => hasHtmlContent(item.data));
+  const emptyItems = filteredDashboard.filter(item => item?.data === '');
 
-  const textItems = dashboard.filter(item => item.data && !hasHtmlContent(item.data));
+  const textItems = filteredDashboard.filter(item => item.data && !hasHtmlContent(item.data));
+
+  useEffect(() => {
+  if (searchTimeout.current) clearTimeout(searchTimeout.current);
+
+  searchTimeout.current = setTimeout(() => {
+    const filtered = dashboard.filter(item =>
+       (item.name || '').toLowerCase().includes(searchText.toLowerCase())
+    );
+    console.log("🚀 ~ HomeScreen ~ filtered-------:", filtered)
+    setFilteredDashboard(filtered);
+  }, 300);
+
+  return () => {
+    if (searchTimeout.current) clearTimeout(searchTimeout.current);
+  };
+}, [searchText, dashboard]);
+
 
   useEffect(() => {
     Animated.loop(
@@ -66,11 +88,54 @@ const HomeScreen = () => {
     ).start();
   }, []);
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <>
-          <ERPIcon
+ useLayoutEffect(() => {
+  navigation.setOptions({
+    headerTitle: () =>
+      showSearch ? (
+        <View style={{ width: width - 70, flexDirection: 'row', alignItems: 'center' }}>
+          <TextInput
+            value={searchText}
+            onChangeText={setSearchText}
+            placeholder="Search..."
+            style={{
+              flex: 1,
+              backgroundColor: '#f0f0f0',
+              borderRadius: 8,
+              paddingHorizontal: 12,
+              height: 36,
+            }}
+          />
+          <TouchableOpacity
+            onPress={() => {
+              setShowSearch(false);
+              setSearchText('');
+            }}
+          >
+            <MaterialIcons
+              name="clear"
+              size={24}
+              color={ERP_COLOR_CODE.ERP_WHITE}
+              style={{ marginLeft: 8 }}
+            />
+          </TouchableOpacity>
+        </View>
+      ) : (
+        <Text style={{ color: ERP_COLOR_CODE.ERP_WHITE, fontSize: 18, fontWeight: '600' }}>
+          Home
+        </Text>
+      ),
+    headerRight: () => (
+      <>
+        {!showSearch && (
+          <>
+           {
+            dashboard.length > 5 &&  <ERPIcon name="search" onPress={() => setShowSearch(true)} />
+           }
+            <ERPIcon
+              name={!isHorizontal ? 'list' : 'apps'}
+              onPress={() => setIsHorizontal(prev => !prev)}
+            />
+            <ERPIcon
             name="refresh"
             onPress={() => {
               setActionLoader(true);
@@ -82,24 +147,16 @@ const HomeScreen = () => {
             }}
             isLoading={actionLoader}
           />
-          <ERPIcon
-            name={!isHorizontal ? 'list' : 'apps'}
-            onPress={() => setIsHorizontal(prev => !prev)}
-          />
-        </>
-      ),
-      headerLeft: () => (
-        <>
-          <ERPIcon
-            extSize={24}
-            isMenu={true}
-            name="menu"
-            onPress={() => navigation?.openDrawer()}
-          />
-        </>
-      ),
-    });
-  }, [navigation, isRefresh, actionLoader, isHorizontal]);
+          </>
+        )}
+      </>
+    ),
+    headerLeft: () => (
+      <ERPIcon extSize={24} isMenu={true} name="menu" onPress={() => navigation?.openDrawer()} />
+    ),
+  });
+}, [navigation, isHorizontal, isRefresh, showSearch,dashboard, searchText, filteredDashboard]);
+
 
   useFocusEffect(
     useCallback(() => {
@@ -122,7 +179,7 @@ const HomeScreen = () => {
 
   const accentColors = ['#4C6FFF', '#00C2A8', '#FFB020', '#FF6B6B', '#9B59B6', '#20C997'];
 
-  const pieChartData = dashboard
+  const pieChartData = filteredDashboard
     .filter(item => {
       const num = Number(item?.data);
       return item?.title !== 'Attendance Code' && item?.data !== '' && !isNaN(num) && num > 0;
@@ -355,7 +412,7 @@ const HomeScreen = () => {
         >
           <ErrorMessage message={error} />{' '}
         </View>
-      ) : dashboard?.length === 0 && !isDashboardLoading ? (
+      ) : filteredDashboard?.length === 0 && !isDashboardLoading ? (
         <NoData />
       ) : (
         <>

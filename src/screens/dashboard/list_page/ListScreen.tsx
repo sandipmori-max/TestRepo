@@ -506,7 +506,7 @@ const ListScreen = () => {
                 action: type,
                 id: alertConfig.id.toString(),
                 remarks: remark,
-                page: pageName,
+                page: alertConfig?.actionValue,
               }),
             ).unwrap();
 

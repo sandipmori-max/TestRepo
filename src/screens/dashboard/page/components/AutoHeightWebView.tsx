@@ -9,12 +9,14 @@ const AutoHeightWebView = ({
   isHorizontal,
   isFromMenu,
   textColor,
+  isFromListPage
 }: {
   html: string;
   isFromPage?: boolean;
   isHorizontal: any;
   isFromMenu: any;
   textColor: any;
+  isFromListPage: any
 }) => {
   const [webViewHeight, setWebViewHeight] = useState(0);
   const { width } = useWindowDimensions();
@@ -40,7 +42,7 @@ const AutoHeightWebView = ({
       body > *:last-child { margin-bottom: 0 !important; }
       table {
         height: 100% !important;
-        width: ${isFromPage ? '92%' : '82%'} !important;
+        width:  ${ isFromListPage ? '92%' :  isFromPage ? '92%' : '82%'} !important;
         border-collapse: collapse !important;
         table-layout: fixed !important;
         word-break: break-word !important;
