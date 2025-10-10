@@ -304,8 +304,12 @@ const PageScreen = () => {
             errors={errors}
           />
         );
-      } else if (isFromNew && item?.ctltype === 'FILE') {
-        content = <FilePickerRow item={item} handleAttachment={handleAttachment} />;
+      } else if (item?.ctltype === 'FILE') {
+        content = <FilePickerRow 
+                    baseLink={baseLink}
+                     infoData={infoData}
+
+        item={item} handleAttachment={handleAttachment} />;
       } else if (item?.defaultvalue === '#location') {
         content = <LocationRow item={item} setValue={setValue} />;
       } else if (item?.defaultvalue === '#html') {

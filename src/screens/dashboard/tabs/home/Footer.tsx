@@ -27,8 +27,10 @@ const MarqueeFooter = ({ html }) => {
 };
 
 const Footer = ({ footer, index, accentColors , isHorizontal, isFromMenu, textColor, isFromListPage}) => {
+  console.log("🚀 ~ Footer ~ footer:", footer)
   const isHTML = typeof footer === 'string' && footer.trim().startsWith('<');
-  const isMarquee = isHTML && footer.includes('<marquee>');
+  const isMarquee = footer.includes('<marquee');
+  console.log("🚀 ~ Footer ~ isMarquee:", isMarquee)
 
   if (isMarquee) {
     return <MarqueeFooter html={footer} />;

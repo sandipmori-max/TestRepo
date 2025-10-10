@@ -5,44 +5,50 @@ import { ERP_COLOR_CODE } from '../../../../utils/constants';
 import { useCurrentAddress } from '../../../../hooks/useCurrentLocation';
 
 const LocationRow = ({ item, value, setValue }: any) => {
+  console.log('🚀 ~ LocationRow ~ item:', item);
   const { coords, loading, error } = useCurrentAddress();
   const [address, setAddress] = useState<string>('');
 
   useEffect(() => {
-    if (!loading && coords) {
-      setValue({
-        [item?.field]: `${coords?.latitude},${coords?.longitude}`,
-      });
+    if (item?.text !== '' && item?.text) {
+      setAddress(item?.text);
+      return;
+    } else {
+      if (!loading && coords) {
+        setValue({
+          [item?.field]: `${coords?.latitude},${coords?.longitude}`,
+        });
 
-      const fetchAddress = async () => {
-        try {
-          const response = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?lat=${coords?.latitude}&lon=${coords?.longitude}&format=json`,
-            {
-              headers: {
-                'User-Agent': 'MyReactNativeApp/1.0 (myemail@example.com)',
+        const fetchAddress = async () => {
+          try {
+            const response = await fetch(
+              `https://nominatim.openstreetmap.org/reverse?lat=${coords?.latitude}&lon=${coords?.longitude}&format=json`,
+              {
+                headers: {
+                  'User-Agent': 'MyReactNativeApp/1.0 (myemail@example.com)',
+                },
               },
-            },
-          );
-          const data = await response.json();
-          if (data?.address) {
-            const { road, suburb, state, country, postcode } = data.address;
-            const shortAddress = `${road || ''}, ${suburb || ''}, ${state || ''} - ${
-              postcode || ''
-            }, ${country || ''}`;
-            setAddress(shortAddress.trim().replace(/^,|,$/g, ''));
-            setValue({
-              [item?.field]: shortAddress.trim().replace(/^,|,$/g, ''),
-            });
-          } else if (data?.display_name) {
-            setAddress(data.display_name);
+            );
+            const data = await response.json();
+            if (data?.address) {
+              const { road, suburb, state, country, postcode } = data.address;
+              const shortAddress = `${road || ''}, ${suburb || ''}, ${state || ''} - ${
+                postcode || ''
+              }, ${country || ''}`;
+              setAddress(shortAddress.trim().replace(/^,|,$/g, ''));
+              setValue({
+                [item?.field]: shortAddress.trim().replace(/^,|,$/g, ''),
+              });
+            } else if (data?.display_name) {
+              setAddress(data.display_name);
+            }
+          } catch (err) {
+            console.warn('Failed to fetch address', err);
           }
-        } catch (err) {
-          console.warn('Failed to fetch address', err);
-        }
-      };
+        };
 
-      fetchAddress();
+        fetchAddress();
+      }
     }
   }, [coords, loading]);
 
@@ -55,15 +61,24 @@ const LocationRow = ({ item, value, setValue }: any) => {
       </View>
 
       <View style={styles.disabledBox}>
-        {loading ? (
-          <Text style={{ color: ERP_COLOR_CODE.ERP_555 }}>Fetching...</Text>
+        {item?.text !== '' && item?.text ? (
+          <>
+            <Text style={{ marginTop: 4, color: ERP_COLOR_CODE.ERP_333 }}>{item?.text}</Text>
+          </>
         ) : (
           <>
-            {address ? (
-              <Text style={{ marginTop: 4, color: ERP_COLOR_CODE.ERP_333 }}>{address}</Text>
+            {' '}
+            {loading ? (
+              <Text style={{ color: ERP_COLOR_CODE.ERP_555 }}>Fetching...</Text>
             ) : (
-              <Text style={{ marginTop: 4, color: '#999' }}>Address not found</Text>
-            )}
+              <>
+                {address ? (
+                  <Text style={{ marginTop: 4, color: ERP_COLOR_CODE.ERP_333 }}>{address}</Text>
+                ) : (
+                  <Text style={{ marginTop: 4, color: '#999' }}>Address not found</Text>
+                )}
+              </>
+            )}{' '}
           </>
         )}
       </View>

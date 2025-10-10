@@ -12,6 +12,7 @@ import { pick, types } from '@react-native-documents/picker';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
 import { ERP_COLOR_CODE } from '../../../../utils/constants';
 import RNFS from 'react-native-fs';
+import { Linking } from 'react-native';
 
 interface FileType {
   name: string;
@@ -20,7 +21,12 @@ interface FileType {
   type?: string;
 }
 
-const FilePickerRow = ({ item, handleAttachment }) => {
+const FilePickerRow = ({ item, handleAttachment, baseLink, infoData }) => {
+  console.log('🚀 ~ FilePickerRow ~ item:', item);
+
+  const base = `${baseLink}fileupload/1/${infoData?.tableName}/${infoData?.id}/${item?.text}`;
+  console.log('🚀 ~ FilePickerRow ~ base:', base);
+
   const [selectedFiles, setSelectedFiles] = useState<FileType[]>([]);
 
   const openFilePicker = async () => {
@@ -96,7 +102,24 @@ const FilePickerRow = ({ item, handleAttachment }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>{item?.fieldtitle} - Upload Files</Text>
+      <Text style={styles.label}>{item?.fieldtitle}</Text>
+      {selectedFiles.length === 0 && (
+        <>
+          {item?.text !== '' && (
+            <View style={{ marginBottom: 8 }}>
+              <TouchableOpacity
+                onPress={() => {
+                  if (base) {
+                    Linking.openURL(base).catch(err => console.error('Failed to open link:', err));
+                  }
+                }}
+              >
+                <Text style={{ color: 'blue', textDecorationLine: 'underline' }}>{base}</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        </>
+      )}
 
       <ScrollView showsHorizontalScrollIndicator={false}>
         {selectedFiles.map((file, index) => (

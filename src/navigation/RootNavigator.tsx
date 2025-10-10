@@ -209,8 +209,7 @@ useEffect(() => {
               token: u?.user?.token,
               link: u?.user?.companyLink.replace(/^https:\/\//i, 'http://'),
             }));
-            console.log("🚀 ~ checkLocation ~ data:", data)
-            NativeModules.LocationModule.setUserTokens(data);
+             NativeModules.LocationModule.setUserTokens(data);
             NativeModules.LocationModule?.startService();
           } else if (granted === 'foreground-only') {
             setBackgroundDeniedModal(true);
