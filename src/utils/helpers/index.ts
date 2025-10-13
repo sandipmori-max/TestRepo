@@ -531,7 +531,7 @@ export const getWorkedHours2 = (punchIn: string, punchOut: string) => {
   const hours = Math.floor(totalMinutes / 60);
   const mins = totalMinutes % 60;
 
-  return `${hours}:${mins.toString().padStart(2, '0')} hr`;
+  return `${hours - 1}:${mins.toString().padStart(2, '0')} hr`;
 };
 
 export const clearAllTempFiles = async () => {

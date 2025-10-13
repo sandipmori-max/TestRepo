@@ -50,6 +50,9 @@ class DevERPService {
       
       await this.checkNetwork();
       await this.ensureAuthToken();
+      console.log("link", this.link)
+      console.log("endpoint", endpoint)
+      console.log("payload", payload)
 
       const response = await apiClient.post<T>(`${this.link}${endpoint}`, payload);
       console.log("🚀 ~ DevERPService ~ apiCall ~ response:", response)

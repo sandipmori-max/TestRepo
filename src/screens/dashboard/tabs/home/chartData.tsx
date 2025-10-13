@@ -17,7 +17,7 @@ const PieChartSection = ({ pieChartData, navigation, t }) => {
       <View>
         <View
           style={{
-            marginVertical: 12,
+            marginVertical: 4,
             borderColor: 'black',
             flexDirection: 'row',
             justifyContent: 'center',
