@@ -82,6 +82,7 @@ const PieChartSection = ({ pieChartData, navigation, t }) => {
                   data={firstList}
                   showsHorizontalScrollIndicator={false}
                   showsVerticalScrollIndicator={false}
+                  keyExtractor={(item, index) => index.toString()}
                   renderItem={({ item }) => (
                     <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 4 }}>
                       <View
@@ -131,6 +132,7 @@ const PieChartSection = ({ pieChartData, navigation, t }) => {
                 showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false}
                 horizontal={true}
+                keyExtractor={(item, index) => index.toString()}
                 data={secondList}
                 renderItem={({ item }) => (
                   <View

@@ -49,10 +49,10 @@ const HomeScreen = () => {
   const [isHorizontal, setIsHorizontal] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
- const [showSearch, setShowSearch] = useState(false);
-const [searchText, setSearchText] = useState('');
-const [filteredDashboard, setFilteredDashboard] = useState(dashboard);
-const searchTimeout = useRef<NodeJS.Timeout | null>(null);
+  const [showSearch, setShowSearch] = useState(false);
+  const [searchText, setSearchText] = useState('');
+  const [filteredDashboard, setFilteredDashboard] = useState(dashboard);
+  const searchTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const translateX = useRef(new Animated.Value(width)).current;
 
@@ -62,21 +62,20 @@ const searchTimeout = useRef<NodeJS.Timeout | null>(null);
   const textItems = filteredDashboard.filter(item => item.data && !hasHtmlContent(item.data));
 
   useEffect(() => {
-  if (searchTimeout.current) clearTimeout(searchTimeout.current);
-
-  searchTimeout.current = setTimeout(() => {
-    const filtered = dashboard.filter(item =>
-       (item.name || '').toLowerCase().includes(searchText.toLowerCase())
-    );
-    console.log("🚀 ~ HomeScreen ~ filtered-------:", filtered)
-    setFilteredDashboard(filtered);
-  }, 300);
-
-  return () => {
     if (searchTimeout.current) clearTimeout(searchTimeout.current);
-  };
-}, [searchText, dashboard]);
 
+    searchTimeout.current = setTimeout(() => {
+      const filtered = dashboard.filter(item =>
+        (item.name || '').toLowerCase().includes(searchText.toLowerCase()),
+      );
+      console.log('🚀 ~ HomeScreen ~ filtered-------:', filtered);
+      setFilteredDashboard(filtered);
+    }, 300);
+
+    return () => {
+      if (searchTimeout.current) clearTimeout(searchTimeout.current);
+    };
+  }, [searchText, dashboard]);
 
   useEffect(() => {
     Animated.loop(
@@ -88,75 +87,74 @@ const searchTimeout = useRef<NodeJS.Timeout | null>(null);
     ).start();
   }, []);
 
- useLayoutEffect(() => {
-  navigation.setOptions({
-    headerTitle: () =>
-      showSearch ? (
-        <View style={{ width: width - 70, flexDirection: 'row', alignItems: 'center' }}>
-          <TextInput
-            value={searchText}
-            onChangeText={setSearchText}
-            placeholder="Search dashboard here..."
-            style={{
-              flex: 1,
-              backgroundColor: '#f0f0f0',
-              borderRadius: 8,
-              paddingHorizontal: 12,
-              height: 36,
-            }}
-          />
-          <TouchableOpacity
-            onPress={() => {
-              setShowSearch(false);
-              setSearchText('');
-            }}
-          >
-            <MaterialIcons
-              name="clear"
-              size={24}
-              color={ERP_COLOR_CODE.ERP_WHITE}
-              style={{ marginLeft: 8 }}
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: () =>
+        showSearch ? (
+          <View style={{ width: width - 70, flexDirection: 'row', alignItems: 'center' }}>
+            <TextInput
+              value={searchText}
+              onChangeText={setSearchText}
+              placeholder="Search dashboard here..."
+              style={{
+                flex: 1,
+                backgroundColor: '#f0f0f0',
+                borderRadius: 8,
+                paddingHorizontal: 12,
+                height: 36,
+              }}
             />
-          </TouchableOpacity>
-        </View>
-      ) : (
-        <Text style={{ color: ERP_COLOR_CODE.ERP_WHITE, fontSize: 18, fontWeight: '600' }}>
-          Home
-        </Text>
+            <TouchableOpacity
+              onPress={() => {
+                setShowSearch(false);
+                setSearchText('');
+              }}
+            >
+              <MaterialIcons
+                name="clear"
+                size={24}
+                color={ERP_COLOR_CODE.ERP_WHITE}
+                style={{ marginLeft: 8 }}
+              />
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <Text style={{ color: ERP_COLOR_CODE.ERP_WHITE, fontSize: 18, fontWeight: '600' }}>
+            Home
+          </Text>
+        ),
+      headerRight: () => (
+        <>
+          {!showSearch && (
+            <>
+              {dashboard.length > 5 && (
+                <ERPIcon name="search" onPress={() => setShowSearch(true)} />
+              )}
+              <ERPIcon
+                name={!isHorizontal ? 'list' : 'apps'}
+                onPress={() => setIsHorizontal(prev => !prev)}
+              />
+              <ERPIcon
+                name="refresh"
+                onPress={() => {
+                  setActionLoader(true);
+                  setIsRefresh(!isRefresh);
+                  dispatch(getERPDashboardThunk());
+                  setTimeout(() => {
+                    setActionLoader(false);
+                  }, 100);
+                }}
+                isLoading={actionLoader}
+              />
+            </>
+          )}
+        </>
       ),
-    headerRight: () => (
-      <>
-        {!showSearch && (
-          <>
-           {
-            dashboard.length > 5 &&  <ERPIcon name="search" onPress={() => setShowSearch(true)} />
-           }
-            <ERPIcon
-              name={!isHorizontal ? 'list' : 'apps'}
-              onPress={() => setIsHorizontal(prev => !prev)}
-            />
-            <ERPIcon
-            name="refresh"
-            onPress={() => {
-              setActionLoader(true);
-              setIsRefresh(!isRefresh);
-              dispatch(getERPDashboardThunk());
-              setTimeout(() => {
-                setActionLoader(false);
-              }, 100);
-            }}
-            isLoading={actionLoader}
-          />
-          </>
-        )}
-      </>
-    ),
-    headerLeft: () => (
-      <ERPIcon extSize={24} isMenu={true} name="menu" onPress={() => navigation?.openDrawer()} />
-    ),
-  });
-}, [navigation, isHorizontal, isRefresh, showSearch,dashboard, searchText, filteredDashboard]);
-
+      headerLeft: () => (
+        <ERPIcon extSize={24} isMenu={true} name="menu" onPress={() => navigation?.openDrawer()} />
+      ),
+    });
+  }, [navigation, isHorizontal, isRefresh, showSearch, dashboard, searchText, filteredDashboard]);
 
   useFocusEffect(
     useCallback(() => {
@@ -203,6 +201,7 @@ const searchTimeout = useRef<NodeJS.Timeout | null>(null);
             width: isFromHtml ? '100%' : isHorizontal ? '100%' : '48%',
             flex: 1,
             borderLeftColor: accentColors[index % accentColors.length],
+            borderWidth: 1,
             borderLeftWidth: 3,
           },
         ]}
@@ -437,7 +436,7 @@ const searchTimeout = useRef<NodeJS.Timeout | null>(null);
                     key={`${isHorizontal}`}
                     keyboardShouldPersistTaps="handled"
                     data={[...textItems, ...emptyItems]}
-                    keyExtractor={item => item?.id}
+                    keyExtractor={(item, index) => index.toString()}
                     numColumns={isHorizontal ? 1 : 2}
                     columnWrapperStyle={!isHorizontal ? styles.columnWrapper : undefined}
                     renderItem={
@@ -453,7 +452,7 @@ const searchTimeout = useRef<NodeJS.Timeout | null>(null);
                     key={`${isHorizontal}`}
                     keyboardShouldPersistTaps="handled"
                     data={htmlItems}
-                    keyExtractor={item => item?.id}
+                    keyExtractor={(item, index) => index.toString()}
                     renderItem={
                       ({ item, index }) =>
                         renderDashboardItem({ item, index, isFromHtml: true, isFromMenu: true }) // 👈 custom prop passed here
@@ -473,7 +472,7 @@ const searchTimeout = useRef<NodeJS.Timeout | null>(null);
                     </View>
                     <FlatList
                       data={todayEvents}
-                      keyExtractor={i => i.id}
+                      keyExtractor={(item, index) => index.toString()}
                       scrollEnabled={false}
                       renderItem={({ item }) => (
                         <SmallItem
@@ -488,7 +487,7 @@ const searchTimeout = useRef<NodeJS.Timeout | null>(null);
                     <FlatList
                       key={`${isHorizontal}`}
                       data={dummyUpcomingEvents}
-                      keyExtractor={i => i.id}
+                      keyExtractor={(item, index) => index.toString()}
                       scrollEnabled={false}
                       renderItem={({ item }) => (
                         <SmallItem
@@ -512,7 +511,7 @@ const searchTimeout = useRef<NodeJS.Timeout | null>(null);
                     </View>
                     <FlatList
                       data={todayBirthdays}
-                      keyExtractor={i => i.id}
+                      keyExtractor={(item, index) => index.toString()}
                       scrollEnabled={false}
                       renderItem={({ item }) => (
                         <SmallItem
@@ -534,7 +533,7 @@ const searchTimeout = useRef<NodeJS.Timeout | null>(null);
 
                     <FlatList
                       data={dummyUpcomingBirthdays}
-                      keyExtractor={i => i.id}
+                      keyExtractor={(item, index) => index.toString()}
                       scrollEnabled={false}
                       renderItem={({ item }) => (
                         <SmallItem
@@ -555,7 +554,7 @@ const searchTimeout = useRef<NodeJS.Timeout | null>(null);
                     />
                     <FlatList
                       data={todayAnniversaries}
-                      keyExtractor={i => i.id}
+                      keyExtractor={(item, index) => index.toString()}
                       scrollEnabled={false}
                       renderItem={({ item }) => (
                         <SmallItem
@@ -569,7 +568,7 @@ const searchTimeout = useRef<NodeJS.Timeout | null>(null);
 
                     <FlatList
                       data={dummyUpcomingAnniversaries}
-                      keyExtractor={i => i.id}
+                      keyExtractor={(item, index) => index.toString()}
                       scrollEnabled={false}
                       renderItem={({ item }) => (
                         <SmallItem

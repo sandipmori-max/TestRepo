@@ -286,7 +286,7 @@ const SettingsScreen = () => {
             keyboardShouldPersistTaps="handled"
             data={settings.filter(item => item.id === '1' || item.id === '2')}
             renderItem={renderSettingItem}
-            keyExtractor={item => item.id}
+            keyExtractor={(item, index) => index.toString()}
             scrollEnabled={false}
           />
         </View>
@@ -297,7 +297,7 @@ const SettingsScreen = () => {
             keyboardShouldPersistTaps="handled"
             data={settings.filter(item => item.id === '3')}
             renderItem={renderSettingItem}
-            keyExtractor={item => item.id}
+            keyExtractor={(item, index) => index.toString()}
             scrollEnabled={false}
           />
         </View>
@@ -308,7 +308,7 @@ const SettingsScreen = () => {
             keyboardShouldPersistTaps="handled"
             data={settings.filter(item => item.id === '4' || item.id === '5')}
             renderItem={renderSettingItem}
-            keyExtractor={item => item.id}
+            keyExtractor={(item, index) => index.toString()}
             scrollEnabled={false}
           />
         </View>
@@ -319,7 +319,7 @@ const SettingsScreen = () => {
             keyboardShouldPersistTaps="handled"
             data={settings.filter(item => item.id === '6' || item.id === '7' || item.id === '8')}
             renderItem={renderSettingItem}
-            keyExtractor={item => item.id}
+            keyExtractor={(item, index) => index.toString()}
             scrollEnabled={false}
           />
         </View>
@@ -330,7 +330,7 @@ const SettingsScreen = () => {
             keyboardShouldPersistTaps="handled"
             data={settings.filter(item => item.id === '9')}
             renderItem={renderSettingItem}
-            keyExtractor={item => item.id}
+            keyExtractor={(item, index) => index.toString()}
             scrollEnabled={false}
           />
         </View>
@@ -364,7 +364,7 @@ const SettingsScreen = () => {
               data={languages}
               keyboardShouldPersistTaps="handled"
               renderItem={renderLanguageOption}
-              keyExtractor={item => item.code}
+              keyExtractor={(item, index) => index.toString()}
               style={languageStyles.languageList}
             />
           </View>

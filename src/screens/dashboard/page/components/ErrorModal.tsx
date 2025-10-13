@@ -37,7 +37,7 @@ const ErrorModal = ({
             <FlatList
               data={errors}
               keyboardShouldPersistTaps="handled"
-              keyExtractor={(item, idx) => idx.toString()}
+              keyExtractor={(item, index) => index.toString()}
               renderItem={({ item }) => <Text style={styles.errorText}>• {item}</Text>}
             />
           </View>

@@ -310,13 +310,14 @@ const ReadableView = ({
   return (
     <View style={{ flex: 1, marginTop: 2 }}>
       <FlatList
+        keyExtractor={(item, index) => index.toString()}
         data={filteredData}
         keyboardShouldPersistTaps="handled"
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
-        keyExtractor={(item, idx) => String(item?.id || idx)}
         renderItem={({ item, index }) => <RenderCard item={item} index={index} />}
-        contentContainerStyle={styles.listContent}
+        contentContainerStyle={styles.listContent} 
+
       />
       {filteredData?.length > 0 ? (
         <View

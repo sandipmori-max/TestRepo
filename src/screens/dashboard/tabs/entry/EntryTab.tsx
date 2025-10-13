@@ -250,7 +250,7 @@ const EntryTab = () => {
           key={`${isHorizontal}-${showBookmarksOnly}-${searchText}`}
           data={list}
           keyboardShouldPersistTaps="handled"
-          keyExtractor={item => item?.id}
+          keyExtractor={(item, index) => index.toString()}
           numColumns={isHorizontal ? 1 : 2}
           contentContainerStyle={styles.listContent}
           columnWrapperStyle={!isHorizontal ? styles.columnWrapper : undefined}

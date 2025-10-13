@@ -107,7 +107,9 @@ const CreateTaskScreen = ({ onCreate }) => {
       <View style={styles.card}>
         <Text style={styles.sectionTitle}>Assignment</Text>
         <TouchableOpacity style={styles.dropdown} onPress={() => setDropdownVisible(true)}>
-          <Text style={{ flex: 1, color: assignedTo.length > 0 ? ERP_COLOR_CODE.ERP_BLACK : '#999' }}>
+          <Text
+            style={{ flex: 1, color: assignedTo.length > 0 ? ERP_COLOR_CODE.ERP_BLACK : '#999' }}
+          >
             {assignedTo.length > 0 ? `Assigned: ${assignedTo.length} dev(s)` : 'Select Developers'}
           </Text>
           <MaterialIcons name="person-add" size={22} color={ERP_COLOR_CODE.ERP_555} />
@@ -131,7 +133,7 @@ const CreateTaskScreen = ({ onCreate }) => {
             <FlatList
               data={dummyUsers}
               keyboardShouldPersistTaps="handled"
-              keyExtractor={item => item.id}
+              keyExtractor={(item, index) => index.toString()}
               renderItem={({ item }) => (
                 <TouchableOpacity style={styles.option} onPress={() => toggleUser(item.id)}>
                   <Text style={{ flex: 1 }}>{item.name}</Text>
@@ -154,7 +156,7 @@ const CreateTaskScreen = ({ onCreate }) => {
         <Text style={styles.label}>Start Date</Text>
         <TouchableOpacity style={styles.dateButton} onPress={() => showDatePicker('start')}>
           <Text style={styles.dateText}>{formatDate(startDate)}</Text>
-          <MaterialIcons name="date-range" size={20} color={ERP_COLOR_CODE.ERP_555}/>
+          <MaterialIcons name="date-range" size={20} color={ERP_COLOR_CODE.ERP_555} />
         </TouchableOpacity>
 
         <Text style={styles.label}>End Date</Text>
@@ -180,7 +182,11 @@ const CreateTaskScreen = ({ onCreate }) => {
               style={[styles.priorityChip, priority === p && styles.priorityChipActive(p)]}
               onPress={() => setPriority(p as 'Low' | 'Medium' | 'High')}
             >
-              <Text style={[styles.priorityText, priority === p && { color: ERP_COLOR_CODE.ERP_WHITE }]}>{p}</Text>
+              <Text
+                style={[styles.priorityText, priority === p && { color: ERP_COLOR_CODE.ERP_WHITE }]}
+              >
+                {p}
+              </Text>
             </TouchableOpacity>
           ))}
         </View>

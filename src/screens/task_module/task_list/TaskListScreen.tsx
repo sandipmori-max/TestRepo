@@ -67,6 +67,7 @@ const TaskListScreen = ({ tasks, onSelectTask, showPicker, showFilter }) => {
     <FlatList
       data={['']}
       keyboardShouldPersistTaps="handled"
+      keyExtractor={(item, index) => index.toString()}
       renderItem={() => {
         return (
           <View style={styles.container}>
@@ -91,7 +92,12 @@ const TaskListScreen = ({ tasks, onSelectTask, showPicker, showFilter }) => {
                         ]}
                         onPress={() => setStatus(s)}
                       >
-                        <Text style={[styles.chipText, status === s && { color: ERP_COLOR_CODE.ERP_WHITE }]}>
+                        <Text
+                          style={[
+                            styles.chipText,
+                            status === s && { color: ERP_COLOR_CODE.ERP_WHITE },
+                          ]}
+                        >
                           {s}
                         </Text>
                       </TouchableOpacity>
@@ -111,7 +117,12 @@ const TaskListScreen = ({ tasks, onSelectTask, showPicker, showFilter }) => {
                       ]}
                       onPress={() => setPriority(p)}
                     >
-                      <Text style={[styles.chipText, priority === p && { color: ERP_COLOR_CODE.ERP_WHITE }]}>
+                      <Text
+                        style={[
+                          styles.chipText,
+                          priority === p && { color: ERP_COLOR_CODE.ERP_WHITE },
+                        ]}
+                      >
                         {p}
                       </Text>
                     </TouchableOpacity>
@@ -148,7 +159,7 @@ const TaskListScreen = ({ tasks, onSelectTask, showPicker, showFilter }) => {
                 keyboardShouldPersistTaps="handled"
                 showsVerticalScrollIndicator={false}
                 data={filteredTasks}
-                keyExtractor={item => item.id}
+                keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item }) => (
                   <TaskCard task={item} onPress={() => onSelectTask(item)} />
                 )}

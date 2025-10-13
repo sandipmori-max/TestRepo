@@ -169,7 +169,7 @@ const ReportTab = () => {
             size={24}
             name={bookmarks[item?.id] ? 'bookmark' : 'bookmark-outline'}
             color={ERP_COLOR_CODE.ERP_BLACK}
-          />  
+          />
         </TouchableOpacity>
 
         <View style={[styles.iconContainer, { backgroundColor: ERP_COLOR_CODE.ERP_WHITE }]}>
@@ -254,7 +254,7 @@ const ReportTab = () => {
         key={`${isHorizontal}-${showBookmarksOnly}-${searchText}`}
         keyboardShouldPersistTaps="handled"
         data={list}
-        keyExtractor={item => item?.id}
+        keyExtractor={(item, index) => index.toString()}
         numColumns={isHorizontal ? 1 : 2}
         contentContainerStyle={styles.listContent}
         columnWrapperStyle={!isHorizontal ? styles.columnWrapper : undefined}

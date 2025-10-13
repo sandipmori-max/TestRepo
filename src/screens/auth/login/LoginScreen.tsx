@@ -132,6 +132,7 @@ const LoginScreen = ({ navigation, route }: any) => {
               />
             </>
           )}
+          keyExtractor={(item, index) => index.toString()}
         />
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>

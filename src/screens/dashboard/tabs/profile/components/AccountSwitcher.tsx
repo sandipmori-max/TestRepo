@@ -71,8 +71,8 @@ const AccountSwitcher: React.FC<AccountSwitcherProps> = ({ visible, onClose, onA
       <TouchableOpacity
         style={[styles.accountItem, isActive && styles.activeAccount]}
         onPress={async () => {
-          dispatch(setDashboard([]))
-          dispatch(setEmptyMenu([]))
+          dispatch(setDashboard([]));
+          dispatch(setEmptyMenu([]));
           DevERPService.setAppId(item?.user?.app_id || '');
           await AsyncStorage.setItem('appid', item?.user?.app_id);
 
@@ -186,7 +186,7 @@ const AccountSwitcher: React.FC<AccountSwitcherProps> = ({ visible, onClose, onA
         <FlatList
           data={accounts}
           renderItem={renderAccount}
-          keyExtractor={item => item?.id}
+          keyExtractor={(item, index) => index.toString()}
           style={styles.accountsList}
           showsVerticalScrollIndicator={false}
         />

@@ -294,6 +294,7 @@ const List = ({ selectedMonth, showFilter, fromDate, toDate }: any) => {
       {listData.length > 0 && (
         <FlatList
           data={['calendar']}
+          keyExtractor={(item, index) => index.toString()}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
           renderItem={() => (

@@ -9,10 +9,10 @@ const NotificationScreen = () => {
     <View style={styles.container}>
       <FlatList
         data={NOTIFICATIONS}
-        keyExtractor={item => item?.id}
         keyboardShouldPersistTaps="handled"
         renderItem={({ item }) => <NotificationItem item={item} />}
         contentContainerStyle={styles.list}
+        keyExtractor={(item, index) => index.toString()}
       />
     </View>
   );

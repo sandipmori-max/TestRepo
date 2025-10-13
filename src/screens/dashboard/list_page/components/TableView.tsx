@@ -226,13 +226,14 @@ const TableView = ({
         data={['']}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
+        keyExtractor={(item, index) => index.toString()}
         renderItem={() => {
           return (
             <FlatList
+              keyExtractor={(item, index) => index.toString()}
               keyboardShouldPersistTaps="handled"
               showsVerticalScrollIndicator={false}
               data={filteredData}
-              keyExtractor={(item, idx) => String(item?.id || idx)}
               renderItem={renderItem}
               contentContainerStyle={styles.listContent}
             />

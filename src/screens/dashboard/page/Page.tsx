@@ -468,7 +468,7 @@ const PageScreen = () => {
               showsVerticalScrollIndicator={false}
               data={controls}
               ref={flatListRef}
-              keyExtractor={(it, idx) => it?.dtlid || idx?.toString()}
+                keyExtractor={(item, index) => index.toString()} 
               renderItem={renderItem}
               contentContainerStyle={{ paddingBottom: keyboardHeight }}
               keyboardShouldPersistTaps="handled"

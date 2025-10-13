@@ -252,7 +252,7 @@ const AuthTab = () => {
         key={`${isHorizontal}-${showBookmarksOnly}-${searchText}`}
         keyboardShouldPersistTaps="handled"
         data={list}
-        keyExtractor={item => item?.id}
+        keyExtractor={(item, index) => index.toString()}
         numColumns={isHorizontal ? 1 : 2}
         contentContainerStyle={styles.listContent}
         columnWrapperStyle={!isHorizontal ? styles.columnWrapper : undefined}

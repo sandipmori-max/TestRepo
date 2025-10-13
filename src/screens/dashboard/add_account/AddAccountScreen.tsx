@@ -174,6 +174,7 @@ const AddAccountScreen: React.FC<AddAccountScreenProps> = ({ visible, onClose })
         <FlatList
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
+          keyExtractor={(item, index) => index.toString()}
           keyboardShouldPersistTaps="handled"
           data={['']}
           renderItem={() => {

@@ -232,7 +232,9 @@ const LeaveListPage = ({ showFilter, onSelect }: any) => {
           </View>
 
           {item.remarks ? (
-            <Text style={{ fontSize: 12, color: ERP_COLOR_CODE.ERP_BLACK, marginTop: 4 }}>{item.remarks}</Text>
+            <Text style={{ fontSize: 12, color: ERP_COLOR_CODE.ERP_BLACK, marginTop: 4 }}>
+              {item.remarks}
+            </Text>
           ) : null}
         </View>
       </View>
@@ -243,6 +245,7 @@ const LeaveListPage = ({ showFilter, onSelect }: any) => {
     <View style={{ flex: 1, backgroundColor: ERP_COLOR_CODE.ERP_F8F9FA }}>
       <FlatList
         data={['']}
+        keyExtractor={(item, index) => index.toString()}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
         renderItem={() => {
@@ -283,7 +286,13 @@ const LeaveListPage = ({ showFilter, onSelect }: any) => {
                             <Text style={{ fontSize: 18, fontWeight: '700', textAlign: 'center' }}>
                               {total}
                             </Text>
-                            <Text style={{ fontSize: 12, color: ERP_COLOR_CODE.ERP_666, textAlign: 'center' }}>
+                            <Text
+                              style={{
+                                fontSize: 12,
+                                color: ERP_COLOR_CODE.ERP_666,
+                                textAlign: 'center',
+                              }}
+                            >
                               Total
                             </Text>
                           </View>
@@ -355,7 +364,8 @@ const LeaveListPage = ({ showFilter, onSelect }: any) => {
                       >
                         <Text
                           style={{
-                            color: filter === tab ? ERP_COLOR_CODE.ERP_WHITE : ERP_COLOR_CODE.ERP_444,
+                            color:
+                              filter === tab ? ERP_COLOR_CODE.ERP_WHITE : ERP_COLOR_CODE.ERP_444,
                             fontWeight: '600',
                             fontSize: 13,
                           }}
