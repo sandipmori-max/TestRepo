@@ -110,7 +110,8 @@ const RootNavigator = () => {
         if (!enabled) {
           setAlertConfig({
             title: 'Location Status',
-            message: 'Please enable location access to continue using the app.',
+            message:
+              'We need location access only to serve you better. Please enable it to continue.',
             type: 'error',
           });
           setAlertVisible(true);
@@ -195,7 +196,7 @@ const RootNavigator = () => {
           title: 'Location Status',
           message: enabled
             ? 'Location is now enabled'
-            : 'Please enable location access to continue using the app.',
+            : 'We need location access only to serve you better. Please enable it to continue.',
           type: enabled ? 'success' : 'error',
         });
         setAlertVisible(!enabled);
@@ -243,7 +244,8 @@ const RootNavigator = () => {
         } else {
           setAlertConfig({
             title: 'Location Status',
-            message: 'Please enable location access from Settings to continue.',
+            message:
+              'We need location access only to serve you better. Please enable it to continue.',
             type: 'error',
           });
           setAlertVisible(true);
@@ -293,7 +295,7 @@ const RootNavigator = () => {
           <View style={styles.modalContainer}>
             <Text style={styles.title}>Allow Background Location</Text>
             <Text style={styles.message}>
-              To track your location even when the app is closed, please set location access to{' '}
+              For continuous location tracking, set location access to{' '}
               <Text style={{ fontWeight: '600' }}>"Allow all the time"</Text> in your phone
               settings.
             </Text>

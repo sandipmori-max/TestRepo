@@ -220,7 +220,7 @@ const authSlice = createSlice({
           }
 
           state.menu = menus.map((menu: any, index: number) => ({
-            id: menu?.Link || `menu_${index}`,
+            id: `menu_${index}`,
             name: menu?.Name || '',
             url: menu?.Link || '',
             icon: menu?.Image || '',

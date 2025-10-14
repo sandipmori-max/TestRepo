@@ -76,7 +76,7 @@ const AddAccountScreen: React.FC<AddAccountScreenProps> = ({ visible, onClose })
       if (userExists && codeExists) {
         setAlertConfig({
           title: 'Error',
-          message: 'This user already exists in your accounts.',
+          message: 'You already have this user in your accounts.',
           type: 'error',
         });
         setAlertVisible(true);

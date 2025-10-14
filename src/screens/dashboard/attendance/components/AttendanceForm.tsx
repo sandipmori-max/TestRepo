@@ -1,4 +1,4 @@
-import { View, Text, Image, TextInput, AppState, Platform, Linking } from 'react-native';
+import { View, Text, Image, TextInput, AppState } from 'react-native';
 import React, { useState, useRef, useEffect } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -15,8 +15,7 @@ import { markAttendanceThunk } from '../../../../store/slices/attendance/thunk';
 import { ERP_COLOR_CODE } from '../../../../utils/constants';
 import { useNavigation } from '@react-navigation/native';
 import SlideButton from './SlideButton';
-import FastImage from 'react-native-fast-image';
-import { useBaseLink } from '../../../../hooks/useBaseLink';
+ import { useBaseLink } from '../../../../hooks/useBaseLink';
 import ProfileImage from '../../../../components/profile/ProfileImage';
 
 const AttendanceForm = ({ setBlockAction, resData }: any) => {
@@ -112,7 +111,6 @@ const AttendanceForm = ({ setBlockAction, resData }: any) => {
 
     const hasPermission = await requestCameraAndLocationPermission();
     if (!hasPermission) {
-      // Save pending action so we can resume after user grants permission
       pendingCameraAction.current = { setFieldValue, handleSubmit };
 
       setAlertConfig({

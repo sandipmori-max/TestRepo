@@ -26,7 +26,6 @@ const CustomAlert: React.FC<CustomAlertProps> = ({
   isBottomButtonVisible,
   isSettingVisible,
 }) => {
-  console.log("🚀 ~ CustomAlert ~ isFromButtonList:", isFromButtonList)
   const alertStyles = getAlertStyles(type);
   const gifSource = getGifSource(type);
 
@@ -42,7 +41,7 @@ const CustomAlert: React.FC<CustomAlertProps> = ({
 
   const handleDonePress = () => {
     if (isFromButtonList && remarks?.trim() === '') {
-      setError('Remarks are required.');
+      setError('Please enter remarks before proceeding.');
       return;
     }
     if (onDone) {
@@ -72,7 +71,6 @@ const CustomAlert: React.FC<CustomAlertProps> = ({
               source={gifSource}
               style={styles.gif}
               resizeMode={FastImage.resizeMode.contain}
-              
             />
           )}
           {isFromButtonList ? (
@@ -152,9 +150,7 @@ const CustomAlert: React.FC<CustomAlertProps> = ({
             </>
           )}
           {isSettingVisible && (
-            <TouchableOpacity
-             onPress={() => Linking.openSettings()}
-            >
+            <TouchableOpacity onPress={() => Linking.openSettings()}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                 <MaterialIcons name="settings" size={20} color="#000" />
                 <Text style={{ color: ERP_COLOR_CODE.ERP_BLACK, fontWeight: '600', fontSize: 16 }}>

@@ -10,7 +10,7 @@ const NoData = () => {
     <View style={styles.container}>
       <FastImage source={ERP_GIF.NO_DATA} style={styles.image} resizeMode="contain" />
       <Text style={styles.title}>No Data Found</Text>
-      <Text style={styles.subtitle}>Please check back later or refresh the page.</Text>
+      <Text style={styles.subtitle}>Oops! No data available. Please refresh or check again later.</Text>
     </View>
   );
 };
