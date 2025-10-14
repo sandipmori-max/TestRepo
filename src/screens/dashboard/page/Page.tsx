@@ -63,8 +63,7 @@ const PageScreen = () => {
   const [loader, setLoader] = useState(false);
   const [actionLoader, setActionLoader] = useState(false);
   const [actionSaveLoader, setActionSaveLoader] = useState(false);
-  const [confirmationVisible, setConfirmationVisible] = useState(false);
-
+ 
   const [infoData, setInfoData] = useState<any>({});
 
   const [alertConfig, setAlertConfig] = useState({
@@ -149,19 +148,28 @@ const PageScreen = () => {
                     if (f.refcol !== '1') submitValues[f?.field] = formValues[f?.field];
                   });
                   try {
-                    setConfirmationVisible(true);
+                    setLoader(true);
+                    await dispatch(
+                      savePageThunk({ page: url, id, data: { ...submitValues } }),
+                    ).unwrap();
+                    setLoader(false);
+                    fetchPageData();
                     setAlertConfig({
-                      title: 'Record Confirmation',
-                      message: `Are you sure you want to ${
-                        isFromNew ? 'save' : 'update'
-                      } this record?`,
-                      type: 'info',
+                      title: 'Record saved',
+                      message: `Record saved successfully!`,
+                      type: 'success',
                     });
+
+                    setAlertVisible(true);
+                    setGoBack(true);
+                    setTimeout(() => {
+                      setAlertVisible(false);
+                      navigation.goBack();
+                    }, 1500);
                   } catch (err: any) {}
                 }
                 setActionSaveLoader(false);
-                // setConfirmationVisible(false);
-              }}
+               }}
             />
           )}
         </>
@@ -305,11 +313,14 @@ const PageScreen = () => {
           />
         );
       } else if (item?.ctltype === 'FILE') {
-        content = <FilePickerRow 
-                    baseLink={baseLink}
-                     infoData={infoData}
-
-        item={item} handleAttachment={handleAttachment} />;
+        content = (
+          <FilePickerRow
+            baseLink={baseLink}
+            infoData={infoData}
+            item={item}
+            handleAttachment={handleAttachment}
+          />
+        );
       } else if (item?.defaultvalue === '#location') {
         content = <LocationRow item={item} setValue={setValue} />;
       } else if (item?.defaultvalue === '#html') {
@@ -468,7 +479,7 @@ const PageScreen = () => {
               showsVerticalScrollIndicator={false}
               data={controls}
               ref={flatListRef}
-                keyExtractor={(item, index) => index.toString()} 
+              keyExtractor={(item, index) => index.toString()}
               renderItem={renderItem}
               contentContainerStyle={{ paddingBottom: keyboardHeight }}
               keyboardShouldPersistTaps="handled"
@@ -528,61 +539,7 @@ const PageScreen = () => {
         actionLoader={undefined}
       />
 
-      <CustomAlert
-        visible={confirmationVisible}
-        title={alertConfig.title}
-        message={alertConfig.message}
-        type={alertConfig.type}
-        onClose={() => {
-          setConfirmationVisible(false);
-          setAlertVisible(false);
-        }}
-        isBottomButtonVisible={confirmationVisible}
-        onCancel={() => {
-          setConfirmationVisible(false);
-          setAlertVisible(false);
-        }}
-        onDone={async () => {
-          if (confirmationVisible) {
-            try {
-              setConfirmationVisible(false);
-              const submitValues: Record<string, any> = {};
-              controls?.forEach(f => {
-                if (f.refcol !== '1') submitValues[f?.field] = formValues[f?.field];
-              });
-              setLoader(true);
-              await dispatch(savePageThunk({ page: url, id, data: { ...submitValues } })).unwrap();
-              setLoader(false);
-              fetchPageData();
-              setAlertConfig({
-                title: 'Record saved',
-                message: `Record saved successfully!`,
-                type: 'success',
-              });
-
-              setAlertVisible(true);
-              setGoBack(true);
-              setTimeout(() => {
-                setAlertVisible(false);
-                navigation.goBack();
-              }, 1500);
-            } catch (err) {
-              setLoader(false);
-
-              setAlertConfig({
-                title: 'Record saved',
-                message: err?.toString() || '',
-                type: 'error',
-              });
-              setAlertVisible(true);
-              setGoBack(false);
-            }
-          }
-        }}
-        doneText={` ${isFromNew ? 'Save' : 'Update'}`}
-        color={ERP_COLOR_CODE.ERP_green}
-        actionLoader={undefined}
-      />
+    
     </View>
   );
 };

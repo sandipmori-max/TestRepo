@@ -20,8 +20,6 @@ import ERPIcon from '../../../../components/icon/ERPIcon';
 import { getERPDashboardThunk } from '../../../../store/slices/auth/thunk';
 import ErrorMessage from '../../../../components/error/Error';
 import { ERP_COLOR_CODE } from '../../../../utils/constants';
-import TaskListScreen from '../../../task_module/task_list/TaskListScreen';
-import TaskDetailsBottomSheet from '../../../task_module/task_details/TaskDetailsScreen';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
 import Footer from './Footer';
 import PieChartSection from './chartData';
@@ -47,8 +45,6 @@ const HomeScreen = () => {
   const theme = useAppSelector(state => state?.theme);
   const [actionLoader, setActionLoader] = useState(false);
   const [isHorizontal, setIsHorizontal] = useState(false);
-  const [selectedTask, setSelectedTask] = useState(null);
-  const [modalVisible, setModalVisible] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [filteredDashboard, setFilteredDashboard] = useState(dashboard);
@@ -229,7 +225,8 @@ const HomeScreen = () => {
                     { backgroundColor: accentColors[index % accentColors.length] },
                   ]}
                 >
-                  <Text style={styles.iconText}>{getInitials(item?.name)}</Text>
+                  <MaterialIcons name={item?.image || 'widgets'} color={ERP_COLOR_CODE.ERP_WHITE} size={22} />
+                  {/* <Text style={styles.iconText}>{getInitials(item?.name)}</Text> */}
                 </View>
                 <View style={styles.headerTextWrap}>
                   <Text
@@ -274,7 +271,7 @@ const HomeScreen = () => {
                     footer={item?.data}
                     index={index}
                     accentColors={accentColors}
-                  />
+                     isFromListPage={undefined}                  />
                 </View>
               ) : (
                 <View style={styles.dataContainer}>
@@ -293,7 +290,7 @@ const HomeScreen = () => {
                   footer={item?.footer}
                   index={index}
                   accentColors={accentColors}
-                />
+                   isFromListPage={undefined}                />
               </View>
             ) : (
               <Text
@@ -314,52 +311,9 @@ const HomeScreen = () => {
       </TouchableOpacity>
     );
   };
-
-  const dummyUpcomingEvents = [];
-
-  const dummyUpcomingBirthdays = [
-    { id: 'b1', name: 'Amit Sharma', date: '28 sep 2025', type: 'Up-coming-Birthday' },
-  ];
-
-  const dummyUpcomingAnniversaries = [
-    { id: 'w1', name: 'Rohit & Neha', date: '03 sep 2025', type: 'Up-coming-work-anniversary' },
-  ];
-
-  const todayEvents = [{ id: 't2', date: 'Today', title: 'UX Review', type: 'Event' }];
-
-  const todayBirthdays = [];
-
-  const todayAnniversaries = [];
-
-  const dummyTasks = [
-    {
-      id: '1',
-      title: 'Fix login bug',
-      description: 'Check the API response and fix login issue',
-      assignedTo: 'jr1',
-      createdBy: 'senior1',
-      status: 'pending',
-      updatedAt: '2025-09-10T10:00:00Z',
-    },
-  ];
+ 
   const scrollY = useRef(new Animated.Value(0)).current;
-
-  function SmallItem({ left, primary, secondary, type }) {
-    return (
-      <TouchableOpacity style={styles.itemRow} activeOpacity={0.8}>
-        <View style={styles.avatar}>{left}</View>
-        <View style={styles.itemText}>
-          <Text numberOfLines={1} style={styles.itemPrimary}>
-            {primary}
-          </Text>
-          <Text style={styles.itemType}>{type}</Text>
-        </View>
-        <View>
-          <Text style={styles.itemSecondary}>{secondary}</Text>
-        </View>
-      </TouchableOpacity>
-    );
-  }
+ 
 
   return (
     <View style={theme === 'dark' ? styles.containerDark : styles.container}>
@@ -460,178 +414,7 @@ const HomeScreen = () => {
                     showsVerticalScrollIndicator={false}
                   />
                 </View>
-                <View style={styles.grid}>
-                  <View style={styles.card}>
-                    <View style={{ flexDirection: 'row', marginVertical: 8, gap: 6 }}>
-                      <MaterialIcons
-                        size={18}
-                        color={ERP_COLOR_CODE.ERP_APP_COLOR}
-                        name="emoji-events"
-                      />
-                      <Text style={styles.cardTitle}>Events</Text>
-                    </View>
-                    <FlatList
-                      data={todayEvents}
-                      keyExtractor={(item, index) => index.toString()}
-                      scrollEnabled={false}
-                      renderItem={({ item }) => (
-                        <SmallItem
-                          left={<Text style={styles.avatarText}>T</Text>}
-                          primary={item.title}
-                          secondary={item.date}
-                          type={item?.type}
-                        />
-                      )}
-                    />
-
-                    <FlatList
-                      key={`${isHorizontal}`}
-                      data={dummyUpcomingEvents}
-                      keyExtractor={(item, index) => index.toString()}
-                      scrollEnabled={false}
-                      renderItem={({ item }) => (
-                        <SmallItem
-                          left={<Text style={styles.avatarText}>E</Text>}
-                          primary={item.title}
-                          secondary={item.date}
-                          type={item?.type}
-                        />
-                      )}
-                    />
-                  </View>
-
-                  <View style={styles.card}>
-                    <View style={{ flexDirection: 'row', marginVertical: 8, gap: 6 }}>
-                      <MaterialIcons
-                        size={18}
-                        color={ERP_COLOR_CODE.ERP_APP_COLOR}
-                        name="celebration"
-                      />
-                      <Text style={styles.cardTitle}>Birthday & Work-anniversary</Text>
-                    </View>
-                    <FlatList
-                      data={todayBirthdays}
-                      keyExtractor={(item, index) => index.toString()}
-                      scrollEnabled={false}
-                      renderItem={({ item }) => (
-                        <SmallItem
-                          left={
-                            <Text style={styles.avatarText}>
-                              {item.name
-                                .split(' ')
-                                .map(n => n[0])
-                                .slice(0, 2)
-                                .join('')}
-                            </Text>
-                          }
-                          primary={item.name}
-                          secondary={item.date}
-                          type={item?.type}
-                        />
-                      )}
-                    />
-
-                    <FlatList
-                      data={dummyUpcomingBirthdays}
-                      keyExtractor={(item, index) => index.toString()}
-                      scrollEnabled={false}
-                      renderItem={({ item }) => (
-                        <SmallItem
-                          left={
-                            <Text style={styles.avatarText}>
-                              {item.name
-                                .split(' ')
-                                .map(n => n[0])
-                                .slice(0, 2)
-                                .join('')}
-                            </Text>
-                          }
-                          primary={item.name}
-                          secondary={item.date}
-                          type={item?.type}
-                        />
-                      )}
-                    />
-                    <FlatList
-                      data={todayAnniversaries}
-                      keyExtractor={(item, index) => index.toString()}
-                      scrollEnabled={false}
-                      renderItem={({ item }) => (
-                        <SmallItem
-                          left={<Text style={styles.avatarText}>A</Text>}
-                          primary={item.name}
-                          secondary={item.date}
-                          type={item?.type}
-                        />
-                      )}
-                    />
-
-                    <FlatList
-                      data={dummyUpcomingAnniversaries}
-                      keyExtractor={(item, index) => index.toString()}
-                      scrollEnabled={false}
-                      renderItem={({ item }) => (
-                        <SmallItem
-                          left={<Text style={styles.avatarText}>W</Text>}
-                          primary={item.name}
-                          secondary={item.date}
-                          type={item?.type}
-                        />
-                      )}
-                    />
-                  </View>
-                </View>
-                <View>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      marginHorizontal: 12,
-                      marginVertical: 8,
-                    }}
-                  >
-                    <View style={{ flexDirection: 'row', gap: 6 }}>
-                      <MaterialIcons
-                        size={18}
-                        color={ERP_COLOR_CODE.ERP_APP_COLOR}
-                        name="pending-actions"
-                      />
-                      <Text style={{ fontSize: 16, fontWeight: '700' }}>My Pending Tasks</Text>
-                    </View>
-
-                    <TouchableOpacity
-                      onPress={() => {
-                        navigation.navigate('Tasks', { isFromViewAll: true });
-                      }}
-                    >
-                      <Text style={{ color: ERP_COLOR_CODE.ERP_BORDER_LINE, fontSize: 12 }}>
-                        View all
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                  <TaskListScreen
-                    tasks={dummyTasks}
-                    onSelectTask={task => {
-                      setSelectedTask(task);
-                      setModalVisible(true);
-                    }}
-                    showPicker={undefined}
-                    showFilter={undefined}
-                  />
-                </View>
-
-                {selectedTask && (
-                  <TaskDetailsBottomSheet
-                    visible={modalVisible}
-                    task={selectedTask}
-                    role="junior"
-                    onClose={() => setModalVisible(false)}
-                    onUpdate={updatedTask => {
-                      setModalVisible(false);
-                    }}
-                  />
-                )}
-                <View style={{ height: 10, width: 100 }} />
+               
               </>
             )}
           />

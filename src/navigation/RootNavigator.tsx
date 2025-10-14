@@ -200,7 +200,7 @@ const RootNavigator = () => {
           type: enabled ? 'success' : 'error',
         });
         setAlertVisible(!enabled);
-        setModalClose(enabled);
+        setModalClose(false);
         setLocationEnabled(enabled);
       }
 
@@ -248,6 +248,8 @@ const RootNavigator = () => {
               'We need location access only to serve you better. Please enable it to continue.',
             type: 'error',
           });
+                    setModalClose(false);
+
           setAlertVisible(true);
           setIsSettingVisible(true);
         }

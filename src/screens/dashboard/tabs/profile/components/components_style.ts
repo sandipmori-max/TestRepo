@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: ERP_COLOR_CODE.ERP_BORDER,
   },
-  back:{
+  back: {
     width: 24,
     height: 24,
     tintColor: ERP_COLOR_CODE.ERP_WHITE,
@@ -47,13 +47,14 @@ export const styles = StyleSheet.create({
   },
   activeAccount: {
     borderColor: ERP_COLOR_CODE.ERP_APP_COLOR,
-    backgroundColor: ERP_COLOR_CODE.ERP_WHITE
+    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
   },
   accountContent: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   avatar: {
+    backgroundColor: ERP_COLOR_CODE.ERP_APP_COLOR,
     width: 50,
     height: 50,
     borderRadius: 25,
@@ -112,6 +113,9 @@ export const styles = StyleSheet.create({
     backgroundColor: ERP_COLOR_CODE.ERP_APP_COLOR,
     borderRadius: 12,
     alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 4,
   },
   addAccountText: {
     color: ERP_COLOR_CODE.ERP_WHITE,

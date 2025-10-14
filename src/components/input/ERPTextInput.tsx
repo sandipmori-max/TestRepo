@@ -18,6 +18,7 @@ const ERPTextInput: React.FC<ERPTextInputProps> = ({
   inputStyle,
   errorStyle,
   helperStyle,
+  field,
   ...rest
 }) => {
   const [showPassword, setShowPassword] = useState(!secureTextEntry);
@@ -27,15 +28,34 @@ const ERPTextInput: React.FC<ERPTextInputProps> = ({
       {label ? <Text style={[styles.inputLabel, labelStyle]}>{label}</Text> : null}
 
       <View style={styles.inputWrapper}>
-        <TextInput
+        <View
           style={[
-            styles.input,
-            inputStyle,
-            { paddingRight: showToggle && secureTextEntry ? 36 : 12 },
+            styles.inputContainer,
+            {
+              alignContent: 'center',
+              flexDirection: 'row',
+              alignItems: 'center',
+              borderRadius: 8,
+              borderWidth: 1,
+              borderColor: ERP_COLOR_CODE.ERP_BORDER_LINE,
+              paddingLeft: 12,
+            },
           ]}
-          secureTextEntry={secureTextEntry && !showPassword}
-          {...rest}
-        />
+        >
+          <MaterialIcons name={
+            field === 'company_code' ? 'closed-caption-off' : field === 'user' ? 'person' : 'password' 
+          } size={20} color={ERP_COLOR_CODE.ERP_999} />
+
+          <TextInput
+            style={[
+              styles.input,
+              inputStyle,
+              { paddingRight: showToggle && secureTextEntry ? 36 : 12 },
+            ]}
+            secureTextEntry={secureTextEntry && !showPassword}
+            {...rest}
+          />
+        </View>
 
         {showToggle && secureTextEntry && (
           <TouchableOpacity
@@ -45,7 +65,7 @@ const ERPTextInput: React.FC<ERPTextInputProps> = ({
           >
             <MaterialIcons
               name={!showPassword ? 'visibility-off' : 'visibility'}
-              color={ERP_COLOR_CODE.ERP_BLACK}
+              color={ERP_COLOR_CODE.ERP_999}
               size={20}
             />
           </TouchableOpacity>
@@ -54,12 +74,8 @@ const ERPTextInput: React.FC<ERPTextInputProps> = ({
         {icon}
       </View>
 
-      {helperText && !error && (
-        <Text style={[styles.helperText, helperStyle]}>{helperText}</Text>
-      )}
-      {touched && !!error && (
-        <Text style={[styles.errorText, errorStyle]}>{error}</Text>
-      )}
+      {helperText && !error && <Text style={[styles.helperText, helperStyle]}>{helperText}</Text>}
+      {touched && !!error && <Text style={[styles.errorText, errorStyle]}>{error}</Text>}
     </View>
   );
 };

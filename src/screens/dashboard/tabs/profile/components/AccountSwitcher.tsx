@@ -192,7 +192,12 @@ const AccountSwitcher: React.FC<AccountSwitcherProps> = ({ visible, onClose, onA
         />
 
         <TouchableOpacity style={styles.addAccountButton} onPress={onAddAccount}>
-          <Text style={styles.addAccountText}>+ Add Another Account</Text>
+           <MaterialIcons
+                                      name="person-add-alt"
+                                      size={24}
+                                      color={ERP_COLOR_CODE.ERP_WHITE}
+                                    />
+          <Text style={styles.addAccountText}>Add account</Text>
         </TouchableOpacity>
       </View>
       <CustomAlert

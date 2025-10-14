@@ -34,7 +34,7 @@ const PinVerifyScreen = () => {
 
       setAlertConfig({
         title: 'Error',
-        message: 'Enter your 4-digit PIN',
+        message: 'Enter 4-digit PIN',
         type: 'error',
       });
       return;

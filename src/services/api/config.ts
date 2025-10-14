@@ -102,12 +102,13 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
   (response: AxiosResponse<ApiResponse>) => {
     try {
+      console.log("🚀 ~ response:", response)
       if (response.data && response.data.d) {
-        let raw = response.data.d;
-        console.log('🚀 ~----------------- raw:', raw);
+        let raw = response?.data?.d;
+        console.log('🚀 ~----------------- raw:',);
         let parsedData: any;
 
-        try {
+        try { 
           if (typeof raw === 'string') {
             let sanitized = raw.replace(/[\u0000-\u001F]+/g, '');
             sanitized = sanitized.replace(/^\uFEFF/, '');
@@ -118,7 +119,7 @@ apiClient.interceptors.response.use(
             // Optional: remove double-escaped backslashes \\n -> \n
             sanitized = sanitized.replace(/\\\\n/g, '');
             sanitized = sanitized.replace(/\\\\/g, '');
-
+ 
             parsedData = JSON.parse(sanitized);
           } else if (typeof raw === 'object') {
             parsedData = raw;

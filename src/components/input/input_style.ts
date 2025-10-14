@@ -15,9 +15,7 @@ export const styles = StyleSheet.create({
     position: 'relative',
     justifyContent: 'center',
   },
-  input: {
-    borderWidth: 1,
-    borderColor: ERP_COLOR_CODE.ERP_BORDER_LINE,
+  input: { 
     borderRadius: 6,
     paddingHorizontal: 12,
     paddingVertical: 10,
@@ -26,8 +24,8 @@ export const styles = StyleSheet.create({
   },
   toggleButton: {
     position: 'absolute',
-    right: 8,
-    top: 0,
+    right: 14,
+    top: -8,
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',

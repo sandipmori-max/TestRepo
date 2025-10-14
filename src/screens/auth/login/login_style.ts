@@ -48,9 +48,7 @@ export const styles = StyleSheet.create({
     color: ERP_COLOR_CODE.ERP_444,
     marginBottom: 6,
   },
-  input: {
-    borderWidth: 1,
-    borderColor: ERP_COLOR_CODE.ERP_ddd,
+  input: { 
     padding: 15,
     borderRadius: 10,
     fontSize: 16,

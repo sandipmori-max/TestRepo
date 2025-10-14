@@ -75,6 +75,10 @@ const ListScreen = () => {
     item => item?.datafield && item?.datafield.toLowerCase() === 'date',
   );
 
+  const hasIdField = configData.some(
+    item => item?.datafield && item?.datafield.toLowerCase() === 'id',
+  );
+  console.log("🚀 ~ ListScreen----------------------- ~ hasIdField:", hasIdField)
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: () => (

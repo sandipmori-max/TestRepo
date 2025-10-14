@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
     height: 80,
     borderRadius: 40,
     marginBottom: 10,
-    backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
+    backgroundColor: ERP_COLOR_CODE.ERP_APP_COLOR,
     borderWidth: 2,
     top: -40,
     position:'absolute',

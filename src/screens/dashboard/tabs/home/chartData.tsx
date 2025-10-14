@@ -17,33 +17,30 @@ const PieChartSection = ({ pieChartData, navigation, t }) => {
       <View>
         <View
           style={{
-            marginVertical: 4,
             borderColor: 'black',
             flexDirection: 'row',
-            justifyContent: 'center',
-            alignContent: 'center',
-            height: Dimensions.get('screen').height * 0.22,
+            height: Dimensions.get('screen').height * 0.2,
           }}
         >
           {/* Pie Chart */}
           <TouchableOpacity
             onPress={() => navigation.navigate('Web', { isFromChart: true })}
             style={{
-              width: '48%',
+              width: '30%',
               alignItems: 'center',
               justifyContent: 'center',
               alignContent: 'center',
+              marginLeft: 28,
             }}
           >
             <PieChart
               data={pieChartData}
               donut
-              radius={90}
-              innerRadius={80}
+              radius={78}
+              innerRadius={68}
               textSize={14}
               textColor="#000"
               showValuesAsLabels
-              labelPosition="outside"
               innerCircleColor="#fff"
               centerLabelComponent={() => (
                 <Text
@@ -60,19 +57,17 @@ const PieChartSection = ({ pieChartData, navigation, t }) => {
             />
           </TouchableOpacity>
 
-          {/* Legends - separate lists */}
-          <View
-            style={{
-              justifyContent: 'center',
-              alignContent: 'center',
-              height: Dimensions.get('screen').height * 0.22,
-              marginLeft: 8,
-              width: '44%',
-              overflow: 'hidden',
-            }}
-          >
-            {/* First List */}
-            {firstList.length > 0 && (
+          {firstList.length > 0 && (
+            <View
+              style={{
+                justifyContent: 'center',
+                alignContent: 'center',
+                height: Dimensions.get('screen').height * 0.2,
+                marginLeft: 24,
+                width: '44%',
+                overflow: 'hidden',
+              }}
+            >
               <View
                 style={{
                   width: '90%',
@@ -87,8 +82,8 @@ const PieChartSection = ({ pieChartData, navigation, t }) => {
                     <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 4 }}>
                       <View
                         style={{
-                          width: 16,
-                          height: 16,
+                          width: 12,
+                          height: 12,
                           borderRadius: 8,
                           backgroundColor: item.color,
                           marginRight: 6,
@@ -100,7 +95,7 @@ const PieChartSection = ({ pieChartData, navigation, t }) => {
                         numberOfLines={1}
                         style={{
                           fontWeight: '500',
-                          maxWidth: 80,
+                          maxWidth: 110,
                         }}
                       >
                         {item.text}
@@ -120,13 +115,11 @@ const PieChartSection = ({ pieChartData, navigation, t }) => {
                   keyExtractor={(item, index) => `first-${index}`}
                 />
               </View>
-            )}
-
-            {/* Second List */}
-          </View>
+            </View>
+          )}
         </View>
-        <View style={{ flexDirection: 'row', paddingHorizontal: 12, marginBottom: 12 }}>
-          {secondList.length > 0 && (
+        {secondList.length > 0 && (
+          <View style={{ flexDirection: 'row', paddingHorizontal: 12, marginBottom: 12 }}>
             <View>
               <FlatList
                 showsHorizontalScrollIndicator={false}
@@ -145,8 +138,8 @@ const PieChartSection = ({ pieChartData, navigation, t }) => {
                   >
                     <View
                       style={{
-                        width: 16,
-                        height: 16,
+                        width: 12,
+                        height: 12,
                         borderRadius: 8,
                         backgroundColor: item.color,
                         marginRight: 6,
@@ -168,8 +161,8 @@ const PieChartSection = ({ pieChartData, navigation, t }) => {
                 showsVerticalScrollIndicator={false}
               />
             </View>
-          )}
-        </View>
+          </View>
+        )}
       </View>
     )
   );
