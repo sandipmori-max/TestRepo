@@ -44,7 +44,7 @@ export const styles = StyleSheet.create({
     margin: 16,
     padding: 16,
     borderRadius: 12,
-    borderWidth: 0.6,
+    borderWidth: 0.8,
     borderColor: ERP_COLOR_CODE.ERP_BORDER_LINE
     
   },

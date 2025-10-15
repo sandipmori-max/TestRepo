@@ -18,7 +18,7 @@ const DateTimeRow = ({isValidate, item, errors, value, showDateTimePicker }: any
           errors[item.field] && { borderColor: ERP_COLOR_CODE.ERP_ERROR },
         isValidate && item?.mandatory === '1' &&  value && {
             borderColor: 'green',
-            borderWidth: 0.6
+            borderWidth: 0.8
           },
         ]
         }

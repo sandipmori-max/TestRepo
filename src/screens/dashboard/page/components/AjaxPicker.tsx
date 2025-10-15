@@ -103,7 +103,7 @@ const AjaxPicker = ({isValidate, label, onValueChange, item, errors, dtext, form
           },
          isValidate && item?.mandatory === '1' && selectedOption && {
             borderColor: 'green',
-            borderWidth: 0.6
+            borderWidth: 0.8
           },
         ]}
         onPress={() => {

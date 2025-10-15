@@ -22,17 +22,17 @@ const Input = ({ isValidate, item, errors, value, setValue, onFocus }: any) => {
           errors[item.field] && { borderColor: ERP_COLOR_CODE.ERP_ERROR },
           value && {
             borderColor: 'green',
-            borderWidth: 0.6,
+            borderWidth: 0.8,
           },
           isInputEdit && {
-            borderColor: 'green',
-            borderWidth: 0.6,
+            borderColor: '#81b5e4',
+            borderWidth: 0.8,
           },
           isValidate &&
             item?.mandatory === '1' &&
             value && {
               borderColor: 'green',
-              borderWidth: 0.6,
+              borderWidth: 0.8,
             },
         ]}
         keyboardType={item?.ctltype === 'NUMERIC' ? 'number-pad' : 'default'}

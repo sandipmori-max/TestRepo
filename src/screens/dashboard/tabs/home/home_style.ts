@@ -73,7 +73,7 @@ export const styles = StyleSheet.create({
     backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
     borderRadius: 16,
     borderColor: ERP_COLOR_CODE.ERP_BORDER,
-    borderWidth: 0.6,
+    borderWidth: 0.8,
     overflow: 'hidden',
   },
   dashboardItemContent: {

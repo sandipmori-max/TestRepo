@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
@@ -161,7 +162,7 @@ const ReadableView = ({
                   }}
                 >
                   {!!remarks && (
-                    <>
+                    <View >
                       <Text
                         numberOfLines={isRemarksExpanded ? undefined : 2}
                         style={{
@@ -174,7 +175,7 @@ const ReadableView = ({
                       >
                         {remarks}
                       </Text>
-                      {remarks.length > 60 && (
+                      {remarks.length > 30 && (
                         <TouchableOpacity onPress={() => setRemarksExpanded(prev => !prev)}>
                           <Text
                             style={{
@@ -188,7 +189,7 @@ const ReadableView = ({
                           </Text>
                         </TouchableOpacity>
                       )}
-                    </>
+                    </View>
                   )}
                 </View>
                 <View

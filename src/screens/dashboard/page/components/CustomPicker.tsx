@@ -65,7 +65,7 @@ const CustomPicker = ({isValidate, label, selectedValue, onValueChange, item, er
           }, 
         (   isValidate && item?.mandatory === '1' &&  selectedOption) && {
             borderColor: 'green',
-            borderWidth: 0.6
+            borderWidth: 0.8
           },
         ]}
         onPress={() => {

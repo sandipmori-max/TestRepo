@@ -93,11 +93,25 @@ const RootNavigator = () => {
   const locationSyncInterval = useRef<NodeJS.Timeout | null>(null);
   const lastLocationEnabled = useRef<boolean | null>(null);
   const app_id = user?.app_id;
+  const appState = useRef(AppState.currentState);
 
   // ------------------------- Theme -------------------------
   useEffect(() => {
     setERPTheme('light');
   }, [theme]);
+
+   useEffect(() => {
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
+        console.log('App**************************************************************** has come to the foreground!');
+        // Put your code here to check permissions, refresh data, etc.
+        checkLocation()
+      }
+      appState.current = nextAppState;
+    });
+
+    return () => subscription.remove();
+  }, []);
 
   // ------------------------- Detect Location Enabled & Permission -------------------------
   useEffect(() => {

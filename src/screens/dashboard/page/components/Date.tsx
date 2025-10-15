@@ -21,7 +21,7 @@ const DateRow = ({ isValidate, item, errors, value, showDatePicker }: any) => {
             item?.mandatory === '1' &&
             value && {
               borderColor: 'green',
-              borderWidth: 0.6,
+              borderWidth: 0.8,
             },
         ]}
         onPress={() => showDatePicker(item?.field, value)}
