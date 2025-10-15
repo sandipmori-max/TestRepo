@@ -5,7 +5,7 @@ import { ERP_COLOR_CODE } from '../../../../utils/constants';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
 import { formatDateHr } from '../../../../utils/helpers';
 
-const DateTimeRow = ({ item, errors, value, showDateTimePicker }: any) => {
+const DateTimeRow = ({isValidate, item, errors, value, showDateTimePicker }: any) => {
   return (
     <View style={{ marginBottom: 16 }}>
       <View style={{ flexDirection: 'row' }}>
@@ -14,7 +14,14 @@ const DateTimeRow = ({ item, errors, value, showDateTimePicker }: any) => {
         {item?.mandatory === '1' && <Text style={{ color: ERP_COLOR_CODE.ERP_ERROR }}>*</Text>}
       </View>
       <TouchableOpacity
-        style={[styles.dateBox, errors[item.field] && { borderColor: ERP_COLOR_CODE.ERP_ERROR }]}
+        style={[styles.dateBox, 
+          errors[item.field] && { borderColor: ERP_COLOR_CODE.ERP_ERROR },
+        isValidate && item?.mandatory === '1' &&  value && {
+            borderColor: 'green',
+            borderWidth: 0.6
+          },
+        ]
+        }
         onPress={() => showDateTimePicker(item?.field, value)}
       >
         <Text style={{ color: value ? ERP_COLOR_CODE.ERP_BLACK : ERP_COLOR_CODE.ERP_888 }}>

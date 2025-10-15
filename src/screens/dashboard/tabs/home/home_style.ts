@@ -77,7 +77,7 @@ export const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   dashboardItemContent: {
-    padding: 16,
+    padding: 10,
   },
   dashboardItemHeader: {
     marginBottom: 2,

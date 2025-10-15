@@ -7,10 +7,11 @@ import { getAjaxThunk } from '../../../../store/slices/ajax/thunk';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
 import FullViewLoader from '../../../../components/loader/FullViewLoader';
 
-const AjaxPicker = ({ label, onValueChange, item, errors, dtext, formValues }: any) => {
+const AjaxPicker = ({isValidate, label, onValueChange, item, errors, dtext, formValues }: any) => {
   const dispatch = useAppDispatch();
 
   const [selectedOption, setSelectedOption] = useState(dtext || item?.text || item?.value);
+  console.log("🚀 ~ AjaxPicker ~ selectedOption:+++++++++++++++", selectedOption)
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState<any[]>([]);
   const [loader, setLoader] = useState(false);
@@ -99,6 +100,10 @@ const AjaxPicker = ({ label, onValueChange, item, errors, dtext, formValues }: a
           item?.disabled === '1' && styles.disabledBox,
           errors[item?.field] && {
             borderColor: ERP_COLOR_CODE.ERP_ERROR,
+          },
+         isValidate && item?.mandatory === '1' && selectedOption && {
+            borderColor: 'green',
+            borderWidth: 0.6
           },
         ]}
         onPress={() => {
@@ -220,10 +225,10 @@ const AjaxPicker = ({ label, onValueChange, item, errors, dtext, formValues }: a
                 ) : (
                   <View
                     style={{
-                      marginVertical: 12,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      height: 100,
+                        marginVertical: 12,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: 100,
                     }}
                   >
                     <Text>No data</Text>

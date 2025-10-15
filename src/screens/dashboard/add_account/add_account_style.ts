@@ -57,7 +57,7 @@ export const styles = StyleSheet.create({
     color: ERP_COLOR_CODE.ERP_555,
   },
   inputContainer: {
-    marginBottom: 8,
+    marginBottom: 2,
   },
   inputLabel: {
     marginBottom: 6,

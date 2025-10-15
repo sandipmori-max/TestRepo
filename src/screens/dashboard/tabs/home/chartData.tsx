@@ -4,7 +4,7 @@ import { PieChart } from 'react-native-gifted-charts';
 
 const MAX_ITEMS_PER_LIST = 5;
 
-const PieChartSection = ({ pieChartData, navigation, t }) => {
+const PieChartSection = ({ pieChartData, navigation, t }: any) => {
   const [firstList, secondList] = useMemo(() => {
     if (!pieChartData) return [[], []];
     const first = pieChartData.slice(0, MAX_ITEMS_PER_LIST);
@@ -19,7 +19,7 @@ const PieChartSection = ({ pieChartData, navigation, t }) => {
           style={{
             borderColor: 'black',
             flexDirection: 'row',
-            height: Dimensions.get('screen').height * 0.2,
+            height: Dimensions.get('screen').height * 0.22,
           }}
         >
           {/* Pie Chart */}
@@ -30,7 +30,7 @@ const PieChartSection = ({ pieChartData, navigation, t }) => {
               alignItems: 'center',
               justifyContent: 'center',
               alignContent: 'center',
-              marginLeft: 28,
+              marginLeft: 32,
             }}
           >
             <PieChart
@@ -62,9 +62,8 @@ const PieChartSection = ({ pieChartData, navigation, t }) => {
               style={{
                 justifyContent: 'center',
                 alignContent: 'center',
-                height: Dimensions.get('screen').height * 0.2,
-                marginLeft: 24,
-                width: '44%',
+                height: Dimensions.get('screen').height * 0.22,
+                marginLeft: 34,
                 overflow: 'hidden',
               }}
             >
@@ -112,8 +111,7 @@ const PieChartSection = ({ pieChartData, navigation, t }) => {
                       </Text>
                     </View>
                   )}
-                  keyExtractor={(item, index) => `first-${index}`}
-                />
+                 />
               </View>
             </View>
           )}
@@ -157,9 +155,7 @@ const PieChartSection = ({ pieChartData, navigation, t }) => {
                     </Text>
                   </View>
                 )}
-                keyExtractor={(item, index) => `second-${index}`}
-                showsVerticalScrollIndicator={false}
-              />
+               />
             </View>
           </View>
         )}

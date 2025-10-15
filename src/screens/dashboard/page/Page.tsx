@@ -44,9 +44,11 @@ const PageScreen = () => {
   const [controls, setControls] = useState<any[]>([]);
   const [errorsList, setErrorsList] = useState<string[]>([]);
   const [showErrorModal, setShowErrorModal] = useState(false);
+  const [isValidate, setIsValidate] = useState(false);
 
   const [error, setError] = useState<string | null>(null);
   const [formValues, setFormValues] = useState<any>({});
+  console.log("🚀 ~ PageScreen ~ formValues:", formValues)
 
   const [datePickerVisible, setDatePickerVisible] = useState(false);
 
@@ -63,7 +65,7 @@ const PageScreen = () => {
   const [loader, setLoader] = useState(false);
   const [actionLoader, setActionLoader] = useState(false);
   const [actionSaveLoader, setActionSaveLoader] = useState(false);
- 
+
   const [infoData, setInfoData] = useState<any>({});
 
   const [alertConfig, setAlertConfig] = useState({
@@ -142,6 +144,7 @@ const PageScreen = () => {
               isLoading={actionSaveLoader}
               onPress={async () => {
                 setActionSaveLoader(true);
+                setIsValidate(true);
                 if (validateForm()) {
                   const submitValues: Record<string, any> = {};
                   controls?.forEach(f => {
@@ -153,6 +156,8 @@ const PageScreen = () => {
                       savePageThunk({ page: url, id, data: { ...submitValues } }),
                     ).unwrap();
                     setLoader(false);
+                    setIsValidate(false);
+
                     fetchPageData();
                     setAlertConfig({
                       title: 'Record saved',
@@ -169,7 +174,7 @@ const PageScreen = () => {
                   } catch (err: any) {}
                 }
                 setActionSaveLoader(false);
-               }}
+              }}
             />
           )}
         </>
@@ -303,6 +308,7 @@ const PageScreen = () => {
       } else if (item?.field === 'chemistname') {
         content = (
           <CustomMultiPicker
+            isValidate={isValidate}
             label={item?.fieldtitle}
             selectedValue={value}
             dtext={item?.dtext || item?.text || ''}
@@ -315,6 +321,7 @@ const PageScreen = () => {
       } else if (item?.ctltype === 'FILE') {
         content = (
           <FilePickerRow
+            isValidate={isValidate}
             baseLink={baseLink}
             infoData={infoData}
             item={item}
@@ -322,7 +329,7 @@ const PageScreen = () => {
           />
         );
       } else if (item?.defaultvalue === '#location') {
-        content = <LocationRow item={item} setValue={setValue} />;
+        content = <LocationRow isValidate={isValidate} item={item} setValue={setValue} />;
       } else if (item?.defaultvalue === '#html') {
         content = (
           <View>
@@ -333,6 +340,7 @@ const PageScreen = () => {
       } else if (item?.ctltype === 'IMAGE' && item?.field === 'signature') {
         content = (
           <SignaturePad
+            isValidate={isValidate}
             infoData={infoData}
             item={item}
             handleSignatureAttachment={handleSignatureAttachment}
@@ -345,6 +353,7 @@ const PageScreen = () => {
       ) {
         content = (
           <Media
+            isValidate={isValidate}
             baseLink={baseLink}
             infoData={infoData}
             item={item}
@@ -357,6 +366,7 @@ const PageScreen = () => {
       } else if (item?.ddl && item?.ddl !== '' && item?.ajax === 0) {
         content = (
           <CustomPicker
+            isValidate={isValidate}
             label={item?.fieldtitle}
             selectedValue={value}
             dtext={item?.dtext || item?.text || ''}
@@ -369,6 +379,7 @@ const PageScreen = () => {
       } else if (item?.ddl && item?.ddl !== '' && item?.ajax === 1) {
         content = (
           <AjaxPicker
+            isValidate={isValidate}
             label={item?.fieldtitle}
             selectedValue={value}
             dtext={item?.dtext || item?.text || ''}
@@ -381,11 +392,18 @@ const PageScreen = () => {
         );
       } else if (item?.ctltype === 'DATE') {
         content = (
-          <DateRow item={item} errors={errors} value={value} showDatePicker={showDatePicker} />
+          <DateRow
+            isValidate={isValidate}
+            item={item}
+            errors={errors}
+            value={value}
+            showDatePicker={showDatePicker}
+          />
         );
       } else if (item?.ctltype === 'DATETIME') {
         content = (
           <DateTimeRow
+            isValidate={isValidate}
             item={item}
             errors={errors}
             value={value}
@@ -395,6 +413,7 @@ const PageScreen = () => {
       } else {
         content = (
           <Input
+            isValidate={isValidate}
             onFocus={() => flatListRef.current?.scrollToIndex({ index, animated: true })}
             item={item}
             errors={errors}
@@ -538,8 +557,6 @@ const PageScreen = () => {
         }}
         actionLoader={undefined}
       />
-
-    
     </View>
   );
 };

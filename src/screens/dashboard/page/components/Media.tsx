@@ -19,7 +19,7 @@ import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 import CustomAlert from '../../../../components/alert/CustomAlert';
 import { ERP_COLOR_CODE } from '../../../../utils/constants';
 
-const Media = ({ item, handleAttachment, infoData, baseLink, isFromNew }: any) => {
+const Media = ({isValidate, item, handleAttachment, infoData, baseLink, isFromNew }: any) => {
   const [imageUri, setImageUri] = useState<string | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [pickerModalVisible, setPickerModalVisible] = useState(false);
@@ -256,7 +256,12 @@ const Media = ({ item, handleAttachment, infoData, baseLink, isFromNew }: any) =
   // -------------------- JSX --------------------
   return (
     <>
-      <Text style={{ fontWeight: '600', marginBottom: 4 }}>{item?.fieldtitle}</Text>
+      {/* <Text style={{ fontWeight: '600', marginBottom: 4 }}>{item?.fieldtitle}</Text> */}
+      <View style={{ flexDirection: 'row' }}>
+              <Text style={styles.label}>{item?.fieldtitle}</Text>
+              {item?.tooltip !== item?.fieldtitle && <Text> - ( {item?.tooltip} ) </Text>}
+              {item?.mandatory === '1' && <Text style={{ color: ERP_COLOR_CODE.ERP_ERROR }}>*</Text>}
+            </View>
       <View style={styles.imageWrapper}>
         <TouchableOpacity
           onPress={() => {
@@ -407,6 +412,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 4,
+  },
+   label: {
+    fontSize: 14,
+    color: ERP_COLOR_CODE.ERP_333,
+    marginBottom: 6,
+    fontWeight: '600',
   },
   imageThumb: {
     borderWidth: 1,

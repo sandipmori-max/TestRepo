@@ -20,6 +20,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 10,
     fontSize: 16,
+    width: '94%',
     color: ERP_COLOR_CODE.ERP_BLACK,
   },
   toggleButton: {

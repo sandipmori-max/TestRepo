@@ -1,9 +1,14 @@
 import { View, Text, TextInput } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { styles } from '../page_style';
 import { ERP_COLOR_CODE } from '../../../../utils/constants';
 
-const Input = ({ item, errors, value, setValue, onFocus }: any) => {
+const Input = ({ isValidate, item, errors, value, setValue, onFocus }: any) => {
+  React.useEffect(() => {
+    setValue(value);
+  }, [value]);
+  const [isInputEdit, setIsInputEdit] = useState(false);
+
   return (
     <View style={{ marginBottom: 16 }}>
       <View style={{ flexDirection: 'row' }}>
@@ -12,12 +17,37 @@ const Input = ({ item, errors, value, setValue, onFocus }: any) => {
         {item?.mandatory === '1' && <Text style={{ color: ERP_COLOR_CODE.ERP_ERROR }}>*</Text>}
       </View>
       <TextInput
-        style={[styles.textInput, errors[item.field] && { borderColor: ERP_COLOR_CODE.ERP_ERROR }]}
+        style={[
+          styles.textInput,
+          errors[item.field] && { borderColor: ERP_COLOR_CODE.ERP_ERROR },
+          value && {
+            borderColor: 'green',
+            borderWidth: 0.6,
+          },
+          isInputEdit && {
+            borderColor: 'green',
+            borderWidth: 0.6,
+          },
+          isValidate &&
+            item?.mandatory === '1' &&
+            value && {
+              borderColor: 'green',
+              borderWidth: 0.6,
+            },
+        ]}
         keyboardType={item?.ctltype === 'NUMERIC' ? 'number-pad' : 'default'}
         value={value.toString()}
         onChangeText={text => setValue(text)}
         placeholder={`Enter ${item?.fieldtitle}`}
-        onFocus={onFocus}
+        onFocus={e => {
+          setIsInputEdit(true);
+          onFocus(e);
+        }}
+        onBlur={() => {
+          if (!value) {
+            setIsInputEdit(false);
+          }
+        }}
       />
       {errors[item.field] && (
         <Text style={{ color: ERP_COLOR_CODE.ERP_ERROR, marginTop: 4 }}>{errors[item.field]}</Text>

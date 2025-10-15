@@ -15,7 +15,7 @@ import SignatureScreen, { SignatureViewRef } from 'react-native-signature-canvas
 import { ERP_COLOR_CODE } from '../../../../utils/constants';
 import { useBaseLink } from '../../../../hooks/useBaseLink';
 
-const SignaturePad: React.FC = ({ item, handleSignatureAttachment, infoData }: any) => {
+const SignaturePad: React.FC = ({isValidate, item, handleSignatureAttachment, infoData }: any) => {
   const signatureRef = useRef<SignatureViewRef>(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [savedSignature, setSavedSignature] = useState<string | null>(null);

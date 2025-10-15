@@ -15,4 +15,5 @@ export interface ERPTextInputProps extends TextInputProps {
   inputStyle?: TextStyle | TextStyle[];
   errorStyle?: TextStyle | TextStyle[];
   helperStyle?: TextStyle | TextStyle[];
+  field?: string;
 }

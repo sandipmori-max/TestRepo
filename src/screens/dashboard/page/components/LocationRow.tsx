@@ -4,7 +4,7 @@ import { styles } from '../page_style';
 import { ERP_COLOR_CODE } from '../../../../utils/constants';
 import { useCurrentAddress } from '../../../../hooks/useCurrentLocation';
 
-const LocationRow = ({ item, value, setValue }: any) => {
+const LocationRow = ({isValidate, item, value, setValue }: any) => {
   const { coords, loading, error } = useCurrentAddress();
   const [address, setAddress] = useState<string>('');
 

@@ -7,7 +7,7 @@ import { getDDLThunk } from '../../../../store/slices/dropdown/thunk';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
 import FullViewLoader from '../../../../components/loader/FullViewLoader';
 
-const CustomPicker = ({ label, selectedValue, onValueChange, item, errors, dtext }: any) => {
+const CustomPicker = ({isValidate, label, selectedValue, onValueChange, item, errors, dtext }: any) => {
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState<any[]>([]);
   const dispatch = useAppDispatch();
@@ -62,7 +62,11 @@ const CustomPicker = ({ label, selectedValue, onValueChange, item, errors, dtext
         style={[styles.pickerBox, item?.disabled === '1' && styles.disabledBox,
           errors[item?.field] && {
             borderColor: ERP_COLOR_CODE.ERP_ERROR
-          }
+          }, 
+        (   isValidate && item?.mandatory === '1' &&  selectedOption) && {
+            borderColor: 'green',
+            borderWidth: 0.6
+          },
         ]}
         onPress={() => {
           if (item?.disabled !== '1') handleOpen();

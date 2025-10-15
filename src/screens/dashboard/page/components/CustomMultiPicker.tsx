@@ -7,7 +7,7 @@ import { getDDLThunk } from '../../../../store/slices/dropdown/thunk';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
 import FullViewLoader from '../../../../components/loader/FullViewLoader';
 
-const CustomMultiPicker = ({ label, selectedValue, onValueChange, item, errors, dtext }: any) => {
+const CustomMultiPicker = ({ isValidate,label, selectedValue, onValueChange, item, errors, dtext }: any) => {
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState<any[]>([]);
   const dispatch = useAppDispatch();
