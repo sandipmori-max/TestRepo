@@ -5,6 +5,8 @@ import { formatHeaderTitle } from '../../../../utils/helpers';
 import NoData from '../../../../components/no_data/NoData';
 import { useNavigation } from '@react-navigation/native';
 import { ERP_COLOR_CODE } from '../../../../utils/constants';
+import Footer from '../../tabs/home/Footer';
+import MemoizedFooterView from './MemoizedFooterView';
 
 const TableView = ({
   configData,
@@ -196,6 +198,8 @@ const TableView = ({
             </View>
           )}
         </View>
+
+          <View>{item?.html && <MemoizedFooterView item={item} index={index} />}</View>
       </TouchableOpacity>
     );
   };
