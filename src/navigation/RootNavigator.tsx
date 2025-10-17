@@ -100,18 +100,18 @@ const RootNavigator = () => {
     setERPTheme('light');
   }, [theme]);
 
-   useEffect(() => {
-    const subscription = AppState.addEventListener('change', nextAppState => {
-      if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
-        console.log('App**************************************************************** has come to the foreground!');
-        // Put your code here to check permissions, refresh data, etc.
-        checkLocation()
-      }
-      appState.current = nextAppState;
-    });
+  //  useEffect(() => {
+  //   const subscription = AppState.addEventListener('change', nextAppState => {
+  //     if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
+  //       console.log('App**************************************************************** has come to the foreground!');
+  //       // Put your code here to check permissions, refresh data, etc.
+  //       checkLocation()
+  //     }
+  //     appState.current = nextAppState;
+  //   });
 
-    return () => subscription.remove();
-  }, []);
+  //   return () => subscription.remove();
+  // }, []);
 
   // ------------------------- Detect Location Enabled & Permission -------------------------
   useEffect(() => {

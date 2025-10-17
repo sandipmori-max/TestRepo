@@ -9,49 +9,61 @@ const LocationRow = ({isValidate, item, value, setValue }: any) => {
   const [address, setAddress] = useState<string>('');
 
   useEffect(() => {
-    if (item?.text !== '' && item?.text !== '#location') {
-      setAddress(item?.text);
-      return;
-    } else {
-      if (!loading && coords) {
+  let retryTimeout: NodeJS.Timeout;
+
+  const fetchAddress = async () => {
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?lat=${coords?.latitude}&lon=${coords?.longitude}&format=json`,
+        {
+          headers: {
+            'User-Agent': 'MyReactNativeApp/1.0 (myemail@example.com)',
+          },
+        },
+      );
+      const data = await response.json();
+      console.log("🚀 ~ fetchAddress ~ data:", data);
+
+      if (data?.address) {
+        const { road, suburb, state, country, postcode } = data.address;
+        const shortAddress = `${road || ''}, ${suburb || ''}, ${state || ''} - ${
+          postcode || ''
+        }, ${country || ''}`.trim().replace(/^,|,$/g, '');
+
+        setAddress(shortAddress);
         setValue({
-          [item?.field]: `${coords?.latitude},${coords?.longitude}`,
+          [item?.field]: shortAddress,
         });
-
-        const fetchAddress = async () => {
-          try {
-            const response = await fetch(
-              `https://nominatim.openstreetmap.org/reverse?lat=${coords?.latitude}&lon=${coords?.longitude}&format=json`,
-              {
-                headers: {
-                  'User-Agent': 'MyReactNativeApp/1.0 (myemail@example.com)',
-                },
-              },
-            );
-            const data = await response.json();
-            console.log("🚀 ~ fetchAddress ~ data:", data)
-            if (data?.address) {
-              const { road, suburb, state, country, postcode } = data.address;
-              const shortAddress = `${road || ''}, ${suburb || ''}, ${state || ''} - ${
-                postcode || ''
-              }, ${country || ''}`;
-              setAddress(shortAddress.trim().replace(/^,|,$/g, ''));
-              setValue({
-                [item?.field]: shortAddress.trim().replace(/^,|,$/g, ''),
-              });
-            } else if (data?.display_name) {
-              setAddress(data.display_name);
-            }
-          } catch (err) {
-            console.log("🚀 ~ fetchAddress ~ err:", err)
-            console.warn('Failed to fetch address', err);
-          }
-        };
-
-        fetchAddress();
+      } else if (data?.display_name) {
+        setAddress(data.display_name);
+      } else {
+        console.warn('No valid address found, retrying...');
+        retryTimeout = setTimeout(fetchAddress, 10000); // Retry after 10 seconds
       }
+    } catch (err) {
+      console.warn('Failed to fetch address', err);
+      // Retry on error as well
+      retryTimeout = setTimeout(fetchAddress, 10000); // Retry after 10 seconds
     }
-  }, [coords, loading]);
+  };
+
+  if (item?.text !== '' && item?.text !== '#location') {
+    setAddress(item?.text);
+    return;
+  }
+
+  if (!loading && coords) {
+    setValue({
+      [item?.field]: `${coords?.latitude},${coords?.longitude}`,
+    });
+    fetchAddress();
+  }
+
+  return () => {
+    if (retryTimeout) clearTimeout(retryTimeout);
+  };
+}, [coords, loading]);
+
 
   return (
     <View style={{ marginBottom: 16 }}>

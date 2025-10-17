@@ -549,7 +549,7 @@ export const clearAllTempFiles = async () => {
     FastImage.clearMemoryCache();
     FastImage.clearDiskCache();
     if (Platform.OS === 'android') {
-      WebView.clearCache(true);
+      // WebView.clearCache(true);
     }
     console.log('All temp files cleared!');
   } catch (err) {

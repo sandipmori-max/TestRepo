@@ -150,7 +150,7 @@ class LocationService : Service() {
                     hasSentDisabled = false
                     lastLocation?.let { handleNewLocation(it) }
                 }
-                handler.postDelayed(this, 30_000)
+                handler.postDelayed(this, 600_000)
             }
         }
         handler.post(runnable)
