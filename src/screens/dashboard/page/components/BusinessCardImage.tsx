@@ -17,7 +17,7 @@ import TextRecognition from '@react-native-ml-kit/text-recognition';
 import { check, request, PERMISSIONS, RESULTS, openSettings } from 'react-native-permissions';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
 
-const BusinessCardView = ({ setValue, controls, item, baseLink, infoData }: any) => {
+const BusinessCardView = ({ setValue, controls, item, baseLink, infoData, cardData }: any) => {
   const [imageUri, setImageUri] = useState<string | null>(null);
   const [ocrResult, setOcrResult] = useState<any>(null);
   const [boundingBoxes, setBoundingBoxes] = useState<any[]>([]);
@@ -101,7 +101,6 @@ const BusinessCardView = ({ setValue, controls, item, baseLink, infoData }: any)
     }
   };
 
-  /** 📸 Pick from Camera */
   const pickFromCamera = async () => {
     const granted = await checkPermission('camera');
     console.log('🚀 ~ pickFromCamera ~ granted:', granted);
@@ -120,7 +119,6 @@ const BusinessCardView = ({ setValue, controls, item, baseLink, infoData }: any)
     }
   };
 
-  /** 🖼️ Pick from Gallery */
   const pickFromGallery = async () => {
     const granted = await checkPermission('gallery');
     console.log('🚀 ~ pickFromGallery ~ granted:', granted);
@@ -139,17 +137,19 @@ const BusinessCardView = ({ setValue, controls, item, baseLink, infoData }: any)
     }
   };
 
-  /** 🧠 Run OCR on Selected Image */
   useEffect(() => {
     (async () => {
       if (!imageUri) return;
       setLoading(true);
       try {
         const result = await TextRecognition.recognize(imageUri);
+        console.log("🚀 ~ BusinessCardView ~ +++++++++++++++result:", result)
         setOcrResult(result);
         setBoundingBoxes(result.blocks);
         const joined = result.blocks.map(b => b.text).join(' ');
+        console.log("🚀 ~ BusinessCardView ~ joined:*****************", joined)
         const p = parseCard(joined);
+        console.log("🚀 ~ BusinessCardView ~ p//////////////////:", p)
         setValue(p);
       } catch (err) {
         console.error('OCR error', err);
@@ -159,7 +159,7 @@ const BusinessCardView = ({ setValue, controls, item, baseLink, infoData }: any)
     })();
   }, [imageUri]);
 
-  const parseCard = (text: string): any => {
+ const parseCard = (text: string): any => {
     const cleanedData = text.replace(/\s+/g, ' ').trim();
 
     const emails = [
@@ -194,6 +194,7 @@ const BusinessCardView = ({ setValue, controls, item, baseLink, infoData }: any)
     };
     console.log('🚀 ~ parseCard ~ result:', result);
     setValue(result);
+    cardData(text)
     return result;
   };
 
@@ -279,17 +280,14 @@ const styles = StyleSheet.create({
   },
   editIconContainer: {
     position: 'absolute',
-    right: -10,
+    right: -15,
     top: '50%',
     transform: [{ translateY: -10 }],
     backgroundColor: '#fff',
     borderRadius: 20,
     padding: 6,
-    elevation: 4,
-    shadowColor: '#000',
-    shadowOpacity: 0.3,
-    shadowOffset: { width: 0, height: 1 },
-    shadowRadius: 2,
+    borderWidth: 1,
+    borderColor: '#ccc',
   },
   modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' },
   bottomSheet: {

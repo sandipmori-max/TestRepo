@@ -10,7 +10,8 @@ import {
   Dimensions,
   Keyboard,
   Platform,
- } from 'react-native';
+  TextInput,
+} from 'react-native';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import Animated, { FadeInUp, Layout } from 'react-native-reanimated';
 import { useAppDispatch } from '../../../store/hooks';
@@ -57,7 +58,7 @@ const PageScreen = () => {
 
   const [error, setError] = useState<string | null>(null);
   const [formValues, setFormValues] = useState<any>({});
-  console.log('🚀 ~ PageScreen ~ formValues:', formValues);
+  console.log('🚀 ~ PageScreen------------- ~ formValues:', formValues);
 
   const [datePickerVisible, setDatePickerVisible] = useState(false);
 
@@ -76,6 +77,8 @@ const PageScreen = () => {
   const [actionSaveLoader, setActionSaveLoader] = useState(false);
 
   const [infoData, setInfoData] = useState<any>({});
+  const [cardData, setCardData] = useState<any>(null);
+  console.log('🚀 ~ PageScreen ~ cardData----------------------------:', cardData);
 
   const [alertConfig, setAlertConfig] = useState({
     title: '',
@@ -148,7 +151,7 @@ const PageScreen = () => {
               }}
             />
           )}
-           {!authUser && controls.length > 0 && (
+          {!authUser && controls.length > 0 && (
             <ERPIcon
               name="save-as"
               isLoading={actionSaveLoader}
@@ -370,12 +373,19 @@ const PageScreen = () => {
         content = (
           <>
             {isFromBusinessCard ? (
-               
-              <BusinessCardView 
-               baseLink={baseLink}
+              <BusinessCardView
+                baseLink={baseLink}
                 infoData={infoData}
-
-              setValue={setValue} controls={controls} item={item} />
+                cardData={e => {
+                 console.log("🚀 ~ `````````````````````````````````PageScreen ~ e:", e)
+                 if(e !==''){
+                   setCardData(e);
+                 }
+                }}
+                setValue={setValue}
+                controls={controls}
+                item={item}
+              />
             ) : (
               <Media
                 isValidate={isValidate}
@@ -530,7 +540,29 @@ const PageScreen = () => {
               contentContainerStyle={{ paddingBottom: keyboardHeight }}
               keyboardShouldPersistTaps="handled"
             />
-             
+            {cardData !== '' && cardData !== null && cardData !== undefined && (
+              <View
+                style={{
+                   padding: 8,
+                  borderRadius: 8,
+                  borderWidth: 1,
+                  borderColor: '#ccc'
+                }}
+              >
+                <TextInput
+                  value={cardData?.toString()}
+                  multiline
+                  editable
+                  scrollEnabled
+                  style={{
+                    color: '#000',
+                    fontSize: 14,
+                    textAlignVertical: 'top',
+                    minHeight: 100,
+                  }}
+                />
+              </View>
+            )}
           </View>
           {loader && (
             <View

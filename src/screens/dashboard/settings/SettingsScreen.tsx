@@ -30,6 +30,7 @@ import {
 import { DevERPService } from '../../../services/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useApi } from '../../../hooks/useApi';
+import { isTokenValid } from '../../../utils/helpers';
 
 interface SettingItem {
   id: string;
@@ -395,22 +396,33 @@ const SettingsScreen = () => {
               const newActiveUser = await logoutUser(db, activeUser?.id);
 
               if (newActiveUser) {
-                DevERPService.setToken(newActiveUser?.user?.token || '');
-                await AsyncStorage.setItem('erp_token', newActiveUser?.user?.token || '');
-                await AsyncStorage.setItem('auth_token', newActiveUser?.user?.token || '');
-                await AsyncStorage.setItem(
-                  'erp_token_valid_till',
-                  newActiveUser?.user?.token || '',
-                );
+                if (isTokenValid(newActiveUser?.user?.tokenValidTill)) {
+                  DevERPService.setToken(newActiveUser?.user?.token || '');
+                  await AsyncStorage.setItem('erp_token', newActiveUser?.user?.token || '');
+                  await AsyncStorage.setItem('auth_token', newActiveUser?.user?.token || '');
+                  await AsyncStorage.setItem(
+                    'erp_token_valid_till',
+                    newActiveUser?.user?.token || '',
+                  );
 
-                const validation = await validateCompanyCode(() =>
-                  DevERPService.validateCompanyCode(newActiveUser?.user?.company_code),
-                );
-                if (!validation?.isValid) {
-                  return;
+                  const validation = await validateCompanyCode(() =>
+                    DevERPService.validateCompanyCode(newActiveUser?.user?.company_code),
+                  );
+                  if (!validation?.isValid) {
+                    return;
+                  }
+
+                  dispatch(switchAccountThunk(newActiveUser?.id));
+                } else {
+                  const validation = await validateCompanyCode(() =>
+                    DevERPService.validateCompanyCode(newActiveUser?.user?.company_code),
+                  );
+                  if (!validation?.isValid) {
+                    return;
+                  }
+
+                  dispatch(switchAccountThunk(newActiveUser?.id));
                 }
-
-                dispatch(switchAccountThunk(newActiveUser?.id));
               } else {
                 dispatch(logoutUserThunk());
               }
