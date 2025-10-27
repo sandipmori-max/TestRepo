@@ -76,7 +76,13 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = props => {
             {/* Role */}
             {user?.rolename && (
               <View
-                style={{ flexDirection: 'row', alignItems: 'center', borderRadius: 8, padding: 6 , marginBottom: 12}}
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  borderRadius: 8,
+                  padding: 6,
+                  marginBottom: 12,
+                }}
               >
                 <MaterialIcons name={'person'} color={'white'} size={14} />
                 <Text style={styles.userPhone}>{user?.rolename || ''}</Text>
@@ -100,6 +106,29 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = props => {
                   key={item?.route}
                   style={[styles.drawerItem, isActive && styles.activeItemBackground]}
                   onPress={() => {
+                    if(item?.route === 'Alert'){
+                       props?.navigation.navigate('List', {item: {
+                        title: 'Alert',
+                        name: 'Alert',
+                        url: 'DEVNOTIFY',
+                        isFromBusinessCard: false,
+                        isFromAlertCard: true,
+                        id: '0',
+                      }} );
+                      props?.navigation.closeDrawer();
+                      return
+                    }
+                    if (item?.route === 'List') {
+                      props?.navigation.navigate('List', {item: {
+                        title: 'Business Card',
+                        name: 'Business Card',
+                        url: 'BusinessCardMst',
+                        isFromBusinessCard: true,
+                        id: '0',
+                      }} );
+                      props?.navigation.closeDrawer();
+                      return;
+                    }
                     if (item?.route === 'Home') {
                       props?.navigation.navigate('Home', { screen: 'Home' });
                       props?.navigation.closeDrawer();

@@ -92,7 +92,7 @@ const StackNavigator = () => {
       />
       <Stack.Screen name="Home" component={TabNavigator} />
       <Stack.Screen options={screenOptions} name="Attendance" component={AttendanceScreen} />
-      <Stack.Screen options={screenOptions} name="Display" component={DisplayScreen} />
+      <Stack.Screen options={screenOptions} name="Business" component={DisplayScreen} />
       <Stack.Screen options={screenOptions} name="Alert" component={AlertScreen} />
       <Stack.Screen options={screenOptions} name="Privacy Policy" component={PrivacyPolicyScreen} />
       <Stack.Screen options={screenOptions} name="Web" component={WebScreen} />

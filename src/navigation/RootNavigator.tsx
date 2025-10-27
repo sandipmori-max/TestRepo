@@ -93,7 +93,7 @@ const RootNavigator = () => {
   const locationSyncInterval = useRef<NodeJS.Timeout | null>(null);
   const lastLocationEnabled = useRef<boolean | null>(null);
   const app_id = user?.app_id;
-  const appState = useRef(AppState.currentState);
+  // const appState = useRef(AppState.currentState);
 
   // ------------------------- Theme -------------------------
   useEffect(() => {

@@ -3,7 +3,7 @@ import { ERP_COLOR_CODE } from '../../utils/constants';
 
 export const styles = StyleSheet.create({
   inputContainer: {
-    marginBottom: 16,
+    marginBottom: 6,
   },
   inputLabel: {
     fontSize: 14,

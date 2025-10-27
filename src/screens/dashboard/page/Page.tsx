@@ -2,7 +2,15 @@
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react-native/no-inline-styles */
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { Text, View, FlatList, StyleSheet, Dimensions, Keyboard, Platform } from 'react-native';
+import {
+  Text,
+  View,
+  FlatList,
+  StyleSheet,
+  Dimensions,
+  Keyboard,
+  Platform,
+ } from 'react-native';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import Animated, { FadeInUp, Layout } from 'react-native-reanimated';
 import { useAppDispatch } from '../../../store/hooks';
@@ -31,6 +39,7 @@ import LocationRow from './components/LocationRow';
 import FilePickerRow from './components/FilePicker';
 import CustomMultiPicker from './components/CustomMultiPicker';
 import { ERP_COLOR_CODE } from '../../../utils/constants';
+import BusinessCardView from './components/BusinessCardImage';
 
 type PageRouteParams = { PageScreen: { item: any } };
 
@@ -48,7 +57,7 @@ const PageScreen = () => {
 
   const [error, setError] = useState<string | null>(null);
   const [formValues, setFormValues] = useState<any>({});
-  console.log("🚀 ~ PageScreen ~ formValues:", formValues)
+  console.log('🚀 ~ PageScreen ~ formValues:', formValues);
 
   const [datePickerVisible, setDatePickerVisible] = useState(false);
 
@@ -77,6 +86,8 @@ const PageScreen = () => {
   const route = useRoute<RouteProp<PageRouteParams, 'PageScreen'>>();
   const { item, title, id, isFromNew, url, pageTitle }: any = route?.params;
   const authUser = item?.authuser;
+  const isFromBusinessCard = route?.params?.isFromBusinessCard || false;
+  console.log('🚀 ~ PageScreen ~ isFromBusinessCard:', isFromBusinessCard);
 
   const validateForm = useCallback(() => {
     const validationErrors: Record<string, string> = {};
@@ -137,14 +148,12 @@ const PageScreen = () => {
               }}
             />
           )}
-
-          {!authUser && controls.length > 0 && (
+           {!authUser && controls.length > 0 && (
             <ERPIcon
               name="save-as"
               isLoading={actionSaveLoader}
               onPress={async () => {
                 setActionSaveLoader(true);
-                setIsValidate(true);
                 if (validateForm()) {
                   const submitValues: Record<string, any> = {};
                   controls?.forEach(f => {
@@ -156,22 +165,29 @@ const PageScreen = () => {
                       savePageThunk({ page: url, id, data: { ...submitValues } }),
                     ).unwrap();
                     setLoader(false);
-                    setIsValidate(false);
-
                     fetchPageData();
                     setAlertConfig({
                       title: 'Record saved',
                       message: `Record saved successfully!`,
                       type: 'success',
                     });
-
                     setAlertVisible(true);
                     setGoBack(true);
                     setTimeout(() => {
                       setAlertVisible(false);
                       navigation.goBack();
                     }, 1500);
-                  } catch (err: any) {}
+                  } catch (err: any) {
+                    setLoader(false);
+
+                    setAlertConfig({
+                      title: 'Record saved',
+                      message: err,
+                      type: 'error',
+                    });
+                    setAlertVisible(true);
+                    setGoBack(false);
+                  }
                 }
                 setActionSaveLoader(false);
               }}
@@ -352,14 +368,25 @@ const PageScreen = () => {
         item?.ctltype === 'PHOTO'
       ) {
         content = (
-          <Media
-            isValidate={isValidate}
-            baseLink={baseLink}
-            infoData={infoData}
-            item={item}
-            isFromNew={isFromNew}
-            handleAttachment={handleAttachment}
-          />
+          <>
+            {isFromBusinessCard ? (
+               
+              <BusinessCardView 
+               baseLink={baseLink}
+                infoData={infoData}
+
+              setValue={setValue} controls={controls} item={item} />
+            ) : (
+              <Media
+                isValidate={isValidate}
+                baseLink={baseLink}
+                infoData={infoData}
+                item={item}
+                isFromNew={isFromNew}
+                handleAttachment={handleAttachment}
+              />
+            )}
+          </>
         );
       } else if (item?.disabled === '1' && item?.ajax !== 1) {
         content = <Disabled item={item} value={value} type={item?.ctltype} />;
@@ -503,6 +530,7 @@ const PageScreen = () => {
               contentContainerStyle={{ paddingBottom: keyboardHeight }}
               keyboardShouldPersistTaps="handled"
             />
+             
           </View>
           {loader && (
             <View
