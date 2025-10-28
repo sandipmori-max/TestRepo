@@ -19,8 +19,6 @@ import MaterialIcons from '@react-native-vector-icons/material-icons';
 
 const BusinessCardView = ({ setValue, controls, item, baseLink, infoData, cardData }: any) => {
   const [imageUri, setImageUri] = useState<string | null>(null);
-  const [ocrResult, setOcrResult] = useState<any>(null);
-  const [boundingBoxes, setBoundingBoxes] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [base64, setBase64] = useState(false);
   const [cacheBuster, setCacheBuster] = useState(Date.now());
@@ -35,21 +33,18 @@ const BusinessCardView = ({ setValue, controls, item, baseLink, infoData, cardDa
     return `${base}?cb=${cacheBuster}`;
   };
 
-  /** 🧩 Universal Permission Handler (Android & iOS) */
-  const checkPermission = async (type: 'camera' | 'gallery') => {
+   const checkPermission = async (type: 'camera' | 'gallery') => {
     let permission;
 
     if (Platform.OS === 'ios') {
       permission = type === 'camera' ? PERMISSIONS.IOS.CAMERA : PERMISSIONS.IOS.PHOTO_LIBRARY;
     } else {
-      // Android — handle version differences
-      const androidVersion = parseInt(Platform.Version as string, 10);
+       const androidVersion = parseInt(Platform.Version as string, 10);
 
       if (type === 'camera') {
         permission = PERMISSIONS.ANDROID.CAMERA;
       } else {
-        // Android 13+ uses READ_MEDIA_IMAGES, older uses READ_EXTERNAL_STORAGE
-        permission =
+         permission =
           androidVersion >= 33
             ? PERMISSIONS.ANDROID.READ_MEDIA_IMAGES
             : PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE;
@@ -143,13 +138,11 @@ const BusinessCardView = ({ setValue, controls, item, baseLink, infoData, cardDa
       setLoading(true);
       try {
         const result = await TextRecognition.recognize(imageUri);
-        console.log("🚀 ~ BusinessCardView ~ +++++++++++++++result:", result)
-        setOcrResult(result);
-        setBoundingBoxes(result.blocks);
+        console.log('🚀 ~ BusinessCardView ~ +++++++++++++++result:', result);
         const joined = result.blocks.map(b => b.text).join(' ');
-        console.log("🚀 ~ BusinessCardView ~ joined:*****************", joined)
+        console.log('🚀 ~ BusinessCardView ~ joined:*****************', joined);
         const p = parseCard(joined);
-        console.log("🚀 ~ BusinessCardView ~ p//////////////////:", p)
+        console.log('🚀 ~ BusinessCardView ~ p//////////////////:', p);
         setValue(p);
       } catch (err) {
         console.error('OCR error', err);
@@ -159,7 +152,7 @@ const BusinessCardView = ({ setValue, controls, item, baseLink, infoData, cardDa
     })();
   }, [imageUri]);
 
- const parseCard = (text: string): any => {
+  const parseCard = (text: string): any => {
     const cleanedData = text.replace(/\s+/g, ' ').trim();
 
     const emails = [
@@ -194,7 +187,7 @@ const BusinessCardView = ({ setValue, controls, item, baseLink, infoData, cardDa
     };
     console.log('🚀 ~ parseCard ~ result:', result);
     setValue(result);
-    cardData(text)
+    cardData(text);
     return result;
   };
 
@@ -268,20 +261,20 @@ const BusinessCardView = ({ setValue, controls, item, baseLink, infoData, cardDa
 };
 
 const styles = StyleSheet.create({
-  title: { fontSize: 16, fontWeight: 'bold', textAlign: 'center', marginTop: 10 },
+  title: { fontSize: 16, fontWeight: 'bold',  marginTop: 10 },
   imageThumb: {
     borderWidth: 1,
     borderColor: '#ccc',
-    width: 150,
-    height: 150,
+    width: '100%',
+    height: 180,
     borderRadius: 12,
     alignSelf: 'center',
     marginVertical: 2,
   },
   editIconContainer: {
     position: 'absolute',
-    right: -15,
-    top: '50%',
+    right: -10,
+    top: '4%',
     transform: [{ translateY: -10 }],
     backgroundColor: '#fff',
     borderRadius: 20,
