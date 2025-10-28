@@ -11,8 +11,15 @@ import {
   Keyboard,
   Platform,
   TextInput,
+  PermissionsAndroid,
+  NativeModules,
+  AppState,
+  Linking,
+  Modal,
+  TouchableOpacity,
+  Alert,
 } from 'react-native';
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { RouteProp, useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 import Animated, { FadeInUp, Layout } from 'react-native-reanimated';
 import { useAppDispatch } from '../../../store/hooks';
 import { getERPPageThunk } from '../../../store/slices/auth/thunk';
@@ -41,8 +48,57 @@ import FilePickerRow from './components/FilePicker';
 import CustomMultiPicker from './components/CustomMultiPicker';
 import { ERP_COLOR_CODE } from '../../../utils/constants';
 import BusinessCardView from './components/BusinessCardImage';
+import DeviceInfo from 'react-native-device-info';
 
 type PageRouteParams = { PageScreen: { item: any } };
+
+export async function requestLocationPermissions(): Promise<
+  'granted' | 'foreground-only' | 'denied' | 'blocked'
+> {
+  if (Platform.OS === 'android') {
+    try {
+      const granted = await PermissionsAndroid.requestMultiple([
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+        // PermissionsAndroid.PERMISSIONS.ACCESS_BACKGROUND_LOCATION,
+      ]);
+
+      const fine = granted['android.permission.ACCESS_FINE_LOCATION'];
+      const coarse = granted['android.permission.ACCESS_COARSE_LOCATION'];
+      const background = granted['android.permission.ACCESS_BACKGROUND_LOCATION'];
+
+      if (
+        fine === PermissionsAndroid.RESULTS.GRANTED &&
+        coarse === PermissionsAndroid.RESULTS.GRANTED &&
+        background === PermissionsAndroid.RESULTS.GRANTED
+      ) {
+        return 'granted';
+      }
+
+      if (
+        fine === PermissionsAndroid.RESULTS.GRANTED &&
+        coarse === PermissionsAndroid.RESULTS.GRANTED &&
+        background !== PermissionsAndroid.RESULTS.GRANTED
+      ) {
+        return 'foreground-only';
+      }
+
+      if (
+        fine === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN ||
+        coarse === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN ||
+        background === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN
+      ) {
+        return 'blocked';
+      }
+
+      return 'denied';
+    } catch (err) {
+      console.warn('requestLocationPermissions error:', err);
+      return 'denied';
+    }
+  }
+  return 'granted';
+}
 
 const PageScreen = () => {
   const navigation = useNavigation();
@@ -71,6 +127,7 @@ const PageScreen = () => {
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [alertVisible, setAlertVisible] = useState(false);
+  const [locationVisible, setLocationVisible] = useState(false);
   const [goBack, setGoBack] = useState(false);
   const [loader, setLoader] = useState(false);
   const [actionLoader, setActionLoader] = useState(false);
@@ -84,11 +141,183 @@ const PageScreen = () => {
     type: 'info' as 'error' | 'success' | 'info',
   });
 
+  const [locationEnabled, setLocationEnabled] = useState<boolean | null>(null);
+  const [modalClose, setModalClose] = useState(false);
+  const [isSettingVisible, setIsSettingVisible] = useState(false);
+  const [backgroundDeniedModal, setBackgroundDeniedModal] = useState(false);
+
+  const isCheckingPermission = useRef(false);
+  const locationSyncInterval = useRef<NodeJS.Timeout | null>(null);
+  const lastLocationEnabled = useRef<boolean | null>(null);
+  const appState = useRef(AppState.currentState);
+
+  const hasLocationField = controls.some(
+    item => item?.defaultvalue && item?.defaultvalue === '#location',
+  );
+  // console.log(' ------------------------ ', hasLocationField);
+  // useEffect(() => {
+  //   const subscription = AppState.addEventListener('change', nextAppState => {
+  //     if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
+  //       console.log(
+  //         'App**************************************************************** has come to the foreground!',
+  //       );
+  //       // Put your code here to check permissions, refresh data, etc.
+  //       checkLocation();
+  //     }
+  //     appState.current = nextAppState;
+  //   });
+
+  //   return () => subscription.remove();
+  // }, []);
+
+  // useEffect(() => {
+  //   const interval = setInterval(async () => {
+  //     const enabled = await DeviceInfo.isLocationEnabled();
+  //     const permissionStatus = await requestLocationPermissions();
+
+  //     // Show alert only if status changed
+  //     if (enabled !== lastLocationEnabled.current) {
+  //       if (!enabled) {
+  //         setAlertConfig({
+  //           title: 'Location Status',
+  //           message:
+  //             'We need location access only to serve you better. Please enable it to continue.',
+  //           type: 'error',
+  //         });
+  //         setAlertVisible(true);
+  //         setModalClose(false);
+  //       } else {
+  //         setAlertVisible(false);
+  //         setModalClose(true);
+  //       }
+  //       lastLocationEnabled.current = enabled;
+  //     }
+
+  //     // Show background permission modal only once when required
+  //     if (permissionStatus === 'foreground-only' && !backgroundDeniedModal) {
+  //       setBackgroundDeniedModal(true);
+  //     } else if (permissionStatus !== 'foreground-only' && backgroundDeniedModal) {
+  //       setBackgroundDeniedModal(false);
+  //     }
+
+  //     setLocationEnabled(enabled);
+  //   }, 1000);
+
+  //   return () => clearInterval(interval);
+  // }, [backgroundDeniedModal]);
+
+  const requestLocationPermission = async (): Promise<boolean> => {
+    if (Platform.OS === 'android') {
+      return await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+    }
+    return true;
+  };
+
+  const startLocationSync = async () => {
+    const enabled = await DeviceInfo.isLocationEnabled();
+    if (!enabled) return;
+
+    const hasPermission = await requestLocationPermission();
+    const fullPermission = await requestLocationPermissions();
+
+    if (fullPermission === 'foreground-only') {
+      setBackgroundDeniedModal(true);
+      return;
+    }
+
+    if (!hasPermission || fullPermission === 'denied' || fullPermission === 'blocked') return;
+
+    if (locationSyncInterval.current) clearInterval(locationSyncInterval.current);
+
+    checkLocation();
+  };
+
+  const checkLocation = async () => {
+    try {
+      const enabled = await DeviceInfo.isLocationEnabled();
+
+      if (enabled !== locationEnabled) {
+        setAlertConfig({
+          title: 'Location Status',
+          message: enabled
+            ? 'Location is now enabled'
+            : 'We need location access only to serve you better. Please enable it to continue.',
+          type: enabled ? 'success' : 'error',
+        });
+        setAlertVisible(!enabled);
+        setModalClose(false);
+        setLocationEnabled(enabled);
+      }
+
+      if (hasLocationField && enabled) {
+        if (Platform.OS === 'android') {
+          const granted = await requestLocationPermissions();
+          if (granted === 'granted') {
+            // location access
+            setLocationVisible(true);
+          } else if (granted === 'foreground-only') {
+            setBackgroundDeniedModal(true);
+            setLocationVisible(true);
+          }
+        }
+      }
+    } catch (err) {
+      setLocationVisible(false);
+
+      console.log('Location fetch error:', err);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      const checkPermissionsOnFocus = async () => {
+        if (isCheckingPermission.current) return;
+        isCheckingPermission.current = true;
+
+        const hasPermission = await requestLocationPermission();
+        const fullPermission = await requestLocationPermissions();
+
+        if (hasPermission && fullPermission === 'granted') {
+          setAlertVisible(false);
+          setIsSettingVisible(false);
+          setModalClose(true);
+          startLocationSync();
+        } else if (hasPermission && fullPermission === 'foreground-only') {
+          setBackgroundDeniedModal(true);
+        } else {
+          setAlertConfig({
+            title: 'Location Status',
+            message:
+              'We need location access only to serve you better. Please enable it to continue.',
+            type: 'error',
+          });
+          setModalClose(false);
+
+          setAlertVisible(true);
+          setIsSettingVisible(true);
+        }
+
+        isCheckingPermission.current = false;
+      };
+
+      const subscription = AppState.addEventListener('change', nextAppState => {
+        if (nextAppState === 'active') {
+          checkPermissionsOnFocus();
+        }
+      });
+
+      if (hasLocationField) {
+        checkPermissionsOnFocus();
+      }
+
+      return () => subscription.remove();
+    }, []),
+  );
+
   const route = useRoute<RouteProp<PageRouteParams, 'PageScreen'>>();
   const { item, title, id, isFromNew, url, pageTitle }: any = route?.params;
   const authUser = item?.authuser;
   const isFromBusinessCard = route?.params?.isFromBusinessCard || false;
-  console.log('🚀 ~ PageScreen ~ isFromBusinessCard:', isFromBusinessCard);
 
   const validateForm = useCallback(() => {
     const validationErrors: Record<string, string> = {};
@@ -154,46 +383,78 @@ const PageScreen = () => {
               name="save-as"
               isLoading={actionSaveLoader}
               onPress={async () => {
-                setActionSaveLoader(true);
-                setIsValidate(true);
-                if (validateForm()) {
-                  const submitValues: Record<string, any> = {};
-                  controls?.forEach(f => {
-                    if (f.refcol !== '1') submitValues[f?.field] = formValues[f?.field];
-                  });
-                  try {
-                    setLoader(true);
-                    await dispatch(
-                      savePageThunk({ page: url, id, data: { ...submitValues } }),
-                    ).unwrap();
-                    setLoader(false);
-                    setIsValidate(false);
-
-                    fetchPageData();
+                try {
+                  const enabled = await DeviceInfo.isLocationEnabled();
+                  const permissionStatus = await requestLocationPermissions();
+                  console.log('permissionStatus', permissionStatus);
+                  if (!enabled) {
                     setAlertConfig({
-                      title: 'Record saved',
-                      message: `Record saved successfully!`,
-                      type: 'success',
-                    });
-                    setAlertVisible(true);
-                    setGoBack(true);
-                    setTimeout(() => {
-                      setAlertVisible(false);
-                      navigation.goBack();
-                    }, 1500);
-                  } catch (err: any) {
-                    setLoader(false);
-
-                    setAlertConfig({
-                      title: 'Record saved',
-                      message: err,
+                      title: 'Location Status',
+                      message:
+                        'We need location access only to serve you better. Please enable it to continue.',
                       type: 'error',
                     });
                     setAlertVisible(true);
-                    setGoBack(false);
+                    setModalClose(false);
+                    return;
                   }
+                  if (permissionStatus === 'denied' || permissionStatus === 'blocked') {
+                    setAlertConfig({
+                      title: 'Location Status',
+                      message:
+                        'We need location access only to serve you better. Please enable it to continue.',
+                      type: 'error',
+                    });
+                    setAlertVisible(true);
+                    setModalClose(false);
+                    return;
+                  }
+                  if (permissionStatus.toString() !== 'blocked') {
+                    setLocationVisible(true);
+                    setActionSaveLoader(true);
+                    setIsValidate(true);
+                    if (validateForm()) {
+                      const submitValues: Record<string, any> = {};
+                      controls?.forEach(f => {
+                        if (f.refcol !== '1') submitValues[f?.field] = formValues[f?.field];
+                      });
+                      try {
+                        setLoader(true);
+                        await dispatch(
+                          savePageThunk({ page: url, id, data: { ...submitValues } }),
+                        ).unwrap();
+                        setLoader(false);
+                        setIsValidate(false);
+
+                        fetchPageData();
+                        setAlertConfig({
+                          title: 'Record saved',
+                          message: `Record saved successfully!`,
+                          type: 'success',
+                        });
+                        setAlertVisible(true);
+                        setGoBack(true);
+                        setTimeout(() => {
+                          setAlertVisible(false);
+                          navigation.goBack();
+                        }, 1500);
+                      } catch (err: any) {
+                        setLoader(false);
+
+                        setAlertConfig({
+                          title: 'Record saved',
+                          message: err,
+                          type: 'error',
+                        });
+                        setAlertVisible(true);
+                        setGoBack(false);
+                      }
+                    }
+                    setActionSaveLoader(false);
+                  }
+                } catch (error) {
+                  console.error('Error checking location status:', error);
                 }
-                setActionSaveLoader(false);
               }}
             />
           )}
@@ -349,7 +610,14 @@ const PageScreen = () => {
           />
         );
       } else if (item?.defaultvalue === '#location') {
-        content = <LocationRow isValidate={isValidate} item={item} setValue={setValue} />;
+        content = (
+          <LocationRow
+            locationVisible={locationVisible}
+            isValidate={isValidate}
+            item={item}
+            setValue={setValue}
+          />
+        );
       } else if (item?.defaultvalue === '#html') {
         content = (
           <View>
@@ -536,6 +804,42 @@ const PageScreen = () => {
               keyboardShouldPersistTaps="handled"
             />
           </View>
+          <CustomAlert
+            visible={alertVisible}
+            title={alertConfig.title}
+            message={alertConfig.message}
+            type={alertConfig.type}
+            onClose={() => {
+              if (modalClose) setAlertVisible(false);
+            }}
+            actionLoader={undefined}
+            isSettingVisible={isSettingVisible}
+          />
+
+          {/* <Modal visible={backgroundDeniedModal} transparent animationType="fade">
+        <View style={styles.overlay}>
+          <View style={styles.modalContainer}>
+            <Text style={styles.title}>Allow Background Location</Text>
+            <Text style={styles.message}>
+              For continuous location tracking, set location access to{' '}
+              <Text style={{ fontWeight: '600' }}>"Allow all the time"</Text> in your phone
+              settings.
+            </Text>
+
+            <View style={styles.btnRow}>
+              <TouchableOpacity
+                style={[styles.btn, styles.btnPrimary]}
+                onPress={() => {
+                  Linking.openSettings();
+                  setBackgroundDeniedModal(false);
+                }}
+              >
+                <Text style={styles.btnText}>Open Settings</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal> */}
           {loader && (
             <View
               style={{

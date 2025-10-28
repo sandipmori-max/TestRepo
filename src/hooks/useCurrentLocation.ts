@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoding';
 
@@ -10,7 +10,10 @@ export const useCurrentAddress = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
+  const fetchLocation = useCallback(() => {
+    setLoading(true);
+    setError(null);
+
     Geolocation.getCurrentPosition(
       async (pos) => {
         const { latitude, longitude } = pos.coords;
@@ -33,5 +36,9 @@ export const useCurrentAddress = () => {
     );
   }, []);
 
-  return { address, coords, loading, error };
+  useEffect(() => {
+    fetchLocation();
+  }, [fetchLocation]);
+
+  return { address, coords, loading, error, refetch: fetchLocation };
 };
