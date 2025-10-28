@@ -148,8 +148,7 @@ const EntryTab = () => {
   }, [isAuthenticated, dispatch, activeToken, isRefresh]);
 
   const renderItem = ({ item, index }: any) => {
-    console.log("🚀 ~ renderItem ~ item:", item)
-    const backgroundColor = accentColors[index % accentColors.length];
+     const backgroundColor = accentColors[index % accentColors.length];
 
     return (
       <TouchableOpacity

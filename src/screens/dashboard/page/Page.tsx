@@ -77,8 +77,6 @@ const PageScreen = () => {
   const [actionSaveLoader, setActionSaveLoader] = useState(false);
 
   const [infoData, setInfoData] = useState<any>({});
-  const [cardData, setCardData] = useState<any>(null);
-  console.log('🚀 ~ PageScreen ~ cardData----------------------------:', cardData);
 
   const [alertConfig, setAlertConfig] = useState({
     title: '',
@@ -157,6 +155,7 @@ const PageScreen = () => {
               isLoading={actionSaveLoader}
               onPress={async () => {
                 setActionSaveLoader(true);
+                setIsValidate(true);
                 if (validateForm()) {
                   const submitValues: Record<string, any> = {};
                   controls?.forEach(f => {
@@ -168,6 +167,8 @@ const PageScreen = () => {
                       savePageThunk({ page: url, id, data: { ...submitValues } }),
                     ).unwrap();
                     setLoader(false);
+                    setIsValidate(false);
+
                     fetchPageData();
                     setAlertConfig({
                       title: 'Record saved',
@@ -376,12 +377,6 @@ const PageScreen = () => {
               <BusinessCardView
                 baseLink={baseLink}
                 infoData={infoData}
-                cardData={e => {
-                 console.log("🚀 ~ `````````````````````````````````PageScreen ~ e:", e)
-                 if(e !==''){
-                   setCardData(e);
-                 }
-                }}
                 setValue={setValue}
                 controls={controls}
                 item={item}
@@ -540,29 +535,6 @@ const PageScreen = () => {
               contentContainerStyle={{ paddingBottom: keyboardHeight }}
               keyboardShouldPersistTaps="handled"
             />
-            {cardData !== '' && cardData !== null && cardData !== undefined && (
-              <View
-                style={{
-                   padding: 8,
-                  borderRadius: 8,
-                  borderWidth: 1,
-                  borderColor: '#ccc'
-                }}
-              >
-                <TextInput
-                  value={cardData?.toString()}
-                  multiline
-                  editable
-                  scrollEnabled
-                  style={{
-                    color: '#000',
-                    fontSize: 14,
-                    textAlignVertical: 'top',
-                    minHeight: 100,
-                  }}
-                />
-              </View>
-            )}
           </View>
           {loader && (
             <View

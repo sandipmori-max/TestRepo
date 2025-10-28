@@ -31,7 +31,8 @@ const DateRow = ({ isValidate, item, errors, value, showDatePicker }: any) => {
         </Text>
         <MaterialIcons name="event" size={20} color={ERP_COLOR_CODE.ERP_555} />
       </TouchableOpacity>
-      {errors[item.field] && (
+      { !isValidate &&
+            !value &&  errors[item.field] && (
         <Text style={{ color: ERP_COLOR_CODE.ERP_ERROR, marginTop: 4 }}>{errors[item?.field]}</Text>
       )}
     </View>

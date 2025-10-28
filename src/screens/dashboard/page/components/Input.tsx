@@ -17,6 +17,9 @@ const Input = ({ isValidate, item, errors, value, setValue, onFocus }: any) => {
         {item?.mandatory === '1' && <Text style={{ color: ERP_COLOR_CODE.ERP_ERROR }}>*</Text>}
       </View>
       <TextInput
+        multiline={item?.title === 'Card Text' ? true : false}
+        editable
+        scrollEnabled
         style={[
           styles.textInput,
           errors[item.field] && { borderColor: ERP_COLOR_CODE.ERP_ERROR },
@@ -24,6 +27,7 @@ const Input = ({ isValidate, item, errors, value, setValue, onFocus }: any) => {
             borderColor: 'green',
             borderWidth: 0.8,
           },
+
           isInputEdit && {
             borderColor: '#81b5e4',
             borderWidth: 0.8,

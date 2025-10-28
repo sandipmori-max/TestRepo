@@ -17,7 +17,7 @@ import TextRecognition from '@react-native-ml-kit/text-recognition';
 import { check, request, PERMISSIONS, RESULTS, openSettings } from 'react-native-permissions';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
 
-const BusinessCardView = ({ setValue, controls, item, baseLink, infoData, cardData }: any) => {
+const BusinessCardView = ({ setValue, controls, item, baseLink, infoData }: any) => {
   const [imageUri, setImageUri] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [base64, setBase64] = useState(false);
@@ -33,18 +33,18 @@ const BusinessCardView = ({ setValue, controls, item, baseLink, infoData, cardDa
     return `${base}?cb=${cacheBuster}`;
   };
 
-   const checkPermission = async (type: 'camera' | 'gallery') => {
+  const checkPermission = async (type: 'camera' | 'gallery') => {
     let permission;
 
     if (Platform.OS === 'ios') {
       permission = type === 'camera' ? PERMISSIONS.IOS.CAMERA : PERMISSIONS.IOS.PHOTO_LIBRARY;
     } else {
-       const androidVersion = parseInt(Platform.Version as string, 10);
+      const androidVersion = parseInt(Platform.Version as string, 10);
 
       if (type === 'camera') {
         permission = PERMISSIONS.ANDROID.CAMERA;
       } else {
-         permission =
+        permission =
           androidVersion >= 33
             ? PERMISSIONS.ANDROID.READ_MEDIA_IMAGES
             : PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE;
@@ -159,10 +159,9 @@ const BusinessCardView = ({ setValue, controls, item, baseLink, infoData, cardDa
       ...cleanedData.matchAll(/\b[A-Za-z0-9._%+-]+ *@ *[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/g),
     ].map(e => e[0].replace(/\s+/g, ''));
 
-    const phones = [...cleanedData.matchAll(/\+91[-\s]?\d{10}/g)].map(p =>
-      p[0].replace(/\s+/g, ''),
+    const phones = [...cleanedData.matchAll(/\+?\d{0,3}[-\s()]?\d{5}[-\s()]?\d{5}/g)].map(p =>
+      p[0].replace(/\D+/g, ''),
     );
-
     const websites = [...cleanedData.matchAll(/\b(www\.[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})\b/g)].map(
       w => w[0],
     );
@@ -184,10 +183,10 @@ const BusinessCardView = ({ setValue, controls, item, baseLink, infoData, cardDa
       address,
       website: websites[0] || '',
       [item?.field]: base64,
+      cardtext: text,
     };
     console.log('🚀 ~ parseCard ~ result:', result);
     setValue(result);
-    cardData(text);
     return result;
   };
 
@@ -261,7 +260,7 @@ const BusinessCardView = ({ setValue, controls, item, baseLink, infoData, cardDa
 };
 
 const styles = StyleSheet.create({
-  title: { fontSize: 16, fontWeight: 'bold',  marginTop: 10 },
+  title: { fontSize: 16, fontWeight: 'bold', marginTop: 10 },
   imageThumb: {
     borderWidth: 1,
     borderColor: '#ccc',
