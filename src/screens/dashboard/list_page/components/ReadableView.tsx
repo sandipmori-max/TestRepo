@@ -1,8 +1,21 @@
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Dimensions, FlatList, Image } from 'react-native';
+import React, { useState, useRef } from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Dimensions,
+  FlatList,
+  Image,
+  Animated,
+  PanResponder,
+  StyleSheet,
+  LayoutAnimation,
+  UIManager,
+  Platform,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { formatDateToDDMMMYYYY } from '../../../../utils/helpers';
@@ -11,6 +24,62 @@ import NoData from '../../../../components/no_data/NoData';
 import { ERP_COLOR_CODE } from '../../../../utils/constants';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
 import MemoizedFooterView from './MemoizedFooterView';
+
+// enable LayoutAnimation on Android
+if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
+
+/** SWIPEABLE ROW **/
+const SwipeableRow = ({ children, onDelete, id }) => {
+  const translateX = useRef(new Animated.Value(0)).current;
+  const rowWidth = useRef(0);
+  const DISMISS_THRESHOLD = -120;
+
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponder: (_, g) => Math.abs(g.dx) > 5,
+      onPanResponderMove: (_, g) => {
+        if (g.dx < 0) translateX.setValue(g.dx);
+      },
+      onPanResponderRelease: (_, g) => {
+        if (g.dx < DISMISS_THRESHOLD) {
+          Animated.timing(translateX, {
+            toValue: -rowWidth.current,
+            duration: 200,
+            useNativeDriver: true,
+          }).start(() => {
+            LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+            onDelete && onDelete(id);
+          });
+        } else {
+          Animated.spring(translateX, {
+            toValue: 0,
+            useNativeDriver: true,
+          }).start();
+        }
+      },
+    })
+  ).current;
+
+  return (
+    <View
+      onLayout={(e) => (rowWidth.current = e.nativeEvent.layout.width)}
+      style={{ backgroundColor: ERP_COLOR_CODE.ERP_WHITE }}
+    >
+      
+
+      <Animated.View
+        {...panResponder.panHandlers}
+        style={{ transform: [{ translateX }], backgroundColor: ERP_COLOR_CODE.ERP_WHITE }}
+      >
+        {children}
+      </Animated.View>
+    </View>
+  );
+};
+/** END SWIPEABLE ROW **/
 
 const ReadableView = ({
   configData,
@@ -24,13 +93,26 @@ const ReadableView = ({
   setSearchQuery,
   totalQty,
   isFromBusinessCard,
+  isFromAlertCard,
+  handleDeleteNotification
 }: any) => {
   const navigation = useNavigation();
   const screenWidth = Dimensions.get('window').width;
+  const [listData, setListData] = useState(filteredData || []);
+
+  const handleDelete = (item) => {
+    console.log("id", item);
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    handleDeleteNotification(item)
+    // setListData((prev) => prev.filter((_, idx) => idx !== id));
+  };
 
   const getButtonMeta = (key: string) => {
-    if (!key || !configData?.length) return { label: 'Action', color: ERP_COLOR_CODE.ERP_COLOR };
-    const configItem = configData.find(cfg => cfg.datafield?.toLowerCase() === key.toLowerCase());
+    if (!key || !configData?.length)
+      return { label: 'Action', color: ERP_COLOR_CODE.ERP_COLOR };
+    const configItem = configData.find(
+      (cfg) => cfg.datafield?.toLowerCase() === key.toLowerCase()
+    );
     return {
       label: configItem?.headertext || 'Action',
       color: configItem?.colorcode || ERP_COLOR_CODE.ERP_COLOR,
@@ -48,9 +130,8 @@ const ReadableView = ({
     const remarks = item?.remarks;
     const address = item?.address;
     const amount = item?.amount;
-
-    const btnKeys = Object.keys(item).filter(key => key.startsWith('btn_'));
-    const baseUrl = item?.image && item?.image?.replace(/^https:\/\//i, 'http://');
+    const btnKeys = Object.keys(item).filter((key) => key.startsWith('btn_'));
+    const baseUrl = item?.image && item?.image?.replace(/^https:\/\\//i, 'http://');
     const authUser = item?.authuser;
 
     const avatarLetter =
@@ -58,10 +139,10 @@ const ReadableView = ({
         .split(' ')
         .filter(Boolean)
         .slice(0, 2)
-        .map(word => word.charAt(0).toUpperCase())
+        .map((w) => w.charAt(0).toUpperCase())
         .join('') || name.substring(0, 2).toUpperCase();
 
-    return (
+    const card = (
       <View
         style={{
           backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
@@ -74,13 +155,12 @@ const ReadableView = ({
           borderColor: ERP_COLOR_CODE.ERP_ddd,
         }}
       >
+        {/* main touchable */}
         <TouchableOpacity
           activeOpacity={0.8}
           style={{ flexDirection: 'row', alignItems: 'center' }}
           onPress={async () => {
-            if (authUser) {
-              return;
-            }
+            if (authUser) return;
             if (item?.id !== undefined) {
               setIsFilterVisible(false);
               setSearchQuery('');
@@ -89,7 +169,7 @@ const ReadableView = ({
                 title: pageParamsName,
                 id: item?.id,
                 url: pageName,
-                isFromBusinessCard: isFromBusinessCard,
+                isFromBusinessCard,
               });
             }
           }}
@@ -108,7 +188,13 @@ const ReadableView = ({
             {item?.image && item?.image !== '' ? (
               <Image source={{ uri: baseUrl }} style={styles.profileImage} />
             ) : (
-              <Text style={{ color: ERP_COLOR_CODE.ERP_WHITE, fontWeight: '400', fontSize: 16 }}>
+              <Text
+                style={{
+                  color: ERP_COLOR_CODE.ERP_WHITE,
+                  fontWeight: '400',
+                  fontSize: 16,
+                }}
+              >
                 {avatarLetter}
               </Text>
             )}
@@ -126,45 +212,56 @@ const ReadableView = ({
           <View
             style={{
               alignSelf: 'flex-end',
-              alignContent: 'flex-end',
               alignItems: 'flex-end',
               justifyContent: 'flex-end',
             }}
           >
-            <Text style={{ fontWeight: '600', fontSize: 12, color: ERP_COLOR_CODE.ERP_BLACK }}>
+            <Text
+              style={{
+                fontWeight: '600',
+                fontSize: 12,
+                color: ERP_COLOR_CODE.ERP_BLACK,
+              }}
+            >
               {status}
             </Text>
             {!!date && (
-              <Text style={{ fontWeight: '800', fontSize: 12, color: ERP_COLOR_CODE.ERP_BLACK }}>
+              <Text
+                style={{
+                  fontWeight: '800',
+                  fontSize: 12,
+                  color: ERP_COLOR_CODE.ERP_BLACK,
+                }}
+              >
                 {formatDateToDDMMMYYYY(date)}
               </Text>
             )}
           </View>
         </TouchableOpacity>
+
         <TouchableOpacity
           onPress={async () => {
-            if (authUser) {
-              return;
-            }
+            if (authUser) return;
             if (item?.id !== undefined) {
               navigation.navigate('Page', {
                 item,
                 title: pageParamsName,
                 id: item?.id,
                 url: pageName,
-                isFromBusinessCard: isFromBusinessCard,
+                isFromBusinessCard,
               });
             }
           }}
         >
           {(remarks || address || amount) && (
             <View style={{ marginTop: 6 }}>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <View
-                  style={{
-                    width: '70%',
-                  }}
-                >
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <View style={{ width: '70%' }}>
                   {!!remarks && (
                     <View>
                       <Text
@@ -180,7 +277,11 @@ const ReadableView = ({
                         {remarks}
                       </Text>
                       {remarks.length > 66 && (
-                        <TouchableOpacity onPress={() => setRemarksExpanded(prev => !prev)}>
+                        <TouchableOpacity
+                          onPress={() =>
+                            setRemarksExpanded((prev) => !prev)
+                          }
+                        >
                           <Text
                             style={{
                               fontWeight: '600',
@@ -196,12 +297,7 @@ const ReadableView = ({
                     </View>
                   )}
                 </View>
-                <View
-                  style={{
-                    width: '30%',
-                    alignItems: 'flex-end',
-                  }}
-                >
+                <View style={{ width: '30%', alignItems: 'flex-end' }}>
                   {!!amount && (
                     <Text
                       numberOfLines={1}
@@ -217,38 +313,36 @@ const ReadableView = ({
                   )}
                 </View>
               </View>
-              <View>
-                {!!address && (
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignContent: 'center',
-                      alignItems: 'center',
-                      gap: 4,
-                      marginVertical: 4,
-                      marginBottom: 8,
-                    }}
-                  >
-                    <MaterialIcons
-                      name="info-outline"
-                      size={16}
-                      color={ERP_COLOR_CODE.ERP_APP_COLOR}
-                    />
-                    <Text>{address}</Text>
-                  </View>
-                )}
-              </View>
+              {!!address && (
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 4,
+                    marginVertical: 4,
+                    marginBottom: 8,
+                  }}
+                >
+                  <MaterialIcons
+                    name="info-outline"
+                    size={16}
+                    color={ERP_COLOR_CODE.ERP_APP_COLOR}
+                  />
+                  <Text>{address}</Text>
+                </View>
+              )}
             </View>
           )}
         </TouchableOpacity>
 
-        <View>{item?.html && <MemoizedFooterView item={item} index={index} />}</View>
+        <View>
+          {item?.html && <MemoizedFooterView item={item} index={index} />}
+        </View>
 
         {btnKeys?.length > 0 && (
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginTop: 6, gap: 1 }}>
             {btnKeys?.map((key, idx) => {
               const actionValue = item[key];
-              console.log('🚀 ~ actionValue:', actionValue);
               const { label, color } = getButtonMeta(key);
               return (
                 <TouchableOpacity
@@ -263,15 +357,21 @@ const ReadableView = ({
                     alignItems: 'center',
                   }}
                   onPress={() => {
-                    if (authUser) {
-                      return;
-                    }
-
-                    handleActionButtonPressed(actionValue, label, color, item?.id);
+                    if (authUser) return;
+                    handleActionButtonPressed(
+                      actionValue,
+                      label,
+                      color,
+                      item?.id
+                    );
                   }}
                 >
                   <Text
-                    style={{ color: ERP_COLOR_CODE.ERP_WHITE, fontWeight: '600', fontSize: 12 }}
+                    style={{
+                      color: ERP_COLOR_CODE.ERP_WHITE,
+                      fontWeight: '600',
+                      fontSize: 12,
+                    }}
                   >
                     {label}
                   </Text>
@@ -282,36 +382,51 @@ const ReadableView = ({
         )}
       </View>
     );
-  };
 
-  if (!loadingListId && filteredData?.length === 0) {
     return (
       <>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
-          }}
-        >
-          <NoData />
-        </View>
+      {
+        isFromAlertCard ? <SwipeableRow id={index} onDelete={() => handleDelete(item)}>
+ 
+        {card}
+      </SwipeableRow> : 
+      <>
+       {card} 
+
       </>
+      }
+      </>
+      
+    );
+  };
+
+  if (!loadingListId && listData?.length === 0) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: ERP_COLOR_CODE.ERP_WHITE,
+        }}
+      >
+        <NoData />
+      </View>
     );
   }
+
   return (
     <View style={{ flex: 1, marginTop: 2 }}>
       <FlatList
-        keyExtractor={(item, index) => index.toString()}
-        data={filteredData}
+        keyExtractor={(_, index) => index.toString()}
+        data={listData}
         keyboardShouldPersistTaps="handled"
-        showsHorizontalScrollIndicator={false}
-        showsVerticalScrollIndicator={false}
         renderItem={({ item, index }) => <RenderCard item={item} index={index} />}
         contentContainerStyle={styles.listContent}
+        showsVerticalScrollIndicator={false}
       />
-      {filteredData?.length > 0 ? (
+
+      {listData?.length > 0 && (
         <View
           style={{
             marginTop: 6,
@@ -323,72 +438,75 @@ const ReadableView = ({
             marginBottom: 12,
           }}
         >
-          {
-            <View
-              style={{
-                justifyContent: 'space-between',
-                flexDirection: 'row',
-                width:'100%'
-              }}
-            >
-              {totalQty && (
-                <View
-                  style={{
-                    flexDirection: 'row',
-                  }}
-                >
-                  <Text style={{ fontSize: 14, fontWeight: '700', color: ERP_COLOR_CODE.ERP_333 }}>
-                    Quantity :-
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontWeight: 'bold',
-                      color: '#28a745',
-                      marginLeft: 8,
-                    }}
-                  >
-                     {totalQty?.toFixed(2)}
-                  </Text>
-                </View>
-              )}
-
-              {totalAmount && (
-                <View
-                  style={{
-                    flexDirection: 'row', 
-                  }}
-                >
-                  <Text style={{ fontSize: 14, fontWeight: '700', color: ERP_COLOR_CODE.ERP_333 }}>
-                    Amount :-
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontWeight: 'bold',
-                      color: '#28a745',
-                      marginLeft: 8,
-                    }}
-                  >
-                    ₹ {totalAmount?.toFixed(2)}
-                  </Text>
-                </View>
-              )}
-            </View>
-          }
-
           <View
             style={{
               justifyContent: 'space-between',
               flexDirection: 'row',
+              width: '100%',
             }}
           >
-            <Text style={{ fontSize: 14, fontWeight: '700', color: ERP_COLOR_CODE.ERP_333 }}>
-              {filteredData?.length} Row(s)
+            {totalQty && (
+              <View style={{ flexDirection: 'row' }}>
+                <Text
+                  style={{
+                    fontSize: 14,
+                    fontWeight: '700',
+                    color: ERP_COLOR_CODE.ERP_333,
+                  }}
+                >
+                  Quantity :-
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: 'bold',
+                    color: '#28a745',
+                    marginLeft: 8,
+                  }}
+                >
+                  {totalQty?.toFixed(2)}
+                </Text>
+              </View>
+            )}
+
+            {totalAmount && (
+              <View style={{ flexDirection: 'row' }}>
+                <Text
+                  style={{
+                    fontSize: 14,
+                    fontWeight: '700',
+                    color: ERP_COLOR_CODE.ERP_333,
+                  }}
+                >
+                  Amount :-
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: 'bold',
+                    color: '#28a745',
+                    marginLeft: 8,
+                  }}
+                >
+                  ₹ {totalAmount?.toFixed(2)}
+                </Text>
+              </View>
+            )}
+          </View>
+
+          <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+            <Text
+              style={{
+                fontSize: 14,
+                fontWeight: '700',
+                color: ERP_COLOR_CODE.ERP_333,
+              }}
+            >
+              {listData?.length} Row(s)
             </Text>
           </View>
         </View>
-      ) : null}
+      )}
     </View>
   );
 };

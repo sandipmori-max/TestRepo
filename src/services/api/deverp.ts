@@ -287,6 +287,14 @@ class DevERPService {
     });
   }
 
+  async handleDeleteAction(  id: string,   page: string) {
+    return this.apiCall<any>(`msp_api.aspx/pageDelete`, {
+      token: this.token,
+      id,
+      page,
+    });
+  }
+
   async syncLocation(token: string, location: string) {
     console.log('🚀 ~ DevERPService ~ syncLocation ---------++++++-----++++++~ token:', token);
     return this.apiCall<any>(`msp_api.aspx/syncLocation`, {

@@ -14,7 +14,7 @@ import TableView from './components/TableView';
 import ReadableView from './components/ReadableView';
 import ERPIcon from '../../../components/icon/ERPIcon';
 import CustomAlert from '../../../components/alert/CustomAlert';
-import { handlePageActionThunk } from '../../../store/slices/page/thunk';
+import { handleDeleteActionThunk, handlePageActionThunk } from '../../../store/slices/page/thunk';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
 import { ERP_COLOR_CODE } from '../../../utils/constants';
 
@@ -114,12 +114,15 @@ const ListScreen = () => {
             }}
             isLoading={actionLoaders}
           />
-          <ERPIcon
+          {
+            !isFromAlertCard &&  <ERPIcon
             name={isTableView ? 'list' : 'apps'}
             onPress={() => {
               setIsTableView(!isTableView);
             }}
           />
+          }
+         
 
           <ERPIcon
             name={!hasDateField ? 'search' : isFilterVisible ? 'filter-alt' : 'filter-alt'}
@@ -349,6 +352,18 @@ const ListScreen = () => {
     setAlertVisible(true);
   };
 
+  const handleDeleteNotification = async (item) => {
+    console.log("i++++++d", item);
+    await dispatch(
+              handleDeleteActionThunk({
+                id: item.id.toString(),
+                page: "DEVNOTIFY",
+              }),
+            ).unwrap();
+            setAlertVisible(false);
+            onRefresh();
+  }
+
   if (parsedError) {
     return (
       <View style={{ flex: 1, backgroundColor: ERP_COLOR_CODE.ERP_WHITE }}>
@@ -471,6 +486,8 @@ const ListScreen = () => {
               ) : (
                 <>
                   <ReadableView
+                  handleDeleteNotification={handleDeleteNotification}
+                  isFromAlertCard={isFromAlertCard}
                     configData={configData}
                     filteredData={filteredData}
                     loadingListId={loadingListId}
