@@ -55,6 +55,29 @@ export const getGifSource = (type: 'error' | 'success' | 'info') => {
   }
 };
 
+export const requestCameraPermission = async (): Promise<boolean> => {
+  try {
+    const cameraPerm = Platform.OS === 'ios' ? PERMISSIONS.IOS.CAMERA : PERMISSIONS.ANDROID.CAMERA;
+    const cameraStatus = await check(cameraPerm);
+    let cameraGranted = false;
+    if (cameraStatus === RESULTS.GRANTED) {
+      cameraGranted = true;
+    } else if (cameraStatus === RESULTS.DENIED) {
+      const res = await request(cameraPerm);
+      cameraGranted = res === RESULTS.GRANTED;
+      if (!cameraGranted) {
+        return false;
+       }
+    } else if (cameraStatus === RESULTS.BLOCKED) {
+      return false; 
+    }
+    return cameraGranted;
+  } catch (error) {
+    console.warn('⚠️ Permission error:', error);
+    return false;
+  }
+};
+
 export const requestCameraAndLocationPermission = async (): Promise<boolean> => {
   try {
     const cameraPerm = Platform.OS === 'ios' ? PERMISSIONS.IOS.CAMERA : PERMISSIONS.ANDROID.CAMERA;
@@ -77,18 +100,9 @@ export const requestCameraAndLocationPermission = async (): Promise<boolean> => 
       cameraGranted = res === RESULTS.GRANTED;
       if (!cameraGranted) {
         return false;
-        // Alert.alert('Camera Permission Denied', 'Camera access is required for this feature.');
-      }
+       }
     } else if (cameraStatus === RESULTS.BLOCKED) {
-      return false;
-      // Alert.alert(
-      //   'Camera Permission Blocked',
-      //   'Camera access has been permanently denied. Please enable it in Settings.',
-      //   [
-      //     { text: 'Cancel', style: 'cancel' },
-      //     { text: 'Open Settings', onPress: () => Linking.openSettings() },
-      //   ],
-      // );
+      return false; 
     }
 
     // ✅ Handle location permission

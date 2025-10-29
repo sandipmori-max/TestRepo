@@ -36,7 +36,7 @@ import Input from './components/Input';
 import CustomAlert from '../../../components/alert/CustomAlert';
 import AjaxPicker from './components/AjaxPicker';
 import DateTimePicker from 'react-native-modal-datetime-picker';
-import { parseCustomDatePage } from '../../../utils/helpers';
+import { parseCustomDatePage, requestCameraPermission } from '../../../utils/helpers';
 import DateRow from './components/Date';
 import BoolInput from './components/BoolInput';
 import SignaturePad from './components/SignaturePad';
@@ -154,6 +154,35 @@ const PageScreen = () => {
   const hasLocationField = controls.some(
     item => item?.defaultvalue && item?.defaultvalue === '#location',
   );
+
+   const hasMediaField = controls.some(
+    item =>  item?.ctltype === 'IMAGE' ||
+        item?.ctltype === 'PHOTO',
+  );
+
+  console.log('locationEnabled ---------------- ', locationEnabled);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout | null = null;
+
+    const checkLocation = async () => {
+      const enabled = hasLocationField && await DeviceInfo.isLocationEnabled();
+      console.log('locationEnabled -----enabled----------- ', enabled);
+
+      setLocationEnabled(enabled);
+    };
+
+    // Run immediately once
+    checkLocation();
+
+    // Then run every 1 second
+    interval = setInterval(checkLocation, 1000);
+
+    // Cleanup interval on unmount
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, []); 
   // console.log(' ------------------------ ', hasLocationField);
   // useEffect(() => {
   //   const subscription = AppState.addEventListener('change', nextAppState => {
@@ -385,9 +414,21 @@ const PageScreen = () => {
               onPress={async () => {
                 try {
                   const enabled = await DeviceInfo.isLocationEnabled();
-                  const permissionStatus = await requestLocationPermissions();
+                  const permissionStatus = hasLocationField && await requestLocationPermissions();
+                  const hasPermission = hasMediaField && await requestCameraPermission();
+                   if (!hasPermission && hasMediaField) {
+                    setAlertConfig({
+                      title: 'Camera Status',
+                      message:
+                        'We need camera access only to serve you better. Please enable it to continue.',
+                      type: 'error',
+                    });
+                    setAlertVisible(true);
+                    setModalClose(false);
+                    return;
+                  }
                   console.log('permissionStatus', permissionStatus);
-                  if (!enabled) {
+                  if (hasLocationField && !enabled) {
                     setAlertConfig({
                       title: 'Location Status',
                       message:
@@ -398,7 +439,7 @@ const PageScreen = () => {
                     setModalClose(false);
                     return;
                   }
-                  if (permissionStatus === 'denied' || permissionStatus === 'blocked') {
+                  if (hasLocationField && permissionStatus === 'denied' || permissionStatus === 'blocked') {
                     setAlertConfig({
                       title: 'Location Status',
                       message:
@@ -614,6 +655,7 @@ const PageScreen = () => {
           <LocationRow
             locationVisible={locationVisible}
             isValidate={isValidate}
+            locationEnabled={locationEnabled}
             item={item}
             setValue={setValue}
           />
@@ -732,7 +774,7 @@ const PageScreen = () => {
         </Animated.View>
       );
     },
-    [formValues, errors, controls],
+    [formValues, errors, controls, locationEnabled],
   );
 
   const showDatePicker = (field: string, date: any) => {

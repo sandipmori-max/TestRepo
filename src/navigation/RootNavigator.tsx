@@ -1,16 +1,18 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
-import {
-  PermissionsAndroid,
-  Platform,
-  NativeModules,
-  AppState,
-  Linking,
-  Modal,
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-} from 'react-native';
+import React, { useEffect, 
+  // useState, useRef, useCallback 
+} from 'react';
+// import {
+//   PermissionsAndroid,
+//   Platform,
+//   NativeModules,
+//   AppState,
+//   Linking,
+//   Modal,
+//   View,
+//   Text,
+//   TouchableOpacity,
+//   StyleSheet,
+// } from 'react-native';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { checkAuthStateThunk } from '../store/slices/auth/thunk';
 import DevERPService from '../services/api/deverp';
@@ -18,10 +20,12 @@ import AuthNavigator from './AuthNavigator';
 import StackNavigator from './StackNavigator';
 import FullViewLoader from '../components/loader/FullViewLoader';
 import DeviceInfo from 'react-native-device-info';
-import CustomAlert from '../components/alert/CustomAlert';
+// import CustomAlert from '../components/alert/CustomAlert';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useFocusEffect } from '@react-navigation/native';
-import { setERPTheme, ERP_COLOR_CODE } from '../utils/constants';
+// import { useFocusEffect } from '@react-navigation/native';
+import { setERPTheme, 
+  // ERP_COLOR_CODE
+ } from '../utils/constants';
 
 // ------------------------- Location Permission Helper -------------------------
 // export async function requestLocationPermissions(): Promise<

@@ -5,11 +5,19 @@ import { ERP_COLOR_CODE } from '../../../../utils/constants';
 import { useCurrentAddress } from '../../../../hooks/useCurrentLocation';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
 
-const LocationRow = ({ locationVisible, isValidate, item, value, setValue }: any) => {
+const LocationRow = ({ locationEnabled, locationVisible, isValidate, item, value, setValue }: any) => {
+  console.log("locationEnabled ***********************-******---------------- ", locationEnabled)
   const { coords, address: hookAddress, loading, error, refetch } = useCurrentAddress();
   const [address, setAddress] = useState<string>('');
 
   useEffect(() => {
+    if(!locationEnabled){
+      setValue({
+        [item?.field]: ``,
+      });
+      setAddress('')
+      return;
+    }
     if (item?.text !== '' && item?.text !== '#location') {
       setAddress(item?.text);
       return;
@@ -21,7 +29,7 @@ const LocationRow = ({ locationVisible, isValidate, item, value, setValue }: any
       });
       setAddress(hookAddress || `${coords?.latitude},${coords?.longitude}`);
     }
-  }, [coords, loading, locationVisible, hookAddress]);
+  }, [coords, loading, locationVisible, hookAddress, locationEnabled]);
 
   return (
     <View style={{ marginBottom: 16 }}>
@@ -51,14 +59,13 @@ const LocationRow = ({ locationVisible, isValidate, item, value, setValue }: any
               justifyContent: 'space-between',
             }}
           >
-            <Text style={{ marginTop: 4, color: '#999' }}>
+            <Text style={{  color: '#999', width: '80%' }}>
               {error ? `Error: ${error}` : 'Address not found'}
             </Text>
             <TouchableOpacity
               style={{
-                marginTop: 8,
-                paddingVertical: 6,
-                paddingHorizontal: 12,
+                paddingVertical: 4,
+                paddingHorizontal: 6,
                 backgroundColor: ERP_COLOR_CODE.ERP_APP_COLOR,
                 borderRadius: 6,
                 alignSelf: 'flex-start',

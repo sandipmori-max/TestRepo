@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, Modal, ActivityIndicator, Linking } from 'react-native';
+import { View, Text, TouchableOpacity, Modal, ActivityIndicator, Linking, BackHandler } from 'react-native';
 import FastImage from 'react-native-fast-image';
 
 import { CustomAlertProps } from '../types';
@@ -38,6 +38,21 @@ const CustomAlert: React.FC<CustomAlertProps> = ({
       setError('');
     }
   };
+
+  useEffect(() => {
+  const onBackPress = () => {
+    if (visible) {
+      onClose?.();
+      return true; // stop propagation
+    }
+    return false;
+  };
+
+  const backHandler = BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+  return () => backHandler.remove();
+}, [visible, onClose]);
+
 
   const handleDonePress = () => {
     if (isFromButtonList && remarks?.trim() === '') {

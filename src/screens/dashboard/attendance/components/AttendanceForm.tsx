@@ -15,8 +15,9 @@ import { markAttendanceThunk } from '../../../../store/slices/attendance/thunk';
 import { ERP_COLOR_CODE } from '../../../../utils/constants';
 import { useNavigation } from '@react-navigation/native';
 import SlideButton from './SlideButton';
- import { useBaseLink } from '../../../../hooks/useBaseLink';
+import { useBaseLink } from '../../../../hooks/useBaseLink';
 import ProfileImage from '../../../../components/profile/ProfileImage';
+import DeviceInfo from 'react-native-device-info';
 
 const AttendanceForm = ({ setBlockAction, resData }: any) => {
   const { t } = useTranslations();
@@ -32,7 +33,7 @@ const AttendanceForm = ({ setBlockAction, resData }: any) => {
   const [alertVisible, setAlertVisible] = useState(false);
   const [isSettingVisible, setIsSettingVisible] = useState(false);
   const [modalClose, setModalClose] = useState(false);
-
+  const [alertLocationVisible, setLocationAlertVisible] = useState(false);
   const [blocked, setBlocked] = useState(false);
   const [alertConfig, setAlertConfig] = useState({
     title: '',
@@ -60,7 +61,6 @@ const AttendanceForm = ({ setBlockAction, resData }: any) => {
         }
       }
     });
-
     return () => subscription.remove();
   }, []);
 
@@ -81,7 +81,6 @@ const AttendanceForm = ({ setBlockAction, resData }: any) => {
           setBlockAction(false);
           return;
         }
-
         const photoUri = response?.assets?.[0]?.uri;
         const asset = response?.assets?.[0];
         if (!photoUri) return;
@@ -94,7 +93,6 @@ const AttendanceForm = ({ setBlockAction, resData }: any) => {
           );
         }
         setStatusImage(photoUri);
-
         setTimeout(() => {
           handleSubmit();
         }, 1000);
@@ -106,13 +104,22 @@ const AttendanceForm = ({ setBlockAction, resData }: any) => {
     setFieldValue: (field: keyof AttendanceFormValues, value: any) => void,
     handleSubmit: () => void,
   ) => {
+    const enabled = await DeviceInfo.isLocationEnabled();
+     if (!enabled) {
+      setBlocked(false);
+      setLocationLoading(false);
+      setAttendanceDone(false);
+      setLocationAlertVisible(true);
+      return;
+    } else {
+      setLocationAlertVisible(false);
+    }
     setBlockAction(true);
     if (locationLoading) return;
 
     const hasPermission = await requestCameraAndLocationPermission();
     if (!hasPermission) {
       pendingCameraAction.current = { setFieldValue, handleSubmit };
-
       setAlertConfig({
         title: t('errors.permissionRequired'),
         message: t('errors.cameraLocationPermission'),
@@ -220,7 +227,7 @@ const AttendanceForm = ({ setBlockAction, resData }: any) => {
             <View style={styles.profileRow}>
               <View style={styles.imageCol}>
                 {`${baseLink}/FileUpload/1/UserMaster/${user?.id}/profileimage.jpeg` ? (
-                 <ProfileImage userId={user?.id} baseLink={baseLink} />
+                  <ProfileImage userId={user?.id} baseLink={baseLink} />
                 ) : (
                   <View
                     style={[
@@ -232,7 +239,9 @@ const AttendanceForm = ({ setBlockAction, resData }: any) => {
                       },
                     ]}
                   >
-                    <Text style={{ color: ERP_COLOR_CODE.ERP_WHITE, fontWeight: 'bold', fontSize: 26 }}>
+                    <Text
+                      style={{ color: ERP_COLOR_CODE.ERP_WHITE, fontWeight: 'bold', fontSize: 26 }}
+                    >
                       {user?.name ? user?.name.substring(0, 2).toUpperCase() : ''}
                     </Text>
                   </View>
@@ -294,6 +303,26 @@ const AttendanceForm = ({ setBlockAction, resData }: any) => {
           </View>
         )}
       </Formik>
+
+      <CustomAlert
+        visible={alertLocationVisible}
+        title={'Location Status'}
+        message={'We need location access only to serve you better. Please enable it to continue.'}
+        type={'error'}
+        onClose={() => {
+          setBlocked(true);
+          setAlertVisible(false);
+
+          setTimeout(() => {
+            setBlocked(false);
+          }, 1000);
+          setLocationLoading(false);
+          setAttendanceDone(false);
+          setLocationAlertVisible(false);
+        }}
+        actionLoader={undefined}
+        isSettingVisible={false}
+      />
 
       <CustomAlert
         visible={alertVisible}
