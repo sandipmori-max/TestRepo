@@ -62,6 +62,7 @@ export const styles = StyleSheet.create({
   },
   accountInfo: {
     flex: 1,
+    paddingRight: 12,
   },
   accountName: {
     fontSize: 16,

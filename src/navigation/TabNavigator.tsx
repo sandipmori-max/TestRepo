@@ -20,6 +20,7 @@ const TabNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={{
+        headerTitleAlign: 'left',
         headerShown: true,
         tabBarActiveTintColor: ERP_COLOR_CODE.ERP_APP_COLOR,
         tabBarInactiveTintColor: '#8E8E93',

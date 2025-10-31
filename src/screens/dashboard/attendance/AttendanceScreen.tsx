@@ -72,6 +72,7 @@ const AttendanceScreen = () => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
+      headerTitleAlign: 'left', 
       headerRight: () => (
         <>
           <ERPIcon

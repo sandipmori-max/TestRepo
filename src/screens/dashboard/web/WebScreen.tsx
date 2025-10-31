@@ -23,6 +23,8 @@ const WebScreen = () => {
 
   const url = isFromChart ? `${baseLink}app/index.html?dashboard/0/&token=${token}` : '';
 
+  console.log("url----------------", url);
+
   useEffect(() => {
     (async () => {
       const storedToken = await AsyncStorage.getItem('erp_token');

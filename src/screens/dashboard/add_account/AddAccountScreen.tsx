@@ -12,8 +12,8 @@ import { ERP_ICON } from '../../../assets';
 import { DevERPService } from '../../../services/api';
 import { useApi } from '../../../hooks/useApi';
 import CustomAlert from '../../../components/alert/CustomAlert';
-import { getMessaging } from '@react-native-firebase/messaging';
-import useFcmToken from '../../../hooks/useFcmToken';
+// import { getMessaging } from '@react-native-firebase/messaging';
+// import useFcmToken from '../../../hooks/useFcmToken';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DeviceInfo from 'react-native-device-info';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
@@ -29,7 +29,7 @@ const AddAccountScreen: React.FC<AddAccountScreenProps> = ({ visible, onClose })
 
   const { accounts, user } = useAppSelector(state => state.auth);
 
-  const { token: fcmToken } = useFcmToken();
+  // const { token: fcmToken } = useFcmToken();
 
   const [deviceId, setDeviceId] = useState<string>('');
   const [showPassword, setShowPassword] = useState(false);
@@ -89,13 +89,14 @@ const AddAccountScreen: React.FC<AddAccountScreenProps> = ({ visible, onClose })
         setLoader(false);
         return;
       }
-      const currentFcmToken = fcmToken || (await getMessaging().getToken());
+      // const currentFcmToken = fcmToken || (await getMessaging().getToken());
 
       const loginResult = await loginWithERP(() =>
         DevERPService.loginToERP({
           user: values?.user,
           pass: values?.password,
-          firebaseid: currentFcmToken,
+          // firebaseid: currentFcmToken,
+          firebaseid: ""
         }),
       );
       if (loginResult?.success === '0' || loginResult?.success === 0) {

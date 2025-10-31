@@ -1,18 +1,19 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NetInfo from '@react-native-community/netinfo';
+import { Platform } from 'react-native';
 
 const ENV = {
   development: {
-    BASE_URL: 'http://support.deverp.net',
+    BASE_URL: Platform.OS === 'ios' ? 'https://support.deverp.net': 'http://support.deverp.net',
     TIMEOUT: 30000,
   },
   staging: {
-    BASE_URL: 'http://support.deverp.net',
+    BASE_URL: Platform.OS === 'ios' ? 'https://support.deverp.net' : 'http://support.deverp.net',
     TIMEOUT: 30000,
   },
   production: {
-    BASE_URL: 'http://support.deverp.net',
+    BASE_URL: Platform.OS === 'ios' ? 'https://support.deverp.net' :'http://support.deverp.net',
     TIMEOUT: 30000,
   },
 };

@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import { generateGUID } from '../../utils/helpers';
 import { getActiveAccount, getDBConnection } from '../../utils/sqlite';
 import apiClient from './config';
@@ -85,8 +86,11 @@ class DevERPService {
     console.log("🚀 ~ DevERPService ~ getAppLink ~ response:", response)
 
     if (response.data.success === 1 && response.data.link) {
-      if (response.data.link.startsWith('https://')) {
+
+      if (Platform.OS !== 'ios' && response.data.link.startsWith('https://')) {
         this.link = response.data.link.replace(/^https:\/\//i, 'http://');
+      }else{
+         this.link =response.data.link;
       }
       await AsyncStorage.setItem('erp_link', this.link);
     }
@@ -96,7 +100,10 @@ class DevERPService {
   async validateCompanyCode(code: string) {
      
     try {
+      console.log("code++++++++++++-------------", code)
+
       const response = await this.getAppLink(code);
+      console.log("response-------------", response)
       return response.success === 1
         ? {
             isValid: true,
@@ -106,7 +113,8 @@ class DevERPService {
             response: response
           }
         : { isValid: false, message: 'Invalid company code' };
-    } catch {
+    } catch (e){
+      console.log("e*********************", e)
       return { isValid: false, message: 'Failed to validate company code' };
     }
   }

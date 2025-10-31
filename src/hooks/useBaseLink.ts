@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Platform } from 'react-native';
 
 export const useBaseLink = () => {
   const [baseLink, setBaseLink] = useState<string>('');
@@ -14,7 +15,7 @@ export const useBaseLink = () => {
 
         let normalizedBase = (storedLink || '').replace(/\/+$/, '');
         normalizedBase = normalizedBase.replace(/\/devws\/?/, '/');
-        normalizedBase = normalizedBase.replace(/^https:\/\//i, 'http://');
+        normalizedBase = Platform.OS === 'ios' ? normalizedBase : normalizedBase.replace(/^https:\/\//i, 'http://');
 
         setBaseLink(normalizedBase || '');
       } catch (e) {

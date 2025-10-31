@@ -13,6 +13,8 @@
 
 // How to run - clientA and clientB app ??
 // gradlew installClientADebug -Pbrand=[BRAND_NAME]
+//ios
+//npx react-native run-ios --simulator="Test1"
 
 
 Payroll Mobile App – API Documentation

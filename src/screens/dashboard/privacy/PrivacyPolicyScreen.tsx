@@ -15,7 +15,11 @@ const PrivacyPolicyScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <WebView
-        source={{ uri: 'http://www.deverp.com/index.aspx?q=deverp_privacy_policy' }}
+        source={{
+          uri: Platform.OS === 'ios'
+            ? 'https://www.deverp.com/index.aspx?q=deverp_privacy_policy'
+            : 'http://www.deverp.com/index.aspx?q=deverp_privacy_policy'
+        }}      
         startInLoadingState={true}
         javaScriptEnabled={true}
         domStorageEnabled={false}

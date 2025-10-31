@@ -12,13 +12,13 @@ import { TranslationProvider } from './src/components/TranslationProvider';
 import { ERP_COLOR_CODE } from './src/utils/constants';
 import useNetworkStatus from './src/hooks/useNetworkStatus';
 
-import {
-  requestUserPermission,
-  onMessageListener,
-  setBackgroundMessageHandler,
-  onNotificationOpenedAppListener,
-  checkInitialNotification,
-} from './src/firebase/firebaseService';
+// import {
+//   requestUserPermission,
+//   onMessageListener,
+//   setBackgroundMessageHandler,
+//   onNotificationOpenedAppListener,
+//   checkInitialNotification,
+// } from './src/firebase/firebaseService';
 import { clearAllTempFiles } from './src/utils/helpers';
 
 const App = () => {
@@ -39,29 +39,29 @@ const App = () => {
     return () => subscription.remove();
   }, []);
  
-  useEffect(() => {
-    requestUserPermission();
-    setBackgroundMessageHandler();
-    const unsubscribeForeground = onMessageListener(remoteMessage => {
-      Alert.alert(
-        remoteMessage.notification?.title ?? 'New Message',
-        remoteMessage.notification?.body ?? JSON.stringify(remoteMessage.data),
-      );
-    });
+  // useEffect(() => {
+  //   requestUserPermission();
+  //   setBackgroundMessageHandler();
+  //   const unsubscribeForeground = onMessageListener(remoteMessage => {
+  //     Alert.alert(
+  //       remoteMessage.notification?.title ?? 'New Message',
+  //       remoteMessage.notification?.body ?? JSON.stringify(remoteMessage.data),
+  //     );
+  //   });
 
-    const unsubscribeBackground = onNotificationOpenedAppListener(remoteMessage => {
-      Alert.alert('App opened from background', JSON.stringify(remoteMessage.data));
-    });
+  //   const unsubscribeBackground = onNotificationOpenedAppListener(remoteMessage => {
+  //     Alert.alert('App opened from background', JSON.stringify(remoteMessage.data));
+  //   });
 
-    checkInitialNotification(remoteMessage => {
-      Alert.alert('App opened from quit state', JSON.stringify(remoteMessage.data));
-    });
+  //   checkInitialNotification(remoteMessage => {
+  //     Alert.alert('App opened from quit state', JSON.stringify(remoteMessage.data));
+  //   });
 
-    return () => {
-      unsubscribeForeground();
-      unsubscribeBackground();
-    };
-  }, []);
+  //   return () => {
+  //     unsubscribeForeground();
+  //     unsubscribeBackground();
+  //   };
+  // }, []);
 
   if (!isConnected) {
     return (

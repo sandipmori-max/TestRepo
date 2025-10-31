@@ -42,11 +42,13 @@ const StackNavigator = () => {
       />
     ),
     headerStyle: {
+      // headerTitleAlign: 'left',
       backgroundColor: ERP_COLOR_CODE.ERP_APP_COLOR,
     },
     headerTintColor: ERP_COLOR_CODE.ERP_WHITE,
     headerTitleStyle: {
       fontSize: 18,
+      headerTitleAlign: 'left',
       fontWeight: 'bold',
       color: ERP_COLOR_CODE.ERP_WHITE,
     },

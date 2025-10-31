@@ -26,6 +26,7 @@ const AccountSwitcher: React.FC<AccountSwitcherProps> = ({ visible, onClose, onA
   const { execute: validateCompanyCode } = useApi();
 
   const { accounts, activeAccountId, user } = useAppSelector(state => state?.auth);
+  console.log("user------", user);
   const [alertVisible, setAlertVisible] = useState(false);
   const [selectedAccount, setSelectedAccount] = useState<any>(null);
   const [alertConfig, setAlertConfig] = useState({
@@ -59,7 +60,8 @@ const AccountSwitcher: React.FC<AccountSwitcherProps> = ({ visible, onClose, onA
   };
 
   const renderAccount = ({ item }: { item: any }) => {
-    const isActive = user?.id.toString() === item?.id.toString();
+    console.log("item------", item);
+    const isActive = user?.id.toString() === item?.user?.id.toString() || user?.id.toString() == item?.user?.id.toString();
     const lastLogin = formatDateHr(item?.lastLoginAt, false);
     const lastLoginHr = formatTimeTo12Hour(item?.lastLoginAt);
 

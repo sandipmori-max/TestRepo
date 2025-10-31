@@ -11,7 +11,7 @@ import { LoginFormProps } from '../types';
 import useTranslations from '../../../../hooks/useTranslations';
 import ERPTextInput from '../../../../components/input/ERPTextInput';
 import ERPButton from '../../../../components/button/ERPButton';
-import useFcmToken from '../../../../hooks/useFcmToken';
+// import useFcmToken from '../../../../hooks/useFcmToken';
 import { ERP_COLOR_CODE } from '../../../../utils/constants';
 
 const LoginForm: React.FC<LoginFormProps> = ({
@@ -21,7 +21,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
   showAlert,
 }) => {
   const { t } = useTranslations();
-  const { token: fcmToken } = useFcmToken();
+  // const { token: fcmToken } = useFcmToken();
 
   const {
     execute: validateCompanyCode,
@@ -70,7 +70,9 @@ const LoginForm: React.FC<LoginFormProps> = ({
     company_code: '',
     user: '',
     password: '',
-    firebaseid: fcmToken,
+    // firebaseid: fcmToken,
+    firebaseid: '',
+
     device: deviceId,
   };
 
@@ -80,9 +82,10 @@ const LoginForm: React.FC<LoginFormProps> = ({
       const companyValidation = await validateCompanyCode(() =>
         DevERPService.validateCompanyCode(values.company_code,),
       );
+      console.log("----companyValidation-------", companyValidation)
       if (!companyValidation?.isValid) return;
 
-      const currentFcmToken = fcmToken || (await getMessaging().getToken());
+      // const currentFcmToken = fcmToken || (await getMessaging().getToken());
 
       DevERPService.setDevice(deviceId);
 
@@ -90,7 +93,8 @@ const LoginForm: React.FC<LoginFormProps> = ({
         DevERPService.loginToERP({
           user: values?.user,
           pass: values?.password,
-          firebaseid: currentFcmToken || '',
+          firebaseid: ''
+          // firebaseid: currentFcmToken || '',
         }),
       );
 
