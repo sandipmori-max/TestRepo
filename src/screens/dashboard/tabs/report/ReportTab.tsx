@@ -123,11 +123,11 @@ const ReportTab = () => {
             <>
               <ERPIcon name="refresh" onPress={() => setIsRefresh(!isRefresh)} />
               <ERPIcon
-                name={!isHorizontal ? 'list' : 'apps'}
+                name={!isHorizontal ? 'dashboard' : 'list'}
                 onPress={() => setIsHorizontal(prev => !prev)}
               />
               <ERPIcon
-                name={!showBookmarksOnly ? 'bookmark' : 'dashboard'}
+                name={!showBookmarksOnly ? 'bookmark-outline' : 'bookmark'}
                 onPress={() => setShowBookmarksOnly(prev => !prev)}
               />
             </>
